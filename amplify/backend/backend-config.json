@@ -1,0 +1,36 @@
+{
+  "auth": {},
+  "api": {
+    "zipzapzwoop": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authzipzapzwoop"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 365,
+                "apiKeyExpirationDate": "2023-08-17T06:31:58.127Z",
+                "description": "zipzapzwoopAPI"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "storage": {
+    "zipzapzwoopTransferStorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
+}
