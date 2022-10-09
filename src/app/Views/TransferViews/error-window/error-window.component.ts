@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import {Application} from "../../../Bloc/Application/Application";
 
 @Component({
-  selector: 'app-error-window',
+  selector: 'error-window',
   templateUrl: './error-window.component.html',
   styleUrls: ['./error-window.component.css']
 })
 export class ErrorWindowComponent implements OnInit {
 
-  constructor() { }
+  constructor(public application:Application) { }
 
   ngOnInit(): void {
   }
 
+  Reload() {
+    location.reload();
+  }
 }

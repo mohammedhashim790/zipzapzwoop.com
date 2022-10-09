@@ -1,1 +1,120 @@
-<p>msign-up works!</p>
+<span class="cut-out-banner">
+  <div class="top-image-trimmer">
+    <img src="assets/gifs/screen_base.gif">
+    <svg width="480" viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+          <clipPath id="clip-path">
+            <path d="M-23.2803 119.307C144.631 104.898 187.15 149.325 258.974 180.784C311.342 203.838 369.954 206.72 424.724 190.39C548.916 153.168 619.54 86.8875 773.519 151.246V-164H-23.2803V119.307Z" fill="white"/>
+          </clipPath>
+      </defs>
+    </svg>
+
+  </div>
+
+
+  <span>
+    <svg width="480" viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-23.2803 19.4733C61.7564 73.0256 170.815 16.1113 350.977 1.70256C358.424 0.982125 366.111 0.741982 373.798 0.982127C508.56 5.30474 628.908 107.126 773.519 79.0292" stroke="#E4E4E6" stroke-miterlimit="10"/>
+    </svg>
+  </span>
+
+  <span>
+    <svg width="480" viewBox="-100 8 480 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-422 3.30712C-254.089 -11.1016 -211.57 33.3252 -139.745 64.7842C-87.3781 87.8381 -28.7653 90.7199 26.0042 74.39C150.196 37.1676 220.82 -29.1124 374.799 35.2464" stroke="#FDFEFF" stroke-miterlimit="10"/>
+    </svg>
+  </span>
+
+
+
+  <span class="bottom-image-trimmer">
+
+    <svg width="480" viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M-23.2803 119.307C144.631 104.898 187.15 149.325 258.974 180.784C311.342 203.838 369.954 206.72 424.724 190.39C548.916 153.168 619.54 86.8875 773.519 151.246V-164H-23.2803V119.307Z" fill="#C4C4C4"/>
+    </svg>
+
+  </span>
+
+</span>
+
+<div class="sign-up-content">
+  <p class="title">
+    Get Started with
+    <br>
+    <b>zipzapzwoop</b>
+  </p>
+
+  <form [formGroup]="signUpForm">
+
+    <span class="error-display-container" *ngIf="errorText!=''" @SlideUpDown>
+      <label>
+        {{errorText}}
+      </label>
+    </span>
+
+    <span class="sign-up-input">
+      <input placeholder="FullName" formControlName="fullName"/>
+    </span>
+
+
+    <span class="sign-up-input" >
+      <input placeholder="Email" formControlName="email"/>
+    </span>
+
+
+
+    <span class="sign-up-input" >
+      <input placeholder="Password" formControlName="password" type="{{showPassword?'':'password'}}">
+      <span class="suffix-icon">
+        <button *ngIf="!showPassword;else hidePassword" (click)="showPassword = true" mat-icon-button>
+          <mat-icon><i class="ph-eye"></i></mat-icon>
+        </button>
+        <ng-template #hidePassword>
+          <button mat-icon-button (click)="showPassword = false">
+            <mat-icon><i class="ph-eye-slash"></i></mat-icon>
+          </button>
+        </ng-template>
+
+      </span>
+    </span>
+
+    <span class="sign-up-input" >
+      <input placeholder="Confirm Password" formControlName="confirmPassword"/>
+    </span>
+
+
+    <span class="sign-up-input" style="place-items: center">
+      <button class="app-button"
+              *ngIf="!loading;else loader"
+              (click)="ValidateSignUp()"
+              mat-button>Create Account</button>
+      <ng-template #loader>
+        <button class="app-button" mat-button>
+          <span class="loader"></span>
+        </button>
+      </ng-template>
+    </span>
+
+  </form>
+
+
+  <span class="divider-with-text">
+    or continue with
+  </span>
+
+
+  <span class="federated-sign-ins">
+    <button mat-button>
+      <mat-icon>
+        <img src="assets/icons/google.png"></mat-icon>
+      <mat-label style="margin: 5px">Google</mat-label>
+    </button>
+  </span>
+
+
+  <span>
+    Have an account?
+    <a routerLink="/auth" class="link" style="color: #B14048;">
+      Sign In!
+    </a>
+  </span>
+</div>

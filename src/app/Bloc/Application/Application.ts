@@ -1,10 +1,25 @@
 import {AppState} from "./AppState";
 import {Injectable} from "@angular/core";
-import {printer} from "../app.component";
+import {browserCache, printer} from "../../app.component";
+import {Session} from "./Session";
+import {getCurrentUser} from "../Signer/SignInHelper";
 
 
 @Injectable()
 export class Application{
+  get firstTime(): boolean {
+    return this._firstTime;
+  }
+
+  set firstTime(value: boolean) {
+    this._firstTime = value;
+  }
+  private _firstTime:boolean = !window.sessionStorage.getItem(browserCache.TnC.key);
+
+
+  private session = Session.GetInstance();
+
+
   get appState(): AppState {
     return this._appState;
   }
@@ -14,6 +29,9 @@ export class Application{
     if(state == AppState.LINK_SELECT){
     //  Todo
     //  Do the Following for Link Set up
+      this.session.linkTransfer = true;
+    }else if(state == AppState.MAIL_SELECT){
+      this.session.linkTransfer = false;
     }
 
     this._appState = state;
@@ -21,11 +39,11 @@ export class Application{
   private _appState:AppState = AppState.MAIL_SELECT;
 
 
-  locked:boolean = false;
+  private locked:boolean = false;
 
 
   constructor() {
-    this._appState = AppState.MAIL_SELECT;
+    this.appState = AppState.MAIL_SELECT;
   }
 
 
@@ -45,12 +63,13 @@ export class Application{
       printer("Locked Instance. Ignoring latest invocation")
       return;
     }
-
-
-
     switch (this.appState){
       case AppState.MAIL_SELECT:
-        this.appState = AppState.MAIL_VERIFY;
+        if(getCurrentUser() == undefined)
+          this.appState = AppState.MAIL_VERIFY;
+        else
+          this.appState = AppState.UPLOAD;
+
         break;
 
       case AppState.LINK_SELECT:

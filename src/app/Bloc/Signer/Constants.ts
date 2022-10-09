@@ -45,12 +45,3 @@ export enum confirmSignUpException{
   SUCCESS,
   Failed,
 }
-
-export enum AppState{
-  SignIn,
-  New_Password_Required,
-  MFA,
-  SMS_MFA,
-  SignUp,
-  UserNotConfirmed
-}

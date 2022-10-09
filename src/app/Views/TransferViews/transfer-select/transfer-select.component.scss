@@ -2,71 +2,69 @@
   display: flex;
 }
 
-:host{
-  width: 100%;
-  height: 100%;
+.file-list{
+  width: 90%;
+  //height: auto;
   display: flex;
   flex-direction: column;
-  border-radius: 22px;
-  overflow-y: auto;
-
-  /*justify-content: center;*/
-}
-.add-file{
-  width: 100%;
-  height: 7em;
-  flex-direction: row;
-  /*justify-content: center;*/
-  /*background: #B14048;*/
+  margin: auto;
+  margin-top: 4%;
+  //min-height: 110px;
   place-items: center;
-  padding: 4em;
-
+  justify-content: center;
 }
-.border-button{
+
+.file-list .file{
+  width: 90%;
+  padding: 2%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  place-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  //padding: 2em;
+}
+
+.file-list .file .file-icon{
   width: 40px;
+  min-width: max-content;
   height: 40px;
   border-radius: 12px;
-  border: 2px solid #293F4B;
-  justify-content: center;
-  margin: 10px;
-  place-items: center;
   display: flex;
+  justify-content: center;
+  place-items: center;
+  border: 1px solid rgba(41, 63, 75, 0.2);
 }
 
-.transfer-content {
-  width: 97%;
-  height: 70%;
-  /*background: #B14048;*/
-  border-radius: 0 0 45px 45px;
+@for $child from 1 through 1000{
+  .file-list .file:nth-child(#{$child}){
+    $stroke-color : rgb(random(255),random(255),random(255),0.5);
+    color: $stroke-color;
+    fill: $stroke-color;
+  }
+}
+
+.file-list .file .details{
+  width: 60%;
   flex-direction: column;
-  /*margin: auto;*/
-  overflow-y: auto;
-  place-items: center;
+  justify-content: start;
+  place-items: baseline;
+  font-family: Nunito, sans-serif;
+  overflow: clip;
+  color: black;
+
+  &>*:first-child{
+    font-weight: normal;
+    font: inherit;
+  }
+  &>*:nth-child(2){
+    font-weight: normal;
+    font: inherit;
+    font-size: smaller;
+    color: #8d8d8d;
+  }
+
 
 }
-input.mat-chip-input{
-  flex: unset;
-  margin: unset;
-  width: unset;
-}
 
-.bottom-actions{
-  width: 80%;
-  padding: 1% 10%;
-  border-radius: 0 0 22px 22px;
-  /*background: white;*/
-  flex-direction: row;
-  position: absolute;
-  bottom: -10px;
-  height: 50px;
-  place-items: center;
-}
-.bottom-actions >*:first-child{
-  width: 30%;
-}
-.bottom-actions > *:nth-child(2){
-  width: 70%;
-}
-.recipients{
-  width: 90%;
-}

@@ -1,6 +1,8 @@
-import {AppHelper, printer} from "../AppHelper";
+
 import {HttpClient, HttpHeaders, HttpXhrBackend} from "@angular/common/http";
 import {Epoch} from "aws-sdk/clients/ecr";
+import {environment} from "../../../environments/environment";
+import {printer} from "../../app.component";
 
 export interface EmailParams{
   DownloadUrl: string;
@@ -144,7 +146,6 @@ export class Emailer{
   private static _instance:Emailer = this.getInstance();
 
   private http:HttpClient;
-  private appHelper:AppHelper = new class extends AppHelper {};
   private constructor() {
     this.http = new HttpClient(new HttpXhrBackend({
       build: () => new XMLHttpRequest()
@@ -158,12 +159,12 @@ export class Emailer{
     return this._instance;
   }
 
-  sendFileEmail(params:SesData){
-    printer.print(JSON.stringify(params));
+  SendEmail(params:SesData){
+    printer(JSON.stringify(params));
     let headers  =new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', '*')
-    return this.http!.post(this.appHelper!.url, JSON.stringify(params), {
+    return this.http!.post(environment.emailApi, JSON.stringify(params), {
       headers: headers,
       }).pipe();
   }

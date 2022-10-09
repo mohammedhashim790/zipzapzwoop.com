@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+
+
+export interface OkayCancelDialogParams {
+  title:string;
+  content:string;
+  onOkay?:()=>any;
+  onCancel?:()=>any;
+}
+
 
 @Component({
   selector: 'app-okay-cancel',
@@ -7,7 +17,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OkayCancelComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    private dialogRef:MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA)
+      public dialogParams:OkayCancelDialogParams
+  ) {
+    this.dialogRef.afterClosed().subscribe((res)=>{
+      dialogParams.onOkay!();
+    })
+  }
 
   ngOnInit(): void {
   }

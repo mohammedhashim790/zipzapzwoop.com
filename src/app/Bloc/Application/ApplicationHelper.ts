@@ -1,5 +1,12 @@
-import {printer} from "../app.component";
+import {printer} from "../../app.component";
 import {FormControl, Validators} from "@angular/forms";
+import {Session} from "./Session";
+import {Application} from "./Application";
+import {AppState} from "./AppState";
+import {totalSize} from "./Constants";
+
+
+
 
 
 function processFilesDropped(dataTransferItems:any) {
@@ -37,12 +44,11 @@ function processFilesDropped(dataTransferItems:any) {
 
 
 
-export function totalSize(files:Array<File>){
-  return files.reduce((sum,file)=> sum + file.size,0);
-}
-
-
 export class ApplicationHelper {
+
+
+
+  public appSession = Session.GetInstance();
 
 
   constructor() {
@@ -50,39 +56,34 @@ export class ApplicationHelper {
 
   onFilesSelected(event: any) {
     printer(event.target.files);
+
+    this.appSession.AddToFiles(event.target.files);
+
   }
 
   onFolderSelected(event:any){
     printer("Folders");
     printer(event.target.files);
+    this.appSession.AddToFiles(event.target.files);
   }
 
 
-  onFilesDropped(event:any){
+  async onFilesDropped(event: any) {
     printer(event.dataTransfer.files);
 
-    this._droppedFiles(event);
+    return await this._droppedFiles(event);
   }
 
-  private _droppedFiles(event:any){
-    processFilesDropped(event.dataTransfer.items).then((files:any)=>{
-      printer("Files Dropped");
-      printer(files);
-
-      if(files.length >=100){
-        printer("Huge Files Exception");
-      }
-
-      printer(totalSize(files))
-
-
-    });
+  private async _droppedFiles(event: any) {
+    let result = await processFilesDropped(event.dataTransfer.items);
+    return result;
   }
 
   validEmail(value:string){
     let email = new FormControl(value,[Validators.email]);
     return email.valid;
   }
+
 
 
 }

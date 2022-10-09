@@ -1,1 +1,84 @@
-<p>transfer-upload works!</p>
+
+<div class="circular-progress-indicator">
+  <svg class="spinner">
+
+    <circle r="90"
+            fill="transparent"
+            cx="125"
+            cy="125"
+            class="circle-stroke-spinner">
+    </circle>
+
+<!--    Calculate stroke-dasharray = 2 * PI * Radius Specified-->
+
+    <circle r="90"
+            fill="transparent"
+            cx="125"
+            cy="125"
+            style="stroke-dashoffset: {{progress}}"
+            class="circle-stroke-spinner">
+    </circle>
+  </svg>
+
+  <label class="spinner-percentage">
+    {{progressCompleted | round:2}}
+  </label>
+</div>
+<h3>
+  Uploading...
+</h3>
+<h6 style="font-size: smaller;color: #A5A3A3">
+  0B of Total uploaded
+</h6>
+<mat-divider></mat-divider>
+<span #cancelContainer style="width: 100%;justify-content: center;margin: 2%">
+  <button mat-flat-button
+          class="app-button"
+          (click)="Cancel()"
+          style="
+            width: 60%;
+            background: #6AC5AB;
+            border: 2px solid #293F4B;border-radius: 12px">
+    Cancel
+  </button>
+</span>
+
+<span #cancelAcknowledge
+      style="
+      display: none;
+      width: 100%;
+      place-items: center;
+      flex-direction: column;
+      margin: 2%">
+  <label>
+    Cancel Transfer?
+  </label>
+  <span style="
+      width: 100%;
+      justify-content: space-evenly;
+      margin: 2%">
+    <button mat-flat-button
+            class="app-button"
+            (click)="ResumeTransfer()"
+            style="
+              width: 30%;
+              background: #6AC5AB;
+              border: 2px solid #293F4B;border-radius: 12px">
+      No
+    </button>
+
+    <button mat-flat-button
+            class="app-button"
+            (click)="DropTransfer()"
+            style="
+              width: 30%;
+              background: white;
+              color: #6AC5AB;
+              border: 2px solid #293F4B;border-radius: 12px">
+      Yes
+    </button>
+  </span>
+
+</span>
+
+

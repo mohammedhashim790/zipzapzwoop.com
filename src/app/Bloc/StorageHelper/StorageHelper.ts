@@ -1,11 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Storage} from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
-import {AppHelper, AppState, printer} from "../AppHelper";
-import {aws_exports} from "../../aws-exports";
 import {environment} from "../../../environments/environment";
 import * as JSZip from "jszip";
-import {saveAs} from "@progress/kendo-file-saver";
+import {printer} from "../../app.component";
 
 
 
@@ -18,16 +16,10 @@ import {saveAs} from "@progress/kendo-file-saver";
 //   SYNCING
 // }
 
-@Injectable()
-export class StorageHelper {
-  totalSize: number = -1;
-  get transferName(): string {
-    return this._transferName + new Date(Date.now()).toDateString();
-  }
 
-  set transferName(value: string) {
-    this._transferName = value;
-  }
+export class StorageHelper {
+
+  totalSize: number = -1;
 
 
   totalInBytes:number = 0;
@@ -41,7 +33,6 @@ export class StorageHelper {
   private fileProgress: Array<number> = [];
 
 
-
   get TotalProgress(){
     return this.current;
     // return this.fileProgress.reduce((num,value)=>num + value,0);
@@ -49,26 +40,18 @@ export class StorageHelper {
 
   onCompleteCallback: any;
 
-
-  private _transferName = "zipzapzwoop_transfer_";
-
   get api(): string {
     return environment.apiKey;
   }
 
 
-
   public getCurrentProgress(){
     return this.current;
-    // let sum = this.getSumProgress();
-    // return sum;
   }
 
   public getSumProgress(){
     return this.fileProgress.reduce((sum,value)=>sum+value,0);
   }
-
-
 
 
   public getKey(sessionID:string,key:string) {
@@ -96,7 +79,7 @@ export class StorageHelper {
     try {
       let res = await Storage.put(key, file, {
         completeCallback:(event)=>{
-          printer.print("Uploaded" + key);
+          printer("Uploaded" + key);
         },
         progressCallback : (progress: any) =>{
           // this.current=((this.iterProgress) + (progress.loaded/progress.total));
@@ -107,11 +90,11 @@ export class StorageHelper {
           }
 
           this.fileProgress[iter] = progress.loaded;
-          // printer.print(this.current);
+          // printer(this.current);
         },
       });
       this.iterProgress = this.current;
-      printer.print("Uploaded File " + key + "Progress " + this.iterProgress);
+      printer("Uploaded File " + key + "Progress " + this.iterProgress);
     } catch (e) {
       console.error(e);
       throw new Error(e as string);
@@ -139,13 +122,13 @@ export class StorageHelper {
     // this.storageState = StorageProcess.QUEUED;
     this.reset();
     this.totalInBytes = files.reduce((value, file) => value + file?.size, 0);
-    printer.print(this.totalInBytes);
+    printer(this.totalInBytes);
     this.fileProgress = Array(files.length).fill(0);
 
     this.totalSize = files.reduce((num:number,file:File)=> num + file.size,0);
 
-    printer.print("Files " + files.length );
-    printer.print("Total Size " + this.totalSize);
+    printer("Files " + files.length );
+    printer("Total Size " + this.totalSize);
 
     files = files.flat();
     if(files.length == 1){
@@ -164,56 +147,6 @@ export class StorageHelper {
 
     }
     return sessionId;
-  }
-
-
-  public async ZipObjects(files: Array<File>): Promise<JSZip> {
-    let zipper = new JSZip();
-    this.totalFiles = files.length;
-    printer.print("Compressing Objects");
-    for (this.filesCompressed = 0; this.filesCompressed< this.totalFiles; this.filesCompressed++) {
-      let file = files[this.filesCompressed];
-      printer.print("Compressing Objects " + this.filesCompressed + "/" + files.length);
-      let compressedFile = await this.ReadFileAsync(file);
-      compressedFile = compressedFile as ArrayBuffer;
-      zipper.file(this.filePathKey(file),compressedFile)
-      printer.print("Compressed Objects " + this.filesCompressed+1 + "/" + files.length)
-    }
-    return zipper;
-  }
-
-  ReadFileAsync(src:File ):Promise<string | ArrayBuffer | null>{
-    return new Promise((resolve) => {
-      let fileReader = new FileReader();
-      fileReader.onload = (e) => resolve(fileReader.result);
-      fileReader.onprogress = (data)=> {
-        if (data.lengthComputable) {
-          // resolve(fileReader);
-          var progress = parseInt( String(((data.loaded / data.total) * 100)), 10 );
-          printer.print(progress);
-        }
-      }
-      fileReader.readAsArrayBuffer(src);
-    });
-  }
-
-
-  downloadUrlAsPromise(url:string):Promise<ArrayBuffer> {
-    return new Promise(function (resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", url, true);
-      xhr.responseType = "arraybuffer";
-      xhr.onreadystatechange = function (evt) {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(new Error("Error for " + url + ": " + xhr.status));
-          }
-        }
-      };
-      xhr.send();
-    });
   }
 
 

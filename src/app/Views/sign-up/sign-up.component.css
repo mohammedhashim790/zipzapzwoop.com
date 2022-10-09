@@ -1,0 +1,145 @@
+
+*{
+  position: relative;
+}
+
+.container{
+  width: 100%;
+  height: 88%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+}
+
+form{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+label,h1,h2,h3,h4,h5,h6{
+  text-align: center;
+}
+
+.sign-in-box{
+  min-width: 460px;
+  max-width: 460px;
+  min-height: 600px;
+  border: 1.5px solid #C4C4C4;
+  border-radius: 22px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  place-items: center;
+  padding: 2%;
+  background: white;
+  justify-content: center;
+}
+.sign-in-box .sub-title{
+  font-weight: normal;
+}
+
+.mat-button.wrapper{
+  width: 100%;
+}
+
+mat-form-field {
+  width: 90%;
+}
+.mat-form-field-flex{
+  border: 1px solid #A65574;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #A65574 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #A65574 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #A65574 !important;
+}
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #B14048 ;
+}
+
+:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #B14048 ;
+}
+
+.backdrop{
+  /*min-width: 700px;*/
+  min-height: 496px;
+  height: auto;
+  /*background: #A65574;*/
+  bottom: 0;
+  top: unset;
+  transform: translateX(-50%);
+}
+
+.backdrop .laptop-screen{
+  width: 95%;
+  height: 100%;
+  display: flex;
+  margin: auto;
+  border: 3px solid #E1E1E1;
+  border-radius: 50px 50px 0 0;
+  background: white;
+  /*padding: 1em;*/
+}
+
+.backdrop .laptop-screen .display{
+  width: 100%;
+  /*height: 90%;*/
+  display: flex;
+
+  border-radius: 50px;
+  overflow: clip;
+  margin: 1em;
+  place-items: center;
+}
+.backdrop .laptop-screen .display img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.backdrop .laptop-screen .user-icon{
+  position: absolute;
+  right: -25%;
+  top: -55%;
+  width: 350px;
+}
+
+.backdrop .laptop-screen .user-icon img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.backdrop .laptop-screen .base{
+  position: absolute;
+  bottom: -25px;
+  width: 110%;
+  display: block;
+  margin: auto;
+  object-position: center;
+  /*background: #2196F3;*/
+  /*min-height: 20px;*/
+  left: -5%;
+}
+.backdrop .laptop-screen .base img{
+  width: 100%;
+}
+
+
+

@@ -10,6 +10,11 @@
       "StackName": "amplify-zipzapzwoop-dev-84110",
       "StackId": "arn:aws:cloudformation:ap-south-1:792856558865:stack/amplify-zipzapzwoop-dev-84110/f5afa450-46e4-11ed-8835-06e1284545ce",
       "AmplifyAppId": "d28y42o0twfl1s"
+    },
+    "categories": {
+      "auth": {
+        "zipzapzwoopauth": {}
+      }
     }
   }
 }

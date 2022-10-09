@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('zipzapzwoop app is running!');
+    expect(compiled.querySelector('.sign-up-content span')?.textContent).toContain('zipzapzwoop app is running!');
   });
 });

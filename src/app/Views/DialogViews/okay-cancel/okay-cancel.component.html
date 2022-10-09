@@ -1,1 +1,18 @@
-<p>okay-cancel works!</p>
+
+
+<h3 matDialogTitle>
+  {{dialogParams.title??""}}
+</h3>
+
+<p>
+  {{dialogParams.content ?? "Empty Content"}}
+</p>
+
+<mat-dialog-actions align="end">
+
+  <button mat-button [mat-dialog-close]="true">
+    Retry
+  </button>
+
+
+</mat-dialog-actions>

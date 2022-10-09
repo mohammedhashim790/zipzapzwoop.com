@@ -1,1 +1,77 @@
-<p>home works!</p>
+
+  <div #z3DropZone id="z3-drop-zone"
+       (drop)="onDrop($event)"
+       (dragenter)="onDragEnter($event)"
+       (dragover)="onDragOver($event)"
+       (dragleave)="onDragLeave($event)">
+    <span>
+      Drop your files here.
+    </span>
+  </div>
+
+
+  <backdrop></backdrop>
+
+  <nav>
+    <span>
+      <a routerLink="/">
+        <img src="../../../assets/icons/ic_app_logo.png">
+      </a>
+    </span>
+    <span>
+      <a routerLink="/auth" class="link nav-link" *ngIf="SignedIn == undefined;else profile" >
+        Log In
+      </a>
+      <ng-template #profile>
+        <a class="link nav-link" (click)="SignOut()">
+          Sign out
+        </a>
+      </ng-template>
+      <a class="link nav-link" >
+        Terms & Conditions
+      </a>
+      <a class="link nav-link" >
+        Privacy
+      </a>
+      <a class="link nav-link" >
+        About
+      </a>
+    </span>
+  </nav>
+
+  <div class="prime-window"
+       Tooltip
+       #filesError="Tooltip"
+
+
+       [tooltipAlign]="tooltipParams.tooltipAlign"
+       [tooltipText]="tooltipParams.tooltipText">
+    <transfer-select
+      *ngIf="application.appState == AppState.MAIL_SELECT || application.appState == AppState.LINK_SELECT">
+
+    </transfer-select>
+
+
+    <transfer-verify *ngIf="application.appState == AppState.MAIL_VERIFY">
+
+    </transfer-verify>
+
+
+    <transfer-upload *ngIf="application.appState == AppState.UPLOAD">
+
+    </transfer-upload>
+
+
+    <transfer-completed *ngIf="application.appState == AppState.TRANSFER_SENT">
+
+    </transfer-completed>
+
+
+    <error-window *ngIf="application.appState == AppState.ERROR">
+
+    </error-window>
+
+
+
+  </div>
+

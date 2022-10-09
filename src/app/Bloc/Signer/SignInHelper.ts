@@ -1,14 +1,55 @@
-import {Auth} from "aws-amplify";
+import {Auth, Hub} from "aws-amplify";
 import {SignUpParams} from "@aws-amplify/auth/src/types";
+import {printer} from "../../app.component";
+import {CognitoUser, ISignUpResult} from "amazon-cognito-identity-js";
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 
 
 export interface SignInParams {
-  username:string;
-  password:string;
-  rememberDevice:string;
+  username: string;
+  password: string;
+  rememberDevice: boolean;
+}
+
+var currentAuthenticatedUser: CognitoUser |undefined;
+
+export var getCurrentUser = () =>{
+  return currentAuthenticatedUser;
 }
 
 
+export var setCurrentUser = () => {
+  // Auth.signOut();
+
+  Hub.listen('auth', ({payload: {event, data}}) => {
+    switch (event) {
+      case "signIn":
+        printer("Sign In Event Triggered");
+        currentAuthenticatedUser = data;
+        break;
+      case "signOut":
+        printer("Sign Out Event Triggered");
+        currentAuthenticatedUser = undefined;
+        break;
+      case "customOAuthState":
+        printer("Custom OAuth Triggered");
+    }
+  });
+
+
+  Auth
+      .currentAuthenticatedUser()
+    .then((res)=>{
+      currentAuthenticatedUser = res;
+      printer("User Signed is as" + res);
+      printer(res);
+  }).catch((err)=>{
+    printer("Error Fetching Current User");
+    printer(err);
+    currentAuthenticatedUser = undefined;
+  });
+
+}
 
 
 export async function SignIn(signInParams:SignInParams){
@@ -16,14 +57,27 @@ export async function SignIn(signInParams:SignInParams){
     Auth.signIn(
       signInParams.username,
       signInParams.password,
-    ).then((res)=>resolve(res)).catch((error)=> reject(error));
+    ).then((res)=> {
+      currentAuthenticatedUser = res;
+      resolve(res)
+    }).catch((error)=> {
+      currentAuthenticatedUser = undefined;
+      reject(error)
+    });
   });
 }
 
 export async function SignUp(signUpParams: SignUpParams) {
 
   return new Promise<any>( (resolve, reject) => {
-    Auth.signUp(signUpParams).then((res)=>resolve(res)).catch((error)=> reject(error));
+    Auth.signUp(signUpParams).then((res)=>{
+      currentAuthenticatedUser = res.user;
+      resolve(res)
+    })
+      .catch((error)=> {
+        currentAuthenticatedUser = undefined;
+        reject(error)
+      });
   });
 }
 
@@ -55,3 +109,43 @@ export async function ConfirmSignUp(user:any, code:string){
       .catch((error)=> reject(error));
   });
 }
+
+
+
+export async function SignOut(){
+  return new Promise<any>( (resolve, reject) => {
+    Auth.signOut()
+      .then((res)=>{
+        resolve(res)
+      })
+      .catch((error)=> {
+        reject(error)
+      }).finally(()=>{
+      currentAuthenticatedUser = undefined;
+    })
+  });
+}
+
+
+export async function SignInWithGoogle(){
+  return new Promise<any>( (resolve, reject) => {
+    Auth.federatedSignIn({provider: CognitoHostedUIIdentityProvider.Google })
+      .then((res)=>{
+        printer("Current Federated User Credentials");
+        printer(res);
+        resolve(res)
+      })
+      .catch((error)=> {
+        printer("Current Federated User Error");
+        printer(error);
+        reject(error)
+      }).finally(()=>{
+        printer("Current Federated User Finally");
+      currentAuthenticatedUser = undefined;
+    })
+  });
+}
+
+
+
+

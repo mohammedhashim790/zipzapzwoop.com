@@ -1,1 +1,45 @@
-<p>welcome-user works!</p>
+
+<div class="header">
+  <span class="background">
+    <img src="assets/gifs/screen_base2.gif"/>
+  </span>
+
+  <h1 class="title">
+    Hi! {{Username}}
+  </h1>
+</div>
+
+<div class="welcome-note">
+  <span>
+    <p>
+<!--      Hi There!<br>-->
+      It’s so good to have you here! Welcome to Zipzapzwoop.com
+      <br>
+      You’re now a part of growing community of Designers and Innovators who create, collaborate and connect with each other all over the world. Whether you’ve joined to share your ideas or just send files and engage with your favourite creators, zipzapzwoop is a right platform for all your needs. Being a member, you will have access to:
+    </p>
+  </span>
+  <ul>
+    <li>
+      3GB of file transfer
+    </li>
+    <li>
+      Email to 7 Recipients
+    </li>
+    <li class="strike">
+      Track your transfer
+      <label class="coming-soon">
+        (Coming Soon)
+      </label>
+    </li>
+    <li>
+      No more Email Verification (Coz You’re Premium User!)
+    </li>
+  </ul>
+
+</div>
+
+<button mat-flat-button class="app-button"
+        (click)="navigateTo('')"
+        style="margin: 24px auto;">
+  Let's get started
+</button>

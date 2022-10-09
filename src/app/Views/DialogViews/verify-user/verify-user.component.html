@@ -1,1 +1,45 @@
-<p>verify-user works!</p>
+
+<h3 mat-dialog-title>
+  You're one step closer.
+</h3>
+
+<table>
+  <tr>
+    <td>
+      <span class="error-display-container" *ngIf="errorText!=''" @SlideUpDown>
+        <label>
+          {{errorText}}
+        </label>
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>
+        A verification code has been sent to <b>{{this.Username}}</b> to verify it's you.
+        Enter the code to confirm your membership with zipzapzwoop.
+      </p>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <span class="sign-up-input">
+        <input placeholder="Code" [formControl]="code"/>
+      </span>
+    </td>
+  </tr>
+</table>
+
+<mat-dialog-actions align="end">
+  <button mat-button
+          (click)="resetTimer(true)"
+          [disabled]="countdownTimer>0">
+    Resend Code {{countdownTimer>0?'(' + countdownTimer + ')':''}}
+  </button>
+
+  <button mat-button (click)="VerifyUser()">
+    Verify
+  </button>
+
+</mat-dialog-actions>

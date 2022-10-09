@@ -3,18 +3,18 @@
   "serviceConfiguration": {
     "apiName": "zipzapzwoop",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "E:\\Projects - Web\\ZipZapZwoop.com\\ZipZapZwoop\\amplify\\backend\\api\\zipzapzwoop\\schema.graphql",
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
-      "cognitoUserPoolId": "authzipzapzwoop"
+      "cognitoUserPoolId": "authzipzapzwoopauth"
     },
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
         "expirationTime": 365,
-        "apiKeyExpirationDate": "2023-08-17T06:31:58.127Z",
+        "apiKeyExpirationDate": "2023-10-08T09:04:11.365Z",
         "keyDescription": "zipzapzwoopAPI"
       }
-    ]
+    ],
+    "conflictResolution": {}
   }
 }

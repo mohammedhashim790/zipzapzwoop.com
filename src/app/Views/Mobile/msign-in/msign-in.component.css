@@ -1,0 +1,46 @@
+*{
+  /*display: block;*/
+  position: relative;
+}
+
+:host{
+  width: 100%;
+  height: 100%;
+  /*background: #504f6d;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  place-items: center;
+  overflow-x: hidden;
+}
+
+.title{
+  width: 90%;
+  padding: 2em;
+  font-size: x-large;
+}
+
+form{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sign-up-input{
+  display: flex;
+  /*place-items: center;*/
+}
+
+.app-button{
+  margin: 5% !important;
+}
+
+.sign-up-input *:first-child{
+  margin: auto;
+}
+.federated-sign-ins{
+  margin: 5%;
+}
+

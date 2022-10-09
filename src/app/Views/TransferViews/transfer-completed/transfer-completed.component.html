@@ -1,1 +1,55 @@
-<p>transfer-completed works!</p>
+
+<span class="tick-square">
+  <svg width="45" height="30" viewBox="0 0 52 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.80371 18.3512L18.6023 33.1436L48.187 3.55884" stroke="#5BD67C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</span>
+<span style="flex-direction: column;place-items: center">
+  <h2>
+    You're done!
+  </h2>
+  <small style="color: #A5A3A3;width: 80%;text-align: center;">
+    {{session.linkTransfer?
+    "Copy your Downloadable link!":
+    "Hurray!!!. Your files were sent successfully."}}
+  </small>
+</span>
+<span
+  *ngIf="session.linkTransfer"
+  class="sign-up-label"
+  #linkBoard="Tooltip"
+  Tooltip
+  [tooltipText]="'Link copied to clipboard'"
+  (click)="OnCopy()"
+  tooltipAlign="top">
+  <label
+    class="value"
+    style="justify-content: center;color: black"
+    [cdkCopyToClipboard]="LinkTransfer"
+    (click)="linkBoard.Show()">
+    {{sessionLink.value}}
+  </label>
+  <button
+    mat-icon-button
+    class="suffix-icon"
+    [cdkCopyToClipboard]="LinkTransfer"
+    (click)="linkBoard.Show()">
+    <mat-icon style="height: max-content"><i class="ph-copy-simple-bold"></i></mat-icon>
+  </button>
+</span>
+
+<span style="width: 100%;justify-content: center;margin: 2%">
+  <button mat-flat-button
+          class="app-button"
+          (click)="BackToRoot()"
+          style="
+            width: 60%;
+            background: #6AC5AB;
+            border: 2px solid #293F4B;border-radius: 12px">
+    Send Another
+  </button>
+</span>
+
+
+
+
