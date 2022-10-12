@@ -1,0 +1,663 @@
+# this is an auto generated file. This will be overwritten
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    email
+    name
+    preferred_username
+    subscriptionPlan {
+      id
+      subscriptionPlansType
+      user {
+        id
+        email
+        name
+        preferred_username
+        subscriptionPlan {
+          id
+          subscriptionPlansType
+          user {
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              id
+              subscriptionPlansType
+              user {
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  id
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                }
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+            }
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+        }
+        createdAt
+        updatedAt
+        userSubscriptionPlanId
+        owner
+      }
+      createdAt
+      updatedAt
+      subscriptionPlanUserId
+    }
+    createdAt
+    updatedAt
+    userSubscriptionPlanId
+    owner
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      name
+      preferred_username
+      subscriptionPlan {
+        id
+        subscriptionPlansType
+        user {
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            id
+            subscriptionPlansType
+            user {
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                id
+                subscriptionPlansType
+                user {
+                  id
+                  email
+                  name
+                  preferred_username
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+              }
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+          }
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+        createdAt
+        updatedAt
+        subscriptionPlanUserId
+      }
+      createdAt
+      updatedAt
+      userSubscriptionPlanId
+      owner
+    }
+    nextToken
+  }
+}
+query GetSubscriptionPlan($id: ID!) {
+  getSubscriptionPlan(id: $id) {
+    id
+    subscriptionPlansType
+    user {
+      id
+      email
+      name
+      preferred_username
+      subscriptionPlan {
+        id
+        subscriptionPlansType
+        user {
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            id
+            subscriptionPlansType
+            user {
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                id
+                subscriptionPlansType
+                user {
+                  id
+                  email
+                  name
+                  preferred_username
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+              }
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+          }
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+        createdAt
+        updatedAt
+        subscriptionPlanUserId
+      }
+      createdAt
+      updatedAt
+      userSubscriptionPlanId
+      owner
+    }
+    createdAt
+    updatedAt
+    subscriptionPlanUserId
+  }
+}
+query ListSubscriptionPlans(
+  $filter: ModelSubscriptionPlanFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSubscriptionPlans(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      subscriptionPlansType
+      user {
+        id
+        email
+        name
+        preferred_username
+        subscriptionPlan {
+          id
+          subscriptionPlansType
+          user {
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              id
+              subscriptionPlansType
+              user {
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  id
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                }
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+            }
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+        }
+        createdAt
+        updatedAt
+        userSubscriptionPlanId
+        owner
+      }
+      createdAt
+      updatedAt
+      subscriptionPlanUserId
+    }
+    nextToken
+  }
+}
+query GetRecipients($id: ID!) {
+  getRecipients(id: $id) {
+    id
+    recipient
+    SentOn
+    updatedOn
+    owner
+  }
+}
+query ListRecipients(
+  $filter: ModelRecipientsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRecipients(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      recipient
+      SentOn
+      updatedOn
+      owner
+    }
+    nextToken
+  }
+}
+query GetSession($id: ID!) {
+  getSession(id: $id) {
+    id
+    files {
+      key
+      bucket
+      region
+      relativePath
+      size
+      extension
+      mimetype
+    }
+    fileSize
+    password
+    passwordProtected
+    mailInfo {
+      id
+      FromEmail
+      Recipients
+      Cc
+      Bcc
+      Subject
+      Title
+      Message
+      SentOn
+      updatedOn
+      owner
+    }
+    linkInfo {
+      id
+      Title
+      Message
+      SentOn
+      updatedOn
+      owner
+    }
+    backdrop {
+      items {
+        id
+        SessionID
+        S3Object {
+          key
+          bucket
+          region
+          relativePath
+          size
+          extension
+          mimetype
+        }
+        static
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+    shortUrl
+    expiry
+    user {
+      id
+      email
+      name
+      preferred_username
+      subscriptionPlan {
+        id
+        subscriptionPlansType
+        user {
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            id
+            subscriptionPlansType
+            user {
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                id
+                subscriptionPlansType
+                user {
+                  id
+                  email
+                  name
+                  preferred_username
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+              }
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+          }
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+        createdAt
+        updatedAt
+        subscriptionPlanUserId
+      }
+      createdAt
+      updatedAt
+      userSubscriptionPlanId
+      owner
+    }
+    SentOn
+    updatedOn
+    sessionMailInfoId
+    sessionLinkInfoId
+    sessionUserId
+    owner
+  }
+}
+query ListSessions(
+  $filter: ModelSessionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      files {
+        key
+        bucket
+        region
+        relativePath
+        size
+        extension
+        mimetype
+      }
+      fileSize
+      password
+      passwordProtected
+      mailInfo {
+        id
+        FromEmail
+        Recipients
+        Cc
+        Bcc
+        Subject
+        Title
+        Message
+        SentOn
+        updatedOn
+        owner
+      }
+      linkInfo {
+        id
+        Title
+        Message
+        SentOn
+        updatedOn
+        owner
+      }
+      backdrop {
+        items {
+          id
+          SessionID
+          S3Object {
+            key
+            bucket
+            region
+            relativePath
+            size
+            extension
+            mimetype
+          }
+          static
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      shortUrl
+      expiry
+      user {
+        id
+        email
+        name
+        preferred_username
+        subscriptionPlan {
+          id
+          subscriptionPlansType
+          user {
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              id
+              subscriptionPlansType
+              user {
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  id
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                }
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+            }
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+        }
+        createdAt
+        updatedAt
+        userSubscriptionPlanId
+        owner
+      }
+      SentOn
+      updatedOn
+      sessionMailInfoId
+      sessionLinkInfoId
+      sessionUserId
+      owner
+    }
+    nextToken
+  }
+}
+query GetMailInfo($id: ID!) {
+  getMailInfo(id: $id) {
+    id
+    FromEmail
+    Recipients
+    Cc
+    Bcc
+    Subject
+    Title
+    Message
+    SentOn
+    updatedOn
+    owner
+  }
+}
+query ListMailInfos(
+  $filter: ModelMailInfoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMailInfos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      FromEmail
+      Recipients
+      Cc
+      Bcc
+      Subject
+      Title
+      Message
+      SentOn
+      updatedOn
+      owner
+    }
+    nextToken
+  }
+}
+query GetLinkInfo($id: ID!) {
+  getLinkInfo(id: $id) {
+    id
+    Title
+    Message
+    SentOn
+    updatedOn
+    owner
+  }
+}
+query ListLinkInfos(
+  $filter: ModelLinkInfoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLinkInfos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      Title
+      Message
+      SentOn
+      updatedOn
+      owner
+    }
+    nextToken
+  }
+}
+query GetBackdrop($id: ID!) {
+  getBackdrop(id: $id) {
+    id
+    SessionID
+    S3Object {
+      key
+      bucket
+      region
+      relativePath
+      size
+      extension
+      mimetype
+    }
+    static
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListBackdrops(
+  $filter: ModelBackdropFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listBackdrops(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      SessionID
+      S3Object {
+        key
+        bucket
+        region
+        relativePath
+        size
+        extension
+        mimetype
+      }
+      static
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}

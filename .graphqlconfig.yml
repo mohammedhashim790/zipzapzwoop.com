@@ -1,0 +1,18 @@
+projects:
+  zipzapzwoop:
+    schemaPath: amplify/backend/api/zipzapzwoop/build/schema.graphql
+    includes:
+      - src/graphql/**/*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: angular
+        generatedFileName: src/app/API.service.ts
+        docsFilePath: src/graphql
+        region: ap-south-1
+        apiId: null
+        maxDepth: 8
+extensions:
+  amplify:
+    version: 3
