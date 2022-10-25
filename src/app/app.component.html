@@ -3,3 +3,29 @@
 
 <router-outlet></router-outlet>
 
+<span
+  @flyInOutY
+  *ngIf="ShowTnC"
+  class="terms-and-conditions">
+  <label class="title">
+    We use cookies to provide you the best of our services and to understand you better. By using our service,
+    you agree to the use of
+    Cookies ,
+    <a class="link nav-link" href="https://we.zipzapzwoop.com/terms" target="_blank">
+      Terms & Conditions
+    </a>
+    and
+    <a class="link nav-link" href="https://we.zipzapzwoop.com/privacy" target="_blank">
+      Privacy Policy
+    </a>.
+  </label>
+
+  <span class="actions">
+    <button
+      (click)="Accepted()"
+      mat-flat-button class="app-button">
+      <h3>I accept.</h3>
+    </button>
+  </span>
+
+</span>

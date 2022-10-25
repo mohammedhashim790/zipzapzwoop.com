@@ -2,8 +2,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  /*width: 100vw;*/
-  /*height: 100vh;*/
+  width: 100vw;
+  height: 100vh;
   background: transparent;
   /*z-index: -1;*/
   display: flex;
@@ -14,25 +14,8 @@
 :root{
   --promotion-left-em: calc(360px + 5em);
 }
-
-.promotions{
-  width: calc(100% - calc(360px + 5em));
-  position: fixed;
-  left: calc(360px + 5em);
-  padding: 0 3em;
-  /*background: #B14048;*/
-
-  height: 80%;
-  z-index: 10;
-  margin: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: start;
-  place-items: center;
-}
-.promotions > *:first-child{
-  width: 90%;
+iframe{
+  width: 100%;
   justify-content: start;
   display: flex;
   height: 100%;
@@ -40,13 +23,14 @@
   /*background: #504f6d;*/
 }
 
-.promotions iframe{
+iframe{
   border: none;
   position: absolute;
   z-index: 1;
   /*disables pointer preferences*/
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
+
 .promotions iframe > *{
   overflow: hidden;
 }
@@ -75,12 +59,50 @@
   overflow: clip;
   display: flex;
   justify-content: center;
-  background-repeat: repeat;
-  /*background: #504f6d;*/
+  background-repeat: round;
+  /*background: url("../../../../assets/backdrops/backdrop-1/assets/backdrop-asset.svg");*/
 }
-.illustrations > *:first-child{
+.illustrations > *{
   width: 100%;
-  transform: scale(1.5);
+  /*transform: scale(1.5);*/
+  /*overflow: hidden;*/
+}
+.illustrations img{
+  background-repeat: repeat;
+}
+
+.wallpaper-container{
+  width: 100%;
+  height: 100%;
+  /*opacity: 0;*/
+
+}
+
+.wallpaper-container-enter{
+  animation: open 500ms ease-in forwards;
+}
+
+.wallpaper-container-exit{
+  opacity: 0 !important;
+  transition: opacity 500ms ease-in;
+
+}
+
+@keyframes open {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.drag-zone{
+  width: 100%;
+  height: 100%;
+  /*background: #A65574;*/
+  z-index: 10;
+  position: absolute;
 }
 
 @media screen and (max-width: 700px) {

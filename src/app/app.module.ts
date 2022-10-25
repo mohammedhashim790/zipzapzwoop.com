@@ -91,12 +91,13 @@ Amplify.configure(updatedAwsConfig);
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        MatButtonModule
+    ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Application],
   bootstrap: [AppComponent]

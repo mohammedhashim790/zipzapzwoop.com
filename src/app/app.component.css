@@ -1,0 +1,34 @@
+
+
+.terms-and-conditions{
+  width: 96%;
+  position: fixed;
+  bottom: 0;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  padding: 2%;
+  background-color: white;
+  box-shadow: -5px 0 10px black;
+}
+.terms-and-conditions .title{
+  width: 80%;
+}
+
+.terms-and-conditions .nav-link{
+  margin: unset;
+}
+
+.terms-and-conditions .actions{
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.terms-and-conditions .actions button{
+  width: 80%;
+}
+
+
+

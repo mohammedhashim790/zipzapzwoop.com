@@ -38,7 +38,7 @@ export class TransferSelectComponent extends ApplicationHelper implements OnInit
   // files:Array<string> = [];
   AppState = AppState;
   tooltipParams:TooltipParams = {
-    tooltipText: "Sign Up to get 1 GB free.",
+    tooltipText: "Sign Up and get 1 GB free.",
     tooltipAlign:"top",
   }
   filteredRecipients: Observable<string> | any;
@@ -133,7 +133,7 @@ export class TransferSelectComponent extends ApplicationHelper implements OnInit
     if(this.application.firstTime && getCurrentUser()==undefined){
       this.tooltipParams = {
         tooltipAlign:"top",
-        tooltipText:"Sign Up to get 1 GB free."
+        tooltipText:"Sign Up and get 1 GB free."
       }
       this.filesError.Show();
     }

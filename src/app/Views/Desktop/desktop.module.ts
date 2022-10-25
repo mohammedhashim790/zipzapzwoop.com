@@ -25,6 +25,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {PipesModule} from "../../Bloc/Pipes/pipes.module";
 import {Application} from "../../Bloc/Application/Application";
+import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {Application} from "../../Bloc/Application/Application";
         ErrorWindowComponent,
         WelcomeUserComponent,
         TransferDownloadComponent,
+      IfChangesDirective
     ],
     imports: [
         CommonModule,

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zipzapzwoop.com</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
+
+</head>
+
+<script>
+  function clickButton() {
+    console.log("Clicked Button");
+  }
+</script>
+<style>
+
+  html{
+    height: 100%;
+    overflow: clip;
+  }
+
+  body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*justify-content: center;*/
+    place-items: center;
+    font-family: Nunito, sans-serif;
+  }
+
+  html,body{
+    background: rgb(241, 245, 254) !important;
+  }
+
+  .icon{
+    width: 60%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    margin: auto 0;
+  }
+
+  .promotions{
+    width: calc(100% - calc(360px + 5em));
+    position: fixed;
+    left: calc(360px + 5em);
+    padding: 0 3em;
+    /*background: #B14048;*/
+    color: black;
+    height: 80%;
+    z-index: 10;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: start;
+  }
+
+  .background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*background: white;*/
+  }
+
+  .background img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .title{
+    width: 100%;
+    margin: unset;
+    padding: 2%;
+    text-align: start;
+    font-size: min(8vw,100px);
+  }
+  .sub-title{
+    width: min(80%,18em);
+    margin: unset;
+    text-align: start;
+    /*word-wrap: break-word;*/
+    font-size: min(4vw,25px);
+  }
+
+  a{
+    color: inherit !important;
+    cursor: pointer;
+  }
+
+  .img-icon{
+    width: 100%;
+    /*height: 100%;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    max-width: 1000px;
+  }
+
+
+</style>
+<body>
+  <span class="promotions">
+
+    <img loading="lazy"
+         class="img-icon"
+         src="assets/background-ico.gif"/>
+    <h1 class="title">
+      Stories
+    </h1>
+    <h4 class="sub-title">
+      Discover Ideas
+    </h4>
+    <h4 class="sub-title">
+      Read stories that inspire you at <a href="https://stories.zipzapzwoop.com" target="_blank">stories.zipzapzwoop.com</a>
+    </h4>
+
+  </span>
+<!--  <span class="background">-->
+<!--  </span>-->
+
+
+</body>
+</html>

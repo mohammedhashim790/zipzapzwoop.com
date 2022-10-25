@@ -4,6 +4,8 @@ import {getCurrentUser, setCurrentUser} from "./Bloc/Signer/SignInHelper";
 import {Session} from "./Bloc/Application/Session";
 import {AWSError, Lambda} from "aws-sdk";
 import {aws_exports} from "../aws-exports";
+import {AppAnimations, z3Session} from "./Bloc/Application/Constants";
+import ShortUniqueId from "short-unique-id";
 
 
 export var printer = console.log;
@@ -36,22 +38,17 @@ export var browserCache:AppBrowserStorage = {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations:AppAnimations,
 })
 export class AppComponent {
   title = 'zipzapzwoop -  a simple way to share large file to the world';
 
   private session:Session = Session.GetInstance();
   // private awsLambda: Lambda;
-
-
-
-
-
+  ShowTnC: boolean = false;
 
   constructor() {
-
-
 
     this.SetBrowserCache();
 
@@ -78,36 +75,17 @@ export class AppComponent {
 
 
   async SetBrowserCache(){
+    let firstTime = window.localStorage.getItem(z3Session);
+    if(!firstTime){
+      printer("This is first time");
+      this.ShowTnC = true;
+    }
 
 
   }
 
-  // trigger(functionName:string, payload:string): Promise<any> {
-  //   return new Promise(
-  //     (resolve, reject) => {
-  //       const params = {
-  //         FunctionName: functionName,
-  //         InvocationType: 'RequestResponse',
-  //         LogType: 'Tail',
-  //         Payload: JSON.stringify(payload)
-  //       };
-  //       this.awsLambda.invoke(params, (err: AWSError, data: Lambda.InvocationResponse) => {
-  //         if (err) {
-  //           printer("error");
-  //           printer(err.message);
-  //           return reject(err)
-  //         }
-  //         if (data.StatusCode !== 200 && data.StatusCode !== 201) {
-  //           printer("error");
-  //           return reject(data)
-  //         }
-  //         const responsePayload = data.Payload
-  //         return resolve(JSON.parse(responsePayload!.toString()))
-  //       })
-  //
-  //     }
-  //   )
-  // }
-
-
+  Accepted() {
+    window.localStorage.setItem(z3Session,new ShortUniqueId()());
+    this.ShowTnC = false;
+  }
 }

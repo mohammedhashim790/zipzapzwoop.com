@@ -464,6 +464,15 @@ mat-divider{
     color: white;
   }
 
+  .terms-and-conditions{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .terms-and-conditions .actions{
+    width: 100% !important;
+  }
+
 }
 
 /*Tabs*/

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zipzapzwoop.com</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
+
+</head>
+<style>
+
+  html{
+    height: 100%;
+    overflow: clip;
+  }
+
+  body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*justify-content: center;*/
+    place-items: center;
+    font-family: Nunito, sans-serif;
+  }
+
+  html,body{
+    background: black;
+  }
+
+  .bigger-transfer{
+    width: 60%;
+    /*padding: 2%;*/
+    /*height: 100%;*/
+    color: white;
+    font-size: min(6vw,60px);
+    text-shadow: 0 0 5px white;
+
+  }
+  .sub-note{
+    width: min(80%,18em);
+    /*word-wrap: break-word;*/
+    font-size: min(3vw,20px);
+    color: white;
+    text-shadow: 0 0 5px white;
+
+  }
+
+  .icon{
+    min-width: 20%;
+    width: min(40%,300px);
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    right: 20vw;
+  }
+
+
+  .background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .promotions{
+    width: calc(100% - calc(360px + 5em));
+    position: fixed;
+    left: calc(360px + 5em);
+    padding: 0 3em;
+    /*background: #B14048;*/
+
+    height: 80%;
+    z-index: 10;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    place-items: start;
+  }
+
+
+</style>
+<body>
+  <span class="promotions">
+    <h1 class="bigger-transfer">
+      Sending large file is not a problem anymore
+    </h1>
+    <h4 class="sub-note">
+      Transfer over 2GB of files for free with zipzapzwoop.
+    </h4>
+    <h4 class="sub-note">
+      Share it as a link or email your transfer.
+    </h4>
+    <img class="icon" src="assets/zipzapzwoop-form.png"/>
+  </span>
+</body>
+</html>

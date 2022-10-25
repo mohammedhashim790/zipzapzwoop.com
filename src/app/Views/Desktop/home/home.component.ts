@@ -37,13 +37,20 @@ export class HomeComponent extends ApplicationHelper implements OnInit {
   onDragOver(event: any) {
     // printer("Drag Over");
     event.preventDefault();
+
+    event.stopImmediatePropagation();
+    event.stopPropagation();
   }
 
   // @HostListener("dragleave", ["$event"])
   onDragLeave(event: any) {
     // printer("Drag Leave");
     this.RemoveDragZoneElement();
-    event.preventDefault()
+    event.preventDefault();
+
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
   }
 
 
@@ -52,7 +59,10 @@ export class HomeComponent extends ApplicationHelper implements OnInit {
   onDragEnter(event: any) {
     // printer("drag Enter");
     this.CreateDragZoneElement();
-    event.preventDefault()
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
   }
 
 
@@ -62,8 +72,12 @@ export class HomeComponent extends ApplicationHelper implements OnInit {
 
     this.CreateDragZoneElement();
     this.RemoveDragZoneElement();
+    event.preventDefault();
+
 
     event.stopImmediatePropagation();
+    event.stopPropagation();
+
 
     this.onFilesDropped(event).then((res)=>{
       printer("Dropped Successfully");
@@ -102,10 +116,12 @@ export class HomeComponent extends ApplicationHelper implements OnInit {
     super();
     printer(this.application.firstTime);
 
-    document.documentElement.ondragenter = (event)=>{
-      printer("Body Drag Start");
-      this.onDragEnter(event);
-    }
+    // document.documentElement.ondragenter = (event)=>{
+    //   printer("Body Drag Start");
+    //   this.onDragEnter(event);
+    // }
+    //
+
 
     printer()
     if(this.router.url.startsWith('/download')){
