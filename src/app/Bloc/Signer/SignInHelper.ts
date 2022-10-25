@@ -3,6 +3,9 @@ import {SignUpParams} from "@aws-amplify/auth/src/types";
 import {printer} from "../../app.component";
 import {CognitoUser, ISignUpResult} from "amazon-cognito-identity-js";
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import API from "@aws-amplify/api-graphql";
+import {createUser} from "../../../graphql/mutations";
+import {SubscriptionPlanType} from "../../../models";
 
 
 export interface SignInParams {
@@ -18,7 +21,7 @@ export var getCurrentUser = () =>{
 }
 
 
-export var setCurrentUser = () => {
+export var setCurrentUser = async () => {
   // Auth.signOut();
 
   Hub.listen('auth', ({payload: {event, data}}) => {
@@ -37,16 +40,23 @@ export var setCurrentUser = () => {
   });
 
 
-  Auth
+  return new Promise<CognitoUser |undefined>((resolve,reject)=>{
+    Auth
       .currentAuthenticatedUser()
-    .then((res)=>{
-      currentAuthenticatedUser = res;
-      printer("User Signed is as" + res);
-      printer(res);
-  }).catch((err)=>{
-    printer("Error Fetching Current User");
-    printer(err);
-    currentAuthenticatedUser = undefined;
+      .then((res) => {
+        currentAuthenticatedUser = res;
+        printer("User Signed is as" + res);
+        printer(res);
+
+        resolve(currentAuthenticatedUser);
+
+      }).catch((err) => {
+      printer("Error Fetching Current User");
+      printer(err);
+      currentAuthenticatedUser = undefined;
+
+      reject(currentAuthenticatedUser);
+    })
   });
 
 }
@@ -68,7 +78,6 @@ export async function SignIn(signInParams:SignInParams){
 }
 
 export async function SignUp(signUpParams: SignUpParams) {
-
   return new Promise<any>( (resolve, reject) => {
     Auth.signUp(signUpParams).then((res)=>{
       currentAuthenticatedUser = res.user;

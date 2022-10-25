@@ -1,0 +1,58 @@
+
+
+<span class="info">
+  <p>
+    <b>A verification code has been sent to {{Username}} to verify it's really you.</b>
+  </p>
+</span>
+
+<span class="sign-up-input">
+  <input placeholder="Code" required [formControl]="code"/>
+  <label>
+    Code
+  </label>
+
+  <span class="suffix-icon" style="top: 17%">
+    <button mat-icon-button [disabled]="resendCounter>0" (click)="ResendCode()">
+      <mat-icon><i class="ph-arrow-clockwise"></i></mat-icon>
+    </button>
+  </span>
+  <span class="error" *ngIf="code.invalid && (code.dirty || code.touched)">
+    <mat-error style="color: inherit" *ngIf="code.errors?.['required']">
+      Code is required
+    </mat-error>
+    <mat-error style="color: inherit" *ngIf="code.errors?.['invalid']">
+      Code is invalid
+    </mat-error>
+    <mat-error style="color: inherit" *ngIf="code.errors?.['expired']">
+      Code expired. Please try again.
+    </mat-error>
+  </span>
+
+  <span class="verify-button">
+    <button mat-flat-button
+            class="app-button"
+            (click)="VerifyCode()"
+            style="
+            width: max-content;
+            background: #6AC5AB;
+            border: 2px solid #293F4B;border-radius: 12px">
+      <ng-container *ngIf="!verifying;else loader">
+        Verify
+      </ng-container>
+      <ng-template #loader>
+        <span class="loader">
+        </span>
+      </ng-template>
+
+    </button>
+
+    <ng-template>
+
+    </ng-template>
+
+
+  </span>
+
+</span>
+

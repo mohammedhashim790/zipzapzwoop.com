@@ -5,7 +5,7 @@ import {OkayCancelComponent} from "../../DialogViews/okay-cancel/okay-cancel.com
 import {printer} from "../../../app.component";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {SignIn, SignInWithGoogle} from "../../../Bloc/Signer/SignInHelper";
+import {SignIn, SignInWithGoogle, SignOut} from "../../../Bloc/Signer/SignInHelper";
 import {cognitoAUTH, confirmSignUpException} from "../../../Bloc/Signer/Constants";
 import {Auth} from "aws-amplify";
 import {AppAnimations} from "../../../Bloc/Application/Constants";
@@ -33,7 +33,11 @@ export class MSignInComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog) {
+    SignOut();
+
+
+  }
 
   ngOnInit(): void {
   }

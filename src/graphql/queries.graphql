@@ -35,7 +35,9 @@ query GetUser($id: ID!) {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -44,7 +46,9 @@ query GetUser($id: ID!) {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -53,7 +57,9 @@ query GetUser($id: ID!) {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -62,7 +68,9 @@ query GetUser($id: ID!) {
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
@@ -104,6 +112,7 @@ query ListUsers(
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -112,7 +121,9 @@ query ListUsers(
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -121,7 +132,9 @@ query ListUsers(
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -130,7 +143,9 @@ query ListUsers(
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -172,6 +187,7 @@ query GetSubscriptionPlan($id: ID!) {
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -180,7 +196,9 @@ query GetSubscriptionPlan($id: ID!) {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -189,7 +207,9 @@ query GetSubscriptionPlan($id: ID!) {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -198,7 +218,9 @@ query GetSubscriptionPlan($id: ID!) {
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -207,6 +229,7 @@ query GetSubscriptionPlan($id: ID!) {
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
 query ListSubscriptionPlans(
@@ -245,7 +268,9 @@ query ListSubscriptionPlans(
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -254,7 +279,9 @@ query ListSubscriptionPlans(
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -263,7 +290,9 @@ query ListSubscriptionPlans(
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -272,6 +301,7 @@ query ListSubscriptionPlans(
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
     nextToken
   }
@@ -359,72 +389,10 @@ query GetSession($id: ID!) {
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }
@@ -491,62 +459,10 @@ query ListSessions(
       }
       shortUrl
       expiry
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
       SentOn
       updatedOn
       sessionMailInfoId
       sessionLinkInfoId
-      sessionUserId
       owner
     }
     nextToken

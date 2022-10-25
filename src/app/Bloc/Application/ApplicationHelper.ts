@@ -4,8 +4,15 @@ import {Session} from "./Session";
 import {Application} from "./Application";
 import {AppState} from "./AppState";
 import {totalSize} from "./Constants";
+import {getCurrentUser} from "../Signer/SignInHelper";
+import {TransferConstants} from "./TransferFiles";
 
 
+
+export var filePathKey = (file: File)=>{
+  return (
+    file.webkitRelativePath == "")?file.name:file.webkitRelativePath;
+}
 
 
 
@@ -43,15 +50,36 @@ function processFilesDropped(dataTransferItems:any) {
 }
 
 
+export function TransferExpiry(){
+  return ConvertToEpochInSeconds((addDate(new Date(),TransferConstants.expiryDate()).getTime()));
+}
+
+function ConvertToEpochInSeconds(value:number){
+  return Math.floor(value/1000);
+}
+function addDate(date1:Date ,date2:Date | number){
+  if(date2 instanceof Date){
+    date1.setDate(date1.getDate() + date2.getDate());
+  }else{
+    date1.setDate(date1.getDate() + date2);
+  }
+  return date1;
+}
+
 
 export class ApplicationHelper {
 
+
+  get CurrentUser(){
+    return getCurrentUser();
+  }
 
 
   public appSession = Session.GetInstance();
 
 
   constructor() {
+
   }
 
   onFilesSelected(event: any) {
@@ -59,6 +87,11 @@ export class ApplicationHelper {
 
     this.appSession.AddToFiles(event.target.files);
 
+  }
+
+  RemoveFile(fileIndex:number){
+    printer("Removing " + fileIndex);
+    this.appSession.Remove(fileIndex);
   }
 
   onFolderSelected(event:any){
@@ -84,6 +117,8 @@ export class ApplicationHelper {
     return email.valid;
   }
 
-
+  RemoveRecipient(index: number) {
+    this.appSession.form.recipients.splice(index,1);
+  }
 
 }

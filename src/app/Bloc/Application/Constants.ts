@@ -11,7 +11,16 @@ export enum Errors{
   FILE_LIMIT_EXCEEDED,
   DUPLICATE_FILE_EXCEPTION,
 
-  MAX_RECIPIENT_COUNT
+  MAX_RECIPIENT_COUNT,
+  FILE_UPLOAD_ERROR,
+  CUSTOM_ERROR,
+  DUPLICATE_RECIPIENT_FOUND,
+  TRANSFER_EXPIRED,
+  TRANSFER_NOT_AVAILABLE,
+
+
+
+  OK
 
 }
 
@@ -22,6 +31,13 @@ export enum RecipientPlan{
   STANDARD = 12,
   PREMIUM = 25
 }
+
+export enum ExpiryDatePlan{
+  PUBLIC = 7,
+  BASIC=14,
+}
+
+
 
 
 export function totalSize(files:Array<File>){

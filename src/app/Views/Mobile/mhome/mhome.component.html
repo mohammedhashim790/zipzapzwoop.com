@@ -1,18 +1,33 @@
 
 <nav>
-  <a class="ic_app_logo">
+  <a class="ic_app_logo" href="" routerLink="">
     <img src="assets/icons/ic_app_logo.png"/>
   </a>
-  <button mat-icon-button class="ic_app_info">
+  <a class="ic_app_logo" href="" routerLink="">
+    <label>zipzapzwoop</label>
+  </a>
+
+  <button *ngIf="CurrentUser == undefined;else signOutAction"
+          (click)="SignIn()"
+          mat-icon-button
+          class="ic_app_info">
     <mat-icon>
-      info
+      <i class="ph-sign-in"></i>
     </mat-icon>
   </button>
+  <ng-template #signOutAction>
+    <button
+          (click)="SignOut()"
+          mat-icon-button
+          class="ic_app_info">
+      <mat-icon>
+        <i class="ph-sign-out"></i>
+      </mat-icon>
+    </button>
+  </ng-template>
 </nav>
 
 
 <div class="prime-window">
-
-
-
+  <router-outlet></router-outlet>
 </div>

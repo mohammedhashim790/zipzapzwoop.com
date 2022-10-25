@@ -25,10 +25,9 @@ export class Application{
   }
 
   set appState(state: AppState) {
-
     if(state == AppState.LINK_SELECT){
     //  Todo
-    //  Do the Following for Link Set up
+      printer("AppSession Set to link transfer")
       this.session.linkTransfer = true;
     }else if(state == AppState.MAIL_SELECT){
       this.session.linkTransfer = false;
@@ -59,10 +58,10 @@ export class Application{
 
     printer(AppState[this.appState]);
 
-    if(this.locked){
-      printer("Locked Instance. Ignoring latest invocation")
-      return;
-    }
+    // if(this.locked){
+    //   printer("Locked Instance. Ignoring latest invocation")
+    //   return;
+    // }
     switch (this.appState){
       case AppState.MAIL_SELECT:
         if(getCurrentUser() == undefined)
@@ -96,4 +95,11 @@ export class Application{
 
   }
 
+  ErrorSlide() {
+    this.appState = AppState.ERROR;
+  }
+
+  DownloadSlide() {
+    this.appState = AppState.TRANSFER_DOWNLOAD;
+  }
 }

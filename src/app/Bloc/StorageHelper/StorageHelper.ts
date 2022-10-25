@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import {environment} from "../../../environments/environment";
 import * as JSZip from "jszip";
 import {printer} from "../../app.component";
+import {AppErrors} from "../Application/AppErrors";
+import {Errors} from "../Application/Constants";
 
 
 
@@ -22,15 +24,19 @@ export class StorageHelper {
   totalSize: number = -1;
 
 
-  totalInBytes:number = 0;
   current:number = 0;
 
   currentInBytes:number = 0;
 
   iterProgress:number = 0;
-  filesCompressed = -1;
+
   totalFiles = -1;
-  private fileProgress: Array<number> = [];
+  private fileProgress: Array<boolean> = [];
+  private files: Array<File> = [];
+
+
+  private _instanceLocked:boolean = false;
+  private paused: boolean = false;
 
 
   get TotalProgress(){
@@ -44,14 +50,22 @@ export class StorageHelper {
     return environment.apiKey;
   }
 
+  public LockInstance(){
+    this._instanceLocked = true;
+  }
+
+  public ReleaseInstance(){
+    this._instanceLocked = false;
+  }
+
 
   public getCurrentProgress(){
     return this.current;
   }
 
-  public getSumProgress(){
-    return this.fileProgress.reduce((sum,value)=>sum+value,0);
-  }
+  // public getSumProgress(){
+  //   return this.fileProgress.reduce((sum,value)=>sum+value,0);
+  // }
 
 
   public getKey(sessionID:string,key:string) {
@@ -79,7 +93,7 @@ export class StorageHelper {
     try {
       let res = await Storage.put(key, file, {
         completeCallback:(event)=>{
-          printer("Uploaded" + key);
+          // printer("Uploaded" + key);
         },
         progressCallback : (progress: any) =>{
           // this.current=((this.iterProgress) + (progress.loaded/progress.total));
@@ -94,7 +108,7 @@ export class StorageHelper {
         },
       });
       this.iterProgress = this.current;
-      printer("Uploaded File " + key + "Progress " + this.iterProgress);
+      // printer("Uploaded File " + key + "Progress " + this.iterProgress);
     } catch (e) {
       console.error(e);
       throw new Error(e as string);
@@ -113,57 +127,80 @@ export class StorageHelper {
    * 2. If Single Zip, Proceed to step 4
    * 3. Compress Object
    * 4. Upload Object
-   * @param files
+   * @param filesToUpload
    * @param sessionId
    * @constructor
    */
-  public async UploadObjects(files: Array<File>,
+  public async UploadObjects(filesToUpload: Array<File>,
                               sessionId:string) {
-    // this.storageState = StorageProcess.QUEUED;
-    this.reset();
-    this.totalInBytes = files.reduce((value, file) => value + file?.size, 0);
-    printer(this.totalInBytes);
-    this.fileProgress = Array(files.length).fill(0);
 
-    this.totalSize = files.reduce((num:number,file:File)=> num + file.size,0);
+    if(this._instanceLocked) {
+      printer("Instance Locked. ")
+      return;
+    }
+    try{
+      this.LockInstance();
 
-    printer("Files " + files.length );
-    printer("Total Size " + this.totalSize);
+      this.files = filesToUpload;
 
-    files = files.flat();
-    if(files.length == 1){
-      let file = files[0];
-      let key = this.getKey(sessionId,file.name);
-      // let key = this.filePathKey(file);
-      await this.UploadObject(key, file, 0);
+      this.fileProgress = Array(this.files.length).fill(false);
+
+      this.totalSize = this.files.reduce((num:number,file:File)=> num + file.size,0);
+
+      printer("Files " + this.files.length );
+      printer("Total Size " + this.totalSize);
+
+      this.files = this.files.flat();
+      if(this.files.length == 1){
+        let file = this.files[0];
+        let key = this.getKey(sessionId,this.filePathKey(file));
+        // let key = this.filePathKey(file);
+        await this.UploadObject(key, file, 0);
+        return sessionId;
+      }
+      this.iterProgress = 0;
+      for (let iter = 0; iter < this.files.length; iter++) {
+        let file = this.files[iter];
+        let key = this.getKey(sessionId,this.filePathKey(file));
+        // let key = this.filePathKey(file);
+        await this.UploadObject(key, file,iter);
+        // printer(`Completed ${iter}`);
+        // if(iter == 4){
+        //   throw new AppErrors(Errors.CUSTOM_ERROR,"Custom Error");
+        // }
+        this.fileProgress[iter] = true;
+      }
       return sessionId;
+    }catch (e){
+      this.ReleaseInstance();
+      if(e instanceof AppErrors)
+        throw new AppErrors(Errors.CUSTOM_ERROR,"Check Exception");
+      throw new AppErrors(Errors.FILE_UPLOAD_ERROR,e as string);
     }
-    this.iterProgress = 0;
-    for (let iter = 0; iter < files.length; iter++) {
-      let file = files[iter];
-      let key = this.getKey(sessionId,file.name);
-      // let key = this.filePathKey(file);
-      await this.UploadObject(key, file,iter);
-
-    }
-    return sessionId;
   }
-
-
-  reset(){
-    this.totalInBytes = 0;
-    this.current = 0;
-    this.currentInBytes = 0;
-    this.iterProgress = 0;
-    this.filesCompressed = -1;
-    this.totalFiles = -1;
-    this.fileProgress = [];
-    this.onCompleteCallback = () => {}
-  }
-
 
   private filePathKey(file: File) {
     return (
       file.webkitRelativePath == "")?file.name:file.webkitRelativePath;
+  }
+
+
+  ResumeInstance(){
+    let completedUntil = this.fileProgress.findIndex((value)=> value);
+    this.files = this.files.splice(completedUntil);
+  }
+
+  PauseInstance(){
+    this.paused = true;
+  }
+
+
+  reset(){
+    this.current = 0;
+    this.currentInBytes = 0;
+    this.iterProgress = 0;
+    this.totalFiles = -1;
+    this.fileProgress = [];
+    this.onCompleteCallback = () => {}
   }
 }

@@ -1,0 +1,126 @@
+<span class="options">
+  <button class="option"
+          (click)="application.appState = AppState.MAIL_SELECT" >
+    <input id="email-option"
+           [(ngModel)]="application.appState"
+           [value]="AppState.MAIL_SELECT"
+           type="radio"
+           name="transfer-type"/>
+    <span style="flex-direction: column">
+      <label for="email-option">Email Transfer</label>
+      <small style="text-align: start">Best if you're sharing your personal content.</small>
+    </span>
+  </button>
+
+  <button class="option" >
+    <input id="link-option"
+           (click)="application.appState = AppState.LINK_SELECT"
+           [(ngModel)]="application.appState"
+           [value]="AppState.LINK_SELECT"
+           type="radio"
+           name="transfer-type"/>
+    <span style="flex-direction: column">
+      <label for="link-option">Link Transfer</label>
+      <small>Generate a link and share it to anyone!</small>
+    </span>
+  </button>
+</span>
+
+<ng-container
+  @SlideUpDown
+  *ngIf="application.appState == AppState.MAIL_SELECT">
+    <span @SlideUpDown class="recipients">
+      <mat-chip-list #chipList [hidden]="appSession.form.recipients.length == 0">
+        <mat-chip @SlideUpDown *ngFor="let recipient of appSession.form.recipients;let index = index" (removed)="RemoveRecipient(index)">
+          {{recipient}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+    </span>
+
+  <span class="sign-up-input"
+        Tooltip
+        @SlideUpDown
+        #recipientError="Tooltip"
+        tooltipAlign="top"
+  >
+      <input @SlideUpDown id="recipient"
+             placeholder="Recipients"
+             required
+             (keydown.tab)="addToList(appSession.form.recipient,recipientError)"
+             [formControl]="appSession.form.recipient"
+             [matChipInputFor]="chipList"
+             [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="true"
+             (matChipInputTokenEnd)="addToList(appSession.form.recipient,recipientError)">
+      <label for="recipient">Recipients</label>
+
+    <!--      <ng-container *ngIf="filteredRecipients!=undefined">-->
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let recipient of filteredRecipients | async" [value]="recipient">
+            {{recipient}}
+          </mat-option>
+        </mat-autocomplete>
+    <!--      </ng-container>-->
+
+    </span>
+
+
+  <span class="sign-up-input"
+        @SlideUpDown
+        *ngIf="CurrentUser==undefined;else disabledInput"
+  >
+      <input @SlideUpDown  id="email"
+             #emailInput
+             placeholder="Your Email"
+             [formControl]="appSession.form.fromEmail"
+             matInput
+             required/>
+      <label for="email">Your Email</label>
+    </span>
+
+  <ng-template #disabledInput>
+      <span @SlideUpDown  class="sign-up-label">
+        <label class="value">
+          {{appSession.form.fromEmail.value}}
+        </label>
+        <label class="title">
+          Your Email
+        </label>
+      </span>
+  </ng-template>
+
+</ng-container>
+
+<span class="sign-up-input">
+  <input id="title"
+         [(ngModel)]="appSession.form.title"
+         placeholder="Title"
+         matInput required/>
+  <label for="title">Title</label>
+</span>
+
+
+<span class="sign-up-input">
+  <textarea id="message"
+            [(ngModel)]="appSession.form.message"
+            placeholder="Message"
+            matInput required></textarea>
+  <label for="message">Message</label>
+</span>
+
+<span class="validate-button-container">
+
+  <button mat-flat-button [routerLink]="'/select'">
+    <a [routerLink]="'/select'">Back</a>
+  </button>
+
+  <button
+    [disabled]="!FormValid()"
+    mat-flat-button class="action-button" (click)="Next()">
+    <a>Next</a>
+  </button>
+</span>

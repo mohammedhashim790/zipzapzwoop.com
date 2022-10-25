@@ -1,1 +1,90 @@
-<p>mtransfer-select works!</p>
+<!--<span class="options">-->
+
+<!--</span>-->
+
+<span class="file-select-container">
+  <button
+    *ngIf="appSession.transferFiles.files.length==0;else listFiles"
+    class="select-button"
+    (click)="fileLoader.click()"
+
+
+    mat-flat-button>
+    <mat-icon style="justify-content: center">
+      <i class="ph-upload" style="justify-content: center">
+
+      </i></mat-icon>
+    <label style="width: 100%;text-align: center;justify-content: center">
+      Select Files
+    </label>
+    <small style="width: 100%;text-align: center;justify-content: center">
+      Send files upto {{limit | MemUnits}}
+    </small>
+    <input #fileLoader
+           type="file"
+           multiple
+           (change)="onFilesSelected($event)"
+           class="select-file-input"/>
+  </button>
+</span>
+
+<ng-template #listFiles>
+  <input #fileLoader
+         type="file"
+         multiple
+         (change)="onFilesSelected($event)"
+         class="select-file-input"/>
+  <span class="file-select-container"
+        Tooltip
+        #filesError="Tooltip"
+        [tooltipAlign]="tooltipParams.tooltipAlign"
+        [tooltipText]="tooltipParams.tooltipText"
+  >
+    <span class="file-item" *ngFor="let file of appSession.transferFiles.files;
+    let index = index">
+      <span class="item">
+        <label>
+          {{file.name}}
+        </label>
+        <small>
+          {{file.size | MemUnits}}
+        </small>
+      </span>
+      <span>
+        <button mat-icon-button (click)="RemoveFile(index)">
+          <mat-icon><i class="ph-trash"></i></mat-icon>
+        </button>
+      </span>
+    </span>
+    <span (click)="fileLoader.click()"
+          class="file-item"
+          style="flex-direction: row-reverse">
+      <span class="item">
+        <label>
+          Add more files
+        </label>
+        <small>
+          {{appSession.transferFiles.SizeLimitRemaining | MemUnits}} remaining
+        </small>
+      </span>
+      <span>
+        <button mat-icon-button>
+          <mat-icon><i class="ph-trash"></i></mat-icon>
+        </button>
+      </span>
+    </span>
+  </span>
+</ng-template>
+
+
+<span class="validate-button-container">
+
+  <button mat-flat-button
+          class="app-button"
+          (click)="Next()"
+          style="
+              background: #6AC5AB;
+              border: 2px solid #293F4B;border-radius: 12px">
+    Proceed
+  </button>
+</span>

@@ -1,0 +1,91 @@
+
+<span
+  class="loader"
+  *ngIf="error == undefined ;else showSessionInfo">
+</span>
+
+<ng-template #showSessionInfo>
+
+  <ng-container [ngSwitch]="error">
+    <ng-template [ngSwitchCase]="Errors.OK">
+      <span class="download-action">
+        <button mat-flat-button
+                class="app-button"
+                (click)="DownloadTransfer()"
+                style="
+                    background: #6AC5AB;
+                    border: 2px solid #293F4B;border-radius: 12px">
+              Download
+        </button>
+      </span>
+      <span class="content">
+        <span class="content-header">
+          <mat-icon>
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </mat-icon>
+          <label>
+            All set.
+          </label>
+          <label>
+             Files are ready to download.
+          </label>
+        </span>
+
+        <span class="details">
+          <label *ngIf="title.length>0">
+            {{title}}
+          </label>
+          <label *ngIf="Message.length>0" class="message">
+            {{Message}}
+          </label>
+        </span>
+
+        <span class="details">
+          <h5 style="text-align: start">Files</h5>
+          <span
+            *ngFor="let file of Files"
+            class="file">
+            <label>{{file?.key}}</label>
+          </span>
+          <small style="margin-right: 0;margin-left: auto">
+            +{{sessionData!.files!.length - Files!.length}} more
+          </small>
+        </span>
+      </span>
+    </ng-template>
+
+
+    <ng-template ngSwitchDefault>
+
+      <div class="error-container">
+        <span class="error-image">
+          <img src="assets/gifs/not-found-404.gif">
+        </span>
+
+        <span style="width: 90%">
+          <label style="text-align: center;font-weight: bold">
+            PHP!!!. The file you are looking isn't available or may have expired.
+          </label>
+        </span>
+
+        <mat-divider>
+        </mat-divider>
+
+        <span class="download-action" style="width: 100%;justify-content: center;margin: 2%">
+          <button mat-flat-button
+                  class="app-button"
+                  (click)="SendAnother()"
+                  style="
+                    width: 60%;
+                    background: #6AC5AB;
+                    border: 2px solid #293F4B;border-radius: 12px">
+            Send a file?
+          </button>
+        </span>
+      </div>
+
+    </ng-template>
+
+  </ng-container>
+
+</ng-template>

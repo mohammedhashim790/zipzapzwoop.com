@@ -3,7 +3,7 @@ import {FormControl, Validators} from "@angular/forms";
 import ShortUniqueId from "short-unique-id";
 
 import {v4 as uuidv4} from 'uuid';
-import {TransferFiles} from "./TransferFiles";
+import {TransferConstants, TransferFiles} from "./TransferFiles";
 import {getCurrentUser} from "../Signer/SignInHelper";
 import {Errors, RecipientPlan} from "./Constants";
 import {AppErrors} from "./AppErrors";
@@ -24,19 +24,13 @@ export class Session{
 
   public transferFiles:TransferFiles = new TransferFiles();
 
-
-
   public form:SessionParams;
 
-  public linkTransfer:boolean = true;
+  public linkTransfer:boolean = false;
 
   public sessionLink:string;
 
   public sessionId:string;
-
-
-
-
 
   constructor() {
     this.transferFiles = new TransferFiles();
@@ -85,10 +79,14 @@ export class Session{
 
 
   AddRecipient(recipient:string){
-    if(this.form.recipients.length>=this.MAX_RECIPIENTS_COUNT()){
+    if(this.form.recipients.indexOf(recipient)!=-1){
+      throw new AppErrors(Errors.DUPLICATE_RECIPIENT_FOUND,
+        `Ohoo.. Duplicate recipients found in the list. Try again.`)
+    }
+    if(this.form.recipients.length>=TransferConstants.MAX_RECIPIENTS_COUNT()){
       throw new AppErrors(Errors.MAX_RECIPIENT_COUNT,
          `Dear Sender,
-         With the specified plan you could send only to ${this.MAX_RECIPIENTS_COUNT()} recipients.
+         With the specified plan you could send only to ${TransferConstants.MAX_RECIPIENTS_COUNT()} recipients.
          Upgrade to premium version to send upto 25 Recipients.`)
     }else{
       this.form.recipients.push(recipient);
@@ -96,16 +94,6 @@ export class Session{
     }
   }
 
-
-
-
-  //LIMITS
-  private readonly MAX_RECIPIENTS_COUNT = ()=>{
-    if(getCurrentUser() == undefined){
-      return RecipientPlan.PUBLIC;
-    }
-    return RecipientPlan.BASIC;
-  };
 
 
 }

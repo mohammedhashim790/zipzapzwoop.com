@@ -3,6 +3,9 @@ import {HttpClient, HttpHeaders, HttpXhrBackend} from "@angular/common/http";
 import {Epoch} from "aws-sdk/clients/ecr";
 import {environment} from "../../../environments/environment";
 import {printer} from "../../app.component";
+import {TransferConstants} from "../Application/TransferFiles";
+import {Session} from "../Application/Session";
+import {MemUnitsPipe} from "../Pipes/MemUnits/mem-units.pipe";
 
 export interface EmailParams{
   DownloadUrl: string;
@@ -12,7 +15,7 @@ export interface EmailParams{
   fromAddress:string;
   body:string;
   passwordEnabled:boolean;
-  password:string
+  password:string,
 }
 
 
@@ -143,20 +146,12 @@ export interface ApiParams{
 
 export class Emailer{
 
-  private static _instance:Emailer = this.getInstance();
 
   private http:HttpClient;
-  private constructor() {
+  constructor() {
     this.http = new HttpClient(new HttpXhrBackend({
       build: () => new XMLHttpRequest()
     }));
-  }
-
-  static getInstance(){
-    if(this._instance == null){
-      return new Emailer();
-    }
-    return this._instance;
   }
 
   SendEmail(params:SesData){
@@ -191,5 +186,50 @@ export class Emailer{
     }
     return params;
   }
+
+
+  CreateTransferEmailBody(
+    emailParams:EmailParams,
+    session:Session
+  ){
+    let expiryDate = new Date();
+    expiryDate.setDate(new Date().getDate() + TransferConstants.expiryDate());
+
+    let deliveryEmailParams:DeliveryTransferEmailParams = {
+      SessionId: emailParams.SessionId,
+      MailInfo: {
+        FromEmail: emailParams.fromAddress,
+        Recipients: emailParams.recipients,
+        Cc: [],
+        Bcc: [],
+        Subject: `${emailParams.fromAddress} has shared files with you`,
+        Title: emailParams.title,
+        Message: emailParams.body
+      },
+      passwordEnabled: emailParams.passwordEnabled,
+      DownloadUrl:emailParams.DownloadUrl,
+      password: emailParams.password,
+      FileParams:{
+        Password: emailParams.password,
+        PasswordEnabled: emailParams.passwordEnabled,
+        FilesLength:session.transferFiles.files.flat().length,
+        Expiry: expiryDate,
+        FilesSize:new MemUnitsPipe().transform(session.transferFiles.size)
+      }
+    };
+
+    let params:SesData;
+
+    params = {
+      SesData:{
+        EmailEpitome:EmailEpitome.DELIVERY,
+        DeliveryTransferEmailParams: deliveryEmailParams,
+        RequestTime:new Date(Date.now()).toISOString()
+      }
+    }
+
+    return params;
+  }
+
 
 }

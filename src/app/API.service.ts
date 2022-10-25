@@ -33,18 +33,26 @@ export type __SubscriptionContainer = {
   onDeleteBackdrop: OnDeleteBackdropSubscription;
 };
 
-export type CreateUserInput = {
-  id?: string | null;
-  email: string;
-  name: string;
-  preferred_username: string;
+export type UpdateUserInput = {
+  id: string;
+  email?: string | null;
+  name?: string | null;
+  preferred_username?: string | null;
+  subscriptionPlansType?: SubscriptionPlanType | null;
   userSubscriptionPlanId?: string | null;
 };
+
+export enum SubscriptionPlanType {
+  BASIC = "BASIC",
+  STANDARD = "STANDARD",
+  PROFESSIONAL = "PROFESSIONAL"
+}
 
 export type ModelUserConditionInput = {
   email?: ModelStringInput | null;
   name?: ModelStringInput | null;
   preferred_username?: ModelStringInput | null;
+  subscriptionPlansType?: ModelSubscriptionPlanTypeInput | null;
   and?: Array<ModelUserConditionInput | null> | null;
   or?: Array<ModelUserConditionInput | null> | null;
   not?: ModelUserConditionInput | null;
@@ -90,6 +98,11 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
+export type ModelSubscriptionPlanTypeInput = {
+  eq?: SubscriptionPlanType | null;
+  ne?: SubscriptionPlanType | null;
+};
+
 export type ModelIDInput = {
   ne?: string | null;
   eq?: string | null;
@@ -113,6 +126,7 @@ export type User = {
   name: string;
   preferred_username: string;
   subscriptionPlan?: SubscriptionPlan | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -127,29 +141,16 @@ export type SubscriptionPlan = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
-};
-
-export enum SubscriptionPlanType {
-  BASIC = "BASIC",
-  STANDARD = "STANDARD",
-  PROFESSIONAL = "PROFESSIONAL"
-}
-
-export type UpdateUserInput = {
-  id: string;
-  email?: string | null;
-  name?: string | null;
-  preferred_username?: string | null;
-  userSubscriptionPlanId?: string | null;
+  owner?: string | null;
 };
 
 export type DeleteUserInput = {
   id: string;
 };
 
-export type CreateSubscriptionPlanInput = {
-  id?: string | null;
-  subscriptionPlansType: SubscriptionPlanType;
+export type UpdateSubscriptionPlanInput = {
+  id: string;
+  subscriptionPlansType?: SubscriptionPlanType | null;
   subscriptionPlanUserId?: string | null;
 };
 
@@ -159,17 +160,6 @@ export type ModelSubscriptionPlanConditionInput = {
   or?: Array<ModelSubscriptionPlanConditionInput | null> | null;
   not?: ModelSubscriptionPlanConditionInput | null;
   subscriptionPlanUserId?: ModelIDInput | null;
-};
-
-export type ModelSubscriptionPlanTypeInput = {
-  eq?: SubscriptionPlanType | null;
-  ne?: SubscriptionPlanType | null;
-};
-
-export type UpdateSubscriptionPlanInput = {
-  id: string;
-  subscriptionPlansType?: SubscriptionPlanType | null;
-  subscriptionPlanUserId?: string | null;
 };
 
 export type DeleteSubscriptionPlanInput = {
@@ -186,7 +176,6 @@ export type UpdateSessionInput = {
   expiry?: number | null;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
 };
 
 export type S3ObjectInput = {
@@ -210,7 +199,6 @@ export type ModelSessionConditionInput = {
   not?: ModelSessionConditionInput | null;
   sessionMailInfoId?: ModelIDInput | null;
   sessionLinkInfoId?: ModelIDInput | null;
-  sessionUserId?: ModelIDInput | null;
 };
 
 export type ModelBooleanInput = {
@@ -244,12 +232,10 @@ export type Session = {
   backdrop?: ModelBackdropConnection | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: User | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -412,6 +398,21 @@ export type DeleteBackdropInput = {
   id: string;
 };
 
+export type CreateUserInput = {
+  id?: string | null;
+  email: string;
+  name: string;
+  preferred_username: string;
+  subscriptionPlansType: SubscriptionPlanType;
+  userSubscriptionPlanId?: string | null;
+};
+
+export type CreateSubscriptionPlanInput = {
+  id?: string | null;
+  subscriptionPlansType: SubscriptionPlanType;
+  subscriptionPlanUserId?: string | null;
+};
+
 export type CreateSessionInput = {
   id?: string | null;
   files?: Array<S3ObjectInput | null> | null;
@@ -422,7 +423,6 @@ export type CreateSessionInput = {
   expiry?: number | null;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
 };
 
 export type CreateMailInfoInput = {
@@ -447,6 +447,7 @@ export type ModelUserFilterInput = {
   email?: ModelStringInput | null;
   name?: ModelStringInput | null;
   preferred_username?: ModelStringInput | null;
+  subscriptionPlansType?: ModelSubscriptionPlanTypeInput | null;
   and?: Array<ModelUserFilterInput | null> | null;
   or?: Array<ModelUserFilterInput | null> | null;
   not?: ModelUserFilterInput | null;
@@ -500,7 +501,6 @@ export type ModelSessionFilterInput = {
   not?: ModelSessionFilterInput | null;
   sessionMailInfoId?: ModelIDInput | null;
   sessionLinkInfoId?: ModelIDInput | null;
-  sessionUserId?: ModelIDInput | null;
 };
 
 export type ModelSessionConnection = {
@@ -553,83 +553,6 @@ export type ModelBackdropFilterInput = {
   not?: ModelBackdropFilterInput | null;
 };
 
-export type CreateUserMutation = {
-  __typename: "User";
-  id: string;
-  email: string;
-  name: string;
-  preferred_username: string;
-  subscriptionPlan?: {
-    __typename: "SubscriptionPlan";
-    id: string;
-    subscriptionPlansType: SubscriptionPlanType;
-    user?: {
-      __typename: "User";
-      id: string;
-      email: string;
-      name: string;
-      preferred_username: string;
-      subscriptionPlan?: {
-        __typename: "SubscriptionPlan";
-        id: string;
-        subscriptionPlansType: SubscriptionPlanType;
-        user?: {
-          __typename: "User";
-          id: string;
-          email: string;
-          name: string;
-          preferred_username: string;
-          subscriptionPlan?: {
-            __typename: "SubscriptionPlan";
-            id: string;
-            subscriptionPlansType: SubscriptionPlanType;
-            user?: {
-              __typename: "User";
-              id: string;
-              email: string;
-              name: string;
-              preferred_username: string;
-              subscriptionPlan?: {
-                __typename: "SubscriptionPlan";
-                id: string;
-                subscriptionPlansType: SubscriptionPlanType;
-                createdAt: string;
-                updatedAt: string;
-                subscriptionPlanUserId?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              userSubscriptionPlanId?: string | null;
-              owner?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            subscriptionPlanUserId?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          userSubscriptionPlanId?: string | null;
-          owner?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        subscriptionPlanUserId?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      userSubscriptionPlanId?: string | null;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    subscriptionPlanUserId?: string | null;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-  userSubscriptionPlanId?: string | null;
-  owner?: string | null;
-};
-
 export type UpdateUserMutation = {
   __typename: "User";
   id: string;
@@ -673,7 +596,9 @@ export type UpdateUserMutation = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -682,7 +607,9 @@ export type UpdateUserMutation = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -691,7 +618,9 @@ export type UpdateUserMutation = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -700,7 +629,9 @@ export type UpdateUserMutation = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -750,7 +681,9 @@ export type DeleteUserMutation = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -759,7 +692,9 @@ export type DeleteUserMutation = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -768,7 +703,9 @@ export type DeleteUserMutation = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -777,88 +714,13 @@ export type DeleteUserMutation = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
   owner?: string | null;
-};
-
-export type CreateSubscriptionPlanMutation = {
-  __typename: "SubscriptionPlan";
-  id: string;
-  subscriptionPlansType: SubscriptionPlanType;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
-  createdAt: string;
-  updatedAt: string;
-  subscriptionPlanUserId?: string | null;
 };
 
 export type UpdateSubscriptionPlanMutation = {
@@ -901,6 +763,7 @@ export type UpdateSubscriptionPlanMutation = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -909,7 +772,9 @@ export type UpdateSubscriptionPlanMutation = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -918,7 +783,9 @@ export type UpdateSubscriptionPlanMutation = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -927,7 +794,9 @@ export type UpdateSubscriptionPlanMutation = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -936,6 +805,7 @@ export type UpdateSubscriptionPlanMutation = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type DeleteSubscriptionPlanMutation = {
@@ -978,6 +848,7 @@ export type DeleteSubscriptionPlanMutation = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -986,7 +857,9 @@ export type DeleteSubscriptionPlanMutation = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -995,7 +868,9 @@ export type DeleteSubscriptionPlanMutation = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -1004,7 +879,9 @@ export type DeleteSubscriptionPlanMutation = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -1013,6 +890,7 @@ export type DeleteSubscriptionPlanMutation = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type UpdateSessionMutation = {
@@ -1079,79 +957,10 @@ export type UpdateSessionMutation = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -1219,79 +1028,10 @@ export type DeleteSessionMutation = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -1432,6 +1172,176 @@ export type DeleteBackdropMutation = {
   owner?: string | null;
 };
 
+export type CreateUserMutation = {
+  __typename: "User";
+  id: string;
+  email: string;
+  name: string;
+  preferred_username: string;
+  subscriptionPlan?: {
+    __typename: "SubscriptionPlan";
+    id: string;
+    subscriptionPlansType: SubscriptionPlanType;
+    user?: {
+      __typename: "User";
+      id: string;
+      email: string;
+      name: string;
+      preferred_username: string;
+      subscriptionPlan?: {
+        __typename: "SubscriptionPlan";
+        id: string;
+        subscriptionPlansType: SubscriptionPlanType;
+        user?: {
+          __typename: "User";
+          id: string;
+          email: string;
+          name: string;
+          preferred_username: string;
+          subscriptionPlan?: {
+            __typename: "SubscriptionPlan";
+            id: string;
+            subscriptionPlansType: SubscriptionPlanType;
+            user?: {
+              __typename: "User";
+              id: string;
+              email: string;
+              name: string;
+              preferred_username: string;
+              subscriptionPlan?: {
+                __typename: "SubscriptionPlan";
+                id: string;
+                subscriptionPlansType: SubscriptionPlanType;
+                createdAt: string;
+                updatedAt: string;
+                subscriptionPlanUserId?: string | null;
+                owner?: string | null;
+              } | null;
+              subscriptionPlansType: SubscriptionPlanType;
+              createdAt: string;
+              updatedAt: string;
+              userSubscriptionPlanId?: string | null;
+              owner?: string | null;
+            } | null;
+            createdAt: string;
+            updatedAt: string;
+            subscriptionPlanUserId?: string | null;
+            owner?: string | null;
+          } | null;
+          subscriptionPlansType: SubscriptionPlanType;
+          createdAt: string;
+          updatedAt: string;
+          userSubscriptionPlanId?: string | null;
+          owner?: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+        subscriptionPlanUserId?: string | null;
+        owner?: string | null;
+      } | null;
+      subscriptionPlansType: SubscriptionPlanType;
+      createdAt: string;
+      updatedAt: string;
+      userSubscriptionPlanId?: string | null;
+      owner?: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    subscriptionPlanUserId?: string | null;
+    owner?: string | null;
+  } | null;
+  subscriptionPlansType: SubscriptionPlanType;
+  createdAt: string;
+  updatedAt: string;
+  userSubscriptionPlanId?: string | null;
+  owner?: string | null;
+};
+
+export type CreateSubscriptionPlanMutation = {
+  __typename: "SubscriptionPlan";
+  id: string;
+  subscriptionPlansType: SubscriptionPlanType;
+  user?: {
+    __typename: "User";
+    id: string;
+    email: string;
+    name: string;
+    preferred_username: string;
+    subscriptionPlan?: {
+      __typename: "SubscriptionPlan";
+      id: string;
+      subscriptionPlansType: SubscriptionPlanType;
+      user?: {
+        __typename: "User";
+        id: string;
+        email: string;
+        name: string;
+        preferred_username: string;
+        subscriptionPlan?: {
+          __typename: "SubscriptionPlan";
+          id: string;
+          subscriptionPlansType: SubscriptionPlanType;
+          user?: {
+            __typename: "User";
+            id: string;
+            email: string;
+            name: string;
+            preferred_username: string;
+            subscriptionPlan?: {
+              __typename: "SubscriptionPlan";
+              id: string;
+              subscriptionPlansType: SubscriptionPlanType;
+              user?: {
+                __typename: "User";
+                id: string;
+                email: string;
+                name: string;
+                preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
+                createdAt: string;
+                updatedAt: string;
+                userSubscriptionPlanId?: string | null;
+                owner?: string | null;
+              } | null;
+              createdAt: string;
+              updatedAt: string;
+              subscriptionPlanUserId?: string | null;
+              owner?: string | null;
+            } | null;
+            subscriptionPlansType: SubscriptionPlanType;
+            createdAt: string;
+            updatedAt: string;
+            userSubscriptionPlanId?: string | null;
+            owner?: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+          subscriptionPlanUserId?: string | null;
+          owner?: string | null;
+        } | null;
+        subscriptionPlansType: SubscriptionPlanType;
+        createdAt: string;
+        updatedAt: string;
+        userSubscriptionPlanId?: string | null;
+        owner?: string | null;
+      } | null;
+      createdAt: string;
+      updatedAt: string;
+      subscriptionPlanUserId?: string | null;
+      owner?: string | null;
+    } | null;
+    subscriptionPlansType: SubscriptionPlanType;
+    createdAt: string;
+    updatedAt: string;
+    userSubscriptionPlanId?: string | null;
+    owner?: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  subscriptionPlanUserId?: string | null;
+  owner?: string | null;
+};
+
 export type CreateSessionMutation = {
   __typename: "Session";
   id: string;
@@ -1496,79 +1406,10 @@ export type CreateSessionMutation = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -1640,7 +1481,9 @@ export type GetUserQuery = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -1649,7 +1492,9 @@ export type GetUserQuery = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -1658,7 +1503,9 @@ export type GetUserQuery = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -1667,7 +1514,9 @@ export type GetUserQuery = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -1712,6 +1561,7 @@ export type ListUsersQuery = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -1720,7 +1570,9 @@ export type ListUsersQuery = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -1729,7 +1581,9 @@ export type ListUsersQuery = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -1738,7 +1592,9 @@ export type ListUsersQuery = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -1787,6 +1643,7 @@ export type GetSubscriptionPlanQuery = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -1795,7 +1652,9 @@ export type GetSubscriptionPlanQuery = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -1804,7 +1663,9 @@ export type GetSubscriptionPlanQuery = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -1813,7 +1674,9 @@ export type GetSubscriptionPlanQuery = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -1822,6 +1685,7 @@ export type GetSubscriptionPlanQuery = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type ListSubscriptionPlansQuery = {
@@ -1863,7 +1727,9 @@ export type ListSubscriptionPlansQuery = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -1872,7 +1738,9 @@ export type ListSubscriptionPlansQuery = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -1881,7 +1749,9 @@ export type ListSubscriptionPlansQuery = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -1890,6 +1760,7 @@ export type ListSubscriptionPlansQuery = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null>;
   nextToken?: string | null;
 };
@@ -1980,79 +1851,10 @@ export type GetSessionQuery = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -2122,68 +1924,10 @@ export type ListSessionsQuery = {
     } | null;
     shortUrl?: string | null;
     expiry?: number | null;
-    user?: {
-      __typename: "User";
-      id: string;
-      email: string;
-      name: string;
-      preferred_username: string;
-      subscriptionPlan?: {
-        __typename: "SubscriptionPlan";
-        id: string;
-        subscriptionPlansType: SubscriptionPlanType;
-        user?: {
-          __typename: "User";
-          id: string;
-          email: string;
-          name: string;
-          preferred_username: string;
-          subscriptionPlan?: {
-            __typename: "SubscriptionPlan";
-            id: string;
-            subscriptionPlansType: SubscriptionPlanType;
-            user?: {
-              __typename: "User";
-              id: string;
-              email: string;
-              name: string;
-              preferred_username: string;
-              subscriptionPlan?: {
-                __typename: "SubscriptionPlan";
-                id: string;
-                subscriptionPlansType: SubscriptionPlanType;
-                createdAt: string;
-                updatedAt: string;
-                subscriptionPlanUserId?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              userSubscriptionPlanId?: string | null;
-              owner?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            subscriptionPlanUserId?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          userSubscriptionPlanId?: string | null;
-          owner?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        subscriptionPlanUserId?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      userSubscriptionPlanId?: string | null;
-      owner?: string | null;
-    } | null;
     SentOn: string;
     updatedOn: string;
     sessionMailInfoId?: string | null;
     sessionLinkInfoId?: string | null;
-    sessionUserId?: string | null;
     owner?: string | null;
   } | null>;
   nextToken?: string | null;
@@ -2334,7 +2078,9 @@ export type OnCreateUserSubscription = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -2343,7 +2089,9 @@ export type OnCreateUserSubscription = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -2352,7 +2100,9 @@ export type OnCreateUserSubscription = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -2361,7 +2111,9 @@ export type OnCreateUserSubscription = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -2411,7 +2163,9 @@ export type OnUpdateUserSubscription = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -2420,7 +2174,9 @@ export type OnUpdateUserSubscription = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -2429,7 +2185,9 @@ export type OnUpdateUserSubscription = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -2438,7 +2196,9 @@ export type OnUpdateUserSubscription = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -2488,7 +2248,9 @@ export type OnDeleteUserSubscription = {
                 createdAt: string;
                 updatedAt: string;
                 subscriptionPlanUserId?: string | null;
+                owner?: string | null;
               } | null;
+              subscriptionPlansType: SubscriptionPlanType;
               createdAt: string;
               updatedAt: string;
               userSubscriptionPlanId?: string | null;
@@ -2497,7 +2259,9 @@ export type OnDeleteUserSubscription = {
             createdAt: string;
             updatedAt: string;
             subscriptionPlanUserId?: string | null;
+            owner?: string | null;
           } | null;
+          subscriptionPlansType: SubscriptionPlanType;
           createdAt: string;
           updatedAt: string;
           userSubscriptionPlanId?: string | null;
@@ -2506,7 +2270,9 @@ export type OnDeleteUserSubscription = {
         createdAt: string;
         updatedAt: string;
         subscriptionPlanUserId?: string | null;
+        owner?: string | null;
       } | null;
+      subscriptionPlansType: SubscriptionPlanType;
       createdAt: string;
       updatedAt: string;
       userSubscriptionPlanId?: string | null;
@@ -2515,7 +2281,9 @@ export type OnDeleteUserSubscription = {
     createdAt: string;
     updatedAt: string;
     subscriptionPlanUserId?: string | null;
+    owner?: string | null;
   } | null;
+  subscriptionPlansType: SubscriptionPlanType;
   createdAt: string;
   updatedAt: string;
   userSubscriptionPlanId?: string | null;
@@ -2562,6 +2330,7 @@ export type OnCreateSubscriptionPlanSubscription = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -2570,7 +2339,9 @@ export type OnCreateSubscriptionPlanSubscription = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -2579,7 +2350,9 @@ export type OnCreateSubscriptionPlanSubscription = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -2588,7 +2361,9 @@ export type OnCreateSubscriptionPlanSubscription = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -2597,6 +2372,7 @@ export type OnCreateSubscriptionPlanSubscription = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type OnUpdateSubscriptionPlanSubscription = {
@@ -2639,6 +2415,7 @@ export type OnUpdateSubscriptionPlanSubscription = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -2647,7 +2424,9 @@ export type OnUpdateSubscriptionPlanSubscription = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -2656,7 +2435,9 @@ export type OnUpdateSubscriptionPlanSubscription = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -2665,7 +2446,9 @@ export type OnUpdateSubscriptionPlanSubscription = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -2674,6 +2457,7 @@ export type OnUpdateSubscriptionPlanSubscription = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type OnDeleteSubscriptionPlanSubscription = {
@@ -2716,6 +2500,7 @@ export type OnDeleteSubscriptionPlanSubscription = {
                 email: string;
                 name: string;
                 preferred_username: string;
+                subscriptionPlansType: SubscriptionPlanType;
                 createdAt: string;
                 updatedAt: string;
                 userSubscriptionPlanId?: string | null;
@@ -2724,7 +2509,9 @@ export type OnDeleteSubscriptionPlanSubscription = {
               createdAt: string;
               updatedAt: string;
               subscriptionPlanUserId?: string | null;
+              owner?: string | null;
             } | null;
+            subscriptionPlansType: SubscriptionPlanType;
             createdAt: string;
             updatedAt: string;
             userSubscriptionPlanId?: string | null;
@@ -2733,7 +2520,9 @@ export type OnDeleteSubscriptionPlanSubscription = {
           createdAt: string;
           updatedAt: string;
           subscriptionPlanUserId?: string | null;
+          owner?: string | null;
         } | null;
+        subscriptionPlansType: SubscriptionPlanType;
         createdAt: string;
         updatedAt: string;
         userSubscriptionPlanId?: string | null;
@@ -2742,7 +2531,9 @@ export type OnDeleteSubscriptionPlanSubscription = {
       createdAt: string;
       updatedAt: string;
       subscriptionPlanUserId?: string | null;
+      owner?: string | null;
     } | null;
+    subscriptionPlansType: SubscriptionPlanType;
     createdAt: string;
     updatedAt: string;
     userSubscriptionPlanId?: string | null;
@@ -2751,6 +2542,7 @@ export type OnDeleteSubscriptionPlanSubscription = {
   createdAt: string;
   updatedAt: string;
   subscriptionPlanUserId?: string | null;
+  owner?: string | null;
 };
 
 export type OnCreateRecipientsSubscription = {
@@ -2844,79 +2636,10 @@ export type OnCreateSessionSubscription = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -2984,79 +2707,10 @@ export type OnUpdateSessionSubscription = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -3124,79 +2778,10 @@ export type OnDeleteSessionSubscription = {
   } | null;
   shortUrl?: string | null;
   expiry?: number | null;
-  user?: {
-    __typename: "User";
-    id: string;
-    email: string;
-    name: string;
-    preferred_username: string;
-    subscriptionPlan?: {
-      __typename: "SubscriptionPlan";
-      id: string;
-      subscriptionPlansType: SubscriptionPlanType;
-      user?: {
-        __typename: "User";
-        id: string;
-        email: string;
-        name: string;
-        preferred_username: string;
-        subscriptionPlan?: {
-          __typename: "SubscriptionPlan";
-          id: string;
-          subscriptionPlansType: SubscriptionPlanType;
-          user?: {
-            __typename: "User";
-            id: string;
-            email: string;
-            name: string;
-            preferred_username: string;
-            subscriptionPlan?: {
-              __typename: "SubscriptionPlan";
-              id: string;
-              subscriptionPlansType: SubscriptionPlanType;
-              user?: {
-                __typename: "User";
-                id: string;
-                email: string;
-                name: string;
-                preferred_username: string;
-                createdAt: string;
-                updatedAt: string;
-                userSubscriptionPlanId?: string | null;
-                owner?: string | null;
-              } | null;
-              createdAt: string;
-              updatedAt: string;
-              subscriptionPlanUserId?: string | null;
-            } | null;
-            createdAt: string;
-            updatedAt: string;
-            userSubscriptionPlanId?: string | null;
-            owner?: string | null;
-          } | null;
-          createdAt: string;
-          updatedAt: string;
-          subscriptionPlanUserId?: string | null;
-        } | null;
-        createdAt: string;
-        updatedAt: string;
-        userSubscriptionPlanId?: string | null;
-        owner?: string | null;
-      } | null;
-      createdAt: string;
-      updatedAt: string;
-      subscriptionPlanUserId?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    userSubscriptionPlanId?: string | null;
-    owner?: string | null;
-  } | null;
   SentOn: string;
   updatedOn: string;
   sessionMailInfoId?: string | null;
   sessionLinkInfoId?: string | null;
-  sessionUserId?: string | null;
   owner?: string | null;
 };
 
@@ -3339,99 +2924,6 @@ export type OnDeleteBackdropSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateUser(
-    input: CreateUserInput,
-    condition?: ModelUserConditionInput
-  ): Promise<CreateUserMutation> {
-    const statement = `mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
-        createUser(input: $input, condition: $condition) {
-          __typename
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            __typename
-            id
-            subscriptionPlansType
-            user {
-              __typename
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                __typename
-                id
-                subscriptionPlansType
-                user {
-                  __typename
-                  id
-                  email
-                  name
-                  preferred_username
-                  subscriptionPlan {
-                    __typename
-                    id
-                    subscriptionPlansType
-                    user {
-                      __typename
-                      id
-                      email
-                      name
-                      preferred_username
-                      subscriptionPlan {
-                        __typename
-                        id
-                        subscriptionPlansType
-                        createdAt
-                        updatedAt
-                        subscriptionPlanUserId
-                      }
-                      createdAt
-                      updatedAt
-                      userSubscriptionPlanId
-                      owner
-                    }
-                    createdAt
-                    updatedAt
-                    subscriptionPlanUserId
-                  }
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <CreateUserMutation>response.data.createUser;
-  }
   async UpdateUser(
     input: UpdateUserInput,
     condition?: ModelUserConditionInput
@@ -3480,7 +2972,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -3489,7 +2983,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -3498,7 +2994,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -3507,7 +3005,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -3573,7 +3073,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -3582,7 +3084,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -3591,7 +3095,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -3600,7 +3106,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -3617,99 +3125,6 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteUserMutation>response.data.deleteUser;
-  }
-  async CreateSubscriptionPlan(
-    input: CreateSubscriptionPlanInput,
-    condition?: ModelSubscriptionPlanConditionInput
-  ): Promise<CreateSubscriptionPlanMutation> {
-    const statement = `mutation CreateSubscriptionPlan($input: CreateSubscriptionPlanInput!, $condition: ModelSubscriptionPlanConditionInput) {
-        createSubscriptionPlan(input: $input, condition: $condition) {
-          __typename
-          id
-          subscriptionPlansType
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      input
-    };
-    if (condition) {
-      gqlAPIServiceArguments.condition = condition;
-    }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <CreateSubscriptionPlanMutation>response.data.createSubscriptionPlan;
   }
   async UpdateSubscriptionPlan(
     input: UpdateSubscriptionPlanInput,
@@ -3756,6 +3171,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -3764,7 +3180,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -3773,7 +3191,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -3782,7 +3202,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -3791,6 +3213,7 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3849,6 +3272,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -3857,7 +3281,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -3866,7 +3292,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -3875,7 +3303,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -3884,6 +3314,7 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3966,79 +3397,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -4122,79 +3484,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -4506,6 +3799,208 @@ export class APIService {
     )) as any;
     return <DeleteBackdropMutation>response.data.deleteBackdrop;
   }
+  async CreateUser(
+    input: CreateUserInput,
+    condition?: ModelUserConditionInput
+  ): Promise<CreateUserMutation> {
+    const statement = `mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
+        createUser(input: $input, condition: $condition) {
+          __typename
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            __typename
+            id
+            subscriptionPlansType
+            user {
+              __typename
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                __typename
+                id
+                subscriptionPlansType
+                user {
+                  __typename
+                  id
+                  email
+                  name
+                  preferred_username
+                  subscriptionPlan {
+                    __typename
+                    id
+                    subscriptionPlansType
+                    user {
+                      __typename
+                      id
+                      email
+                      name
+                      preferred_username
+                      subscriptionPlan {
+                        __typename
+                        id
+                        subscriptionPlansType
+                        createdAt
+                        updatedAt
+                        subscriptionPlanUserId
+                        owner
+                      }
+                      subscriptionPlansType
+                      createdAt
+                      updatedAt
+                      userSubscriptionPlanId
+                      owner
+                    }
+                    createdAt
+                    updatedAt
+                    subscriptionPlanUserId
+                    owner
+                  }
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+                owner
+              }
+              subscriptionPlansType
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+            owner
+          }
+          subscriptionPlansType
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateUserMutation>response.data.createUser;
+  }
+  async CreateSubscriptionPlan(
+    input: CreateSubscriptionPlanInput,
+    condition?: ModelSubscriptionPlanConditionInput
+  ): Promise<CreateSubscriptionPlanMutation> {
+    const statement = `mutation CreateSubscriptionPlan($input: CreateSubscriptionPlanInput!, $condition: ModelSubscriptionPlanConditionInput) {
+        createSubscriptionPlan(input: $input, condition: $condition) {
+          __typename
+          id
+          subscriptionPlansType
+          user {
+            __typename
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              __typename
+              id
+              subscriptionPlansType
+              user {
+                __typename
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  __typename
+                  id
+                  subscriptionPlansType
+                  user {
+                    __typename
+                    id
+                    email
+                    name
+                    preferred_username
+                    subscriptionPlan {
+                      __typename
+                      id
+                      subscriptionPlansType
+                      user {
+                        __typename
+                        id
+                        email
+                        name
+                        preferred_username
+                        subscriptionPlansType
+                        createdAt
+                        updatedAt
+                        userSubscriptionPlanId
+                        owner
+                      }
+                      createdAt
+                      updatedAt
+                      subscriptionPlanUserId
+                      owner
+                    }
+                    subscriptionPlansType
+                    createdAt
+                    updatedAt
+                    userSubscriptionPlanId
+                    owner
+                  }
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                  owner
+                }
+                subscriptionPlansType
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+              owner
+            }
+            subscriptionPlansType
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+          owner
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateSubscriptionPlanMutation>response.data.createSubscriptionPlan;
+  }
   async CreateSession(
     input: CreateSessionInput,
     condition?: ModelSessionConditionInput
@@ -4575,79 +4070,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -4764,7 +4190,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -4773,7 +4201,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -4782,7 +4212,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -4791,7 +4223,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -4850,6 +4284,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -4858,7 +4293,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -4867,7 +4304,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -4876,7 +4315,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -4942,6 +4383,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -4950,7 +4392,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -4959,7 +4403,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -4968,7 +4414,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -4977,6 +4425,7 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5032,7 +4481,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -5041,7 +4492,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -5050,7 +4503,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -5059,6 +4514,7 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
           nextToken
         }
@@ -5197,79 +4653,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -5353,68 +4740,10 @@ export class APIService {
             }
             shortUrl
             expiry
-            user {
-              __typename
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                __typename
-                id
-                subscriptionPlansType
-                user {
-                  __typename
-                  id
-                  email
-                  name
-                  preferred_username
-                  subscriptionPlan {
-                    __typename
-                    id
-                    subscriptionPlansType
-                    user {
-                      __typename
-                      id
-                      email
-                      name
-                      preferred_username
-                      subscriptionPlan {
-                        __typename
-                        id
-                        subscriptionPlansType
-                        createdAt
-                        updatedAt
-                        subscriptionPlanUserId
-                      }
-                      createdAt
-                      updatedAt
-                      userSubscriptionPlanId
-                      owner
-                    }
-                    createdAt
-                    updatedAt
-                    subscriptionPlanUserId
-                  }
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
             SentOn
             updatedOn
             sessionMailInfoId
             sessionLinkInfoId
-            sessionUserId
             owner
           }
           nextToken
@@ -5679,7 +5008,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -5688,7 +5019,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -5697,7 +5030,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -5706,7 +5041,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -5773,7 +5110,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -5782,7 +5121,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -5791,7 +5132,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -5800,7 +5143,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -5867,7 +5212,9 @@ export class APIService {
                         createdAt
                         updatedAt
                         subscriptionPlanUserId
+                        owner
                       }
+                      subscriptionPlansType
                       createdAt
                       updatedAt
                       userSubscriptionPlanId
@@ -5876,7 +5223,9 @@ export class APIService {
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -5885,7 +5234,9 @@ export class APIService {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -5894,7 +5245,9 @@ export class APIService {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -5912,14 +5265,15 @@ export class APIService {
     >;
   }
 
-  OnCreateSubscriptionPlanListener: Observable<
+  OnCreateSubscriptionPlanListener(
+    owner?: string
+  ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onCreateSubscriptionPlan">
     >
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateSubscriptionPlan {
-        onCreateSubscriptionPlan {
+  > {
+    const statement = `subscription OnCreateSubscriptionPlan($owner: String) {
+        onCreateSubscriptionPlan(owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -5959,6 +5313,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -5967,7 +5322,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -5976,7 +5333,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -5985,7 +5344,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -5994,23 +5355,31 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<
-      Pick<__SubscriptionContainer, "onCreateSubscriptionPlan">
-    >
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onCreateSubscriptionPlan">
+      >
+    >;
+  }
 
-  OnUpdateSubscriptionPlanListener: Observable<
+  OnUpdateSubscriptionPlanListener(
+    owner?: string
+  ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onUpdateSubscriptionPlan">
     >
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateSubscriptionPlan {
-        onUpdateSubscriptionPlan {
+  > {
+    const statement = `subscription OnUpdateSubscriptionPlan($owner: String) {
+        onUpdateSubscriptionPlan(owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -6050,6 +5419,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -6058,7 +5428,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -6067,7 +5439,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -6076,7 +5450,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -6085,23 +5461,31 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<
-      Pick<__SubscriptionContainer, "onUpdateSubscriptionPlan">
-    >
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onUpdateSubscriptionPlan">
+      >
+    >;
+  }
 
-  OnDeleteSubscriptionPlanListener: Observable<
+  OnDeleteSubscriptionPlanListener(
+    owner?: string
+  ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeleteSubscriptionPlan">
     >
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteSubscriptionPlan {
-        onDeleteSubscriptionPlan {
+  > {
+    const statement = `subscription OnDeleteSubscriptionPlan($owner: String) {
+        onDeleteSubscriptionPlan(owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -6141,6 +5525,7 @@ export class APIService {
                         email
                         name
                         preferred_username
+                        subscriptionPlansType
                         createdAt
                         updatedAt
                         userSubscriptionPlanId
@@ -6149,7 +5534,9 @@ export class APIService {
                       createdAt
                       updatedAt
                       subscriptionPlanUserId
+                      owner
                     }
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -6158,7 +5545,9 @@ export class APIService {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -6167,7 +5556,9 @@ export class APIService {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -6176,14 +5567,21 @@ export class APIService {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<
-      Pick<__SubscriptionContainer, "onDeleteSubscriptionPlan">
-    >
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (owner) {
+      gqlAPIServiceArguments.owner = owner;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<
+        Pick<__SubscriptionContainer, "onDeleteSubscriptionPlan">
+      >
+    >;
+  }
 
   OnCreateRecipientsListener(
     owner?: string
@@ -6333,79 +5731,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -6490,79 +5819,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;
@@ -6647,79 +5907,10 @@ export class APIService {
           }
           shortUrl
           expiry
-          user {
-            __typename
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              __typename
-              id
-              subscriptionPlansType
-              user {
-                __typename
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  __typename
-                  id
-                  subscriptionPlansType
-                  user {
-                    __typename
-                    id
-                    email
-                    name
-                    preferred_username
-                    subscriptionPlan {
-                      __typename
-                      id
-                      subscriptionPlansType
-                      user {
-                        __typename
-                        id
-                        email
-                        name
-                        preferred_username
-                        createdAt
-                        updatedAt
-                        userSubscriptionPlanId
-                        owner
-                      }
-                      createdAt
-                      updatedAt
-                      subscriptionPlanUserId
-                    }
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
           SentOn
           updatedOn
           sessionMailInfoId
           sessionLinkInfoId
-          sessionUserId
           owner
         }
       }`;

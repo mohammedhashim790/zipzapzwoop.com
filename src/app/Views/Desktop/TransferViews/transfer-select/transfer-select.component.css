@@ -1,0 +1,84 @@
+*{
+  display: flex;
+}
+
+:host{
+  width: 100%;
+  height: 100%;
+  /*max-height: 25em;*/
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  overflow-y: auto;
+
+  /*justify-content: center;*/
+}
+.add-file{
+  width: 90%;
+  height: 7em;
+  flex-direction: row;
+  /*justify-content: center;*/
+  /*background: #B14048;*/
+  place-items: center;
+  /*padding: 4em;*/
+  transition: all;
+
+}
+.border-button{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 2px solid #293F4B;
+  justify-content: center;
+  margin: 10px;
+  place-items: center;
+  display: flex;
+}
+
+.transfer-content {
+  width: 97%;
+  /*height: 70%;*/
+  /*background: #B14048;*/
+  border-radius: 0 0 45px 45px;
+  flex-direction: column;
+  /*margin: auto;*/
+  overflow-y: auto;
+  place-items: center;
+  max-height: 25em;
+  margin: 0 auto;
+  padding-top: 2%;
+}
+input.mat-chip-input{
+  flex: unset;
+  margin: unset;
+  width: unset;
+}
+
+.bottom-actions{
+  width: 80%;
+  /*padding: 1% 10%;*/
+  border-radius: 0 0 22px 22px;
+  background: white;
+  flex-direction: row;
+  /*position: absolute;*/
+  /*bottom: -10px;*/
+  height: 50px;
+  place-items: center;
+  margin: 2% auto;
+}
+.bottom-actions >*:first-child{
+  width: 30%;
+}
+.bottom-actions > *:nth-child(2){
+  width: 70%;
+}
+.recipients{
+  width: 90%;
+  margin: 2%;
+}
+
+::ng-deep .mat-option{
+  line-height: unset !important;
+  height: 35px !important;
+  font-size: 0.8rem;
+}

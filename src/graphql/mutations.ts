@@ -514,72 +514,10 @@ export const updateSession = /* GraphQL */ `
       }
       shortUrl
       expiry
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  user {
-                    id
-                    email
-                    name
-                    preferred_username
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
       SentOn
       updatedOn
       sessionMailInfoId
       sessionLinkInfoId
-      sessionUserId
       owner
     }
   }
@@ -646,72 +584,10 @@ export const deleteSession = /* GraphQL */ `
       }
       shortUrl
       expiry
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  user {
-                    id
-                    email
-                    name
-                    preferred_username
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
       SentOn
       updatedOn
       sessionMailInfoId
       sessionLinkInfoId
-      sessionUserId
       owner
     }
   }
@@ -962,72 +838,10 @@ export const createSession = /* GraphQL */ `
       }
       shortUrl
       expiry
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  user {
-                    id
-                    email
-                    name
-                    preferred_username
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
       SentOn
       updatedOn
       sessionMailInfoId
       sessionLinkInfoId
-      sessionUserId
       owner
     }
   }

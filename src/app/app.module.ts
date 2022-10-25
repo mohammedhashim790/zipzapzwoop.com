@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import {AppComponent, printer} from './app.component';
-import { HomeComponent } from './Views/home/home.component';
-import { SignInComponent } from './Views/sign-in/sign-in.component';
+import { HomeComponent } from './Views/Desktop/home/home.component';
+import { SignInComponent } from './Views/Desktop/sign-in/sign-in.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -13,28 +13,30 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {OkayCancelComponent} from "./Views/DialogViews/okay-cancel/okay-cancel.component";
 import {MatDialogModule} from "@angular/material/dialog";
-import { SignUpComponent } from './Views/sign-up/sign-up.component';
+import { SignUpComponent } from './Views/Desktop/sign-up/sign-up.component';
 import { VerifyUserComponent } from './Views/DialogViews/verify-user/verify-user.component';
-import { BackdropComponent } from './Views/backdrop/backdrop.component';
-import { TransferSelectComponent } from './Views/TransferViews/transfer-select/transfer-select.component';
-import { TransferVerifyComponent } from './Views/TransferViews/transfer-verify/transfer-verify.component';
-import { TransferUploadComponent } from './Views/TransferViews/transfer-upload/transfer-upload.component';
+import { BackdropComponent } from './Views/Desktop/backdrop/backdrop.component';
+import { TransferSelectComponent } from './Views/Desktop/TransferViews/transfer-select/transfer-select.component';
+import { TransferVerifyComponent } from './Views/Desktop/TransferViews/transfer-verify/transfer-verify.component';
+import { TransferUploadComponent } from './Views/Desktop/TransferViews/transfer-upload/transfer-upload.component';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatChipsModule} from "@angular/material/chips";
 import {Application} from "./Bloc/Application/Application";
-import { RoundPipe } from './Bloc/Pipes/Round/round.pipe';
-import { TransferCompletedComponent } from './Views/TransferViews/transfer-completed/transfer-completed.component';
+import { TransferCompletedComponent } from './Views/Desktop/TransferViews/transfer-completed/transfer-completed.component';
 import { TooltipDirective } from './Bloc/Directives/Tooltip/tooltip.directive';
 import {MatMenuModule} from "@angular/material/menu";
-import { ErrorWindowComponent } from './Views/TransferViews/error-window/error-window.component';
+import { ErrorWindowComponent } from './Views/Desktop/TransferViews/error-window/error-window.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { MemUnitsPipe } from './Bloc/Pipes/MemUnits/mem-units.pipe';
 import {MaterialModuleModule} from "./Views/material-module/material-module.module";
 import {MobileModule} from "./Views/Mobile/mobile.module";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 import {aws_exports} from "../aws-exports";
 import {Amplify, Auth} from "aws-amplify";
 import { WelcomeUserComponent } from './Views/DialogViews/welcome-user/welcome-user.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { TransferDownloadComponent } from './Views/Desktop/TransferViews/transfer-download/transfer-download.component';
+import {PipesModule} from "./Bloc/Pipes/pipes.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 const isLocalhost = Boolean(
@@ -88,33 +90,14 @@ Amplify.configure(updatedAwsConfig);
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    SignInComponent,
-    OkayCancelComponent,
-    SignUpComponent,
-    VerifyUserComponent,
-    BackdropComponent,
-    TransferSelectComponent,
-    TransferVerifyComponent,
-    TransferUploadComponent,
-    RoundPipe,
-    TransferCompletedComponent,
-    TooltipDirective,
-    ErrorWindowComponent,
-    MemUnitsPipe,
-    WelcomeUserComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModuleModule,
-        MobileModule,
-        ClipboardModule
-
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [Application],
   bootstrap: [AppComponent]
 })

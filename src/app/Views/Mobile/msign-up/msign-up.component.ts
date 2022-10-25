@@ -33,6 +33,8 @@ export class MSignUpComponent implements OnInit {
 
 
   constructor(private dialog:MatDialog,private router:Router) {
+    SignOut();
+
   }
 
   ngOnInit(): void {

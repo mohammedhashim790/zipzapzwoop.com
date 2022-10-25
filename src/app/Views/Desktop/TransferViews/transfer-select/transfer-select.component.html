@@ -1,0 +1,214 @@
+
+<div class="transfer-content"
+     Tooltip
+     #filesError="Tooltip"
+     [tooltipAlign]="tooltipParams.tooltipAlign"
+     [tooltipText]="tooltipParams.tooltipText"
+>
+  <ng-container *ngIf="appSession.transferFiles.files.length == 0">
+    <button
+      (click)="CheckFirst()"
+      class="add-file"
+      [matMenuTriggerFor]="menu">
+      <mat-menu #menu>
+        <button mat-flat-button
+                (click)="fileLoader.click()"
+                style="width: 100%;text-align: start">
+          File(s)
+        </button>
+        <button mat-flat-button
+                (click)="folderLoader.click()"
+                style="width: 100%;text-align: start">
+          Folder(s)
+        </button>
+      </mat-menu>
+      <span class="border-button">
+        <mat-icon>add</mat-icon>
+      </span>
+      <span style="text-align: start;flex-direction: column">
+        <a class="link">
+          Select your files
+        </a>
+        <small>
+          Upto {{appSession.transferFiles.FILE_SIZE_LIMIT() | MemUnits}}
+        </small>
+      </span>
+    </button>
+
+  </ng-container>
+
+
+  <input #fileLoader (change)="onFilesSelected($event)" type="file" style="display: none" multiple/>
+  <input #folderLoader (change)="onFolderSelected($event)" type="file" style="display: none" webkitdirectory mozdirectory multiple/>
+
+  <span
+    class="file-list"
+    *ngIf="appSession.transferFiles.files.length>0">
+
+    <span class="file"
+          *ngFor="let file of appSession.transferFiles.files; let index = index">
+      <span class="file-icon">
+        <mat-icon><i class="ph-file"></i></mat-icon>
+      </span>
+      <span class="details">
+        <h3>{{file.name}}</h3>
+        <h6>{{file.size | MemUnits}}</h6>
+      </span>
+      <button style="color: black" matSuffix mat-icon-button (click)="appSession.Remove(index)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </span>
+    <mat-divider style="width: 100%;"></mat-divider>
+
+    <span class="file" style="place-self: baseline">
+      <button
+        [matMenuTriggerFor]="menu"
+        style="place-items: center">
+        <mat-menu #menu>
+        <button mat-flat-button
+                (click)="fileLoader.click()"
+                style="width: 100%;text-align: start">
+          File(s)
+        </button>
+        <button mat-flat-button
+                (click)="folderLoader.click()"
+                style="width: 100%;text-align: start">
+          Folder(s)
+        </button>
+      </mat-menu>
+
+        <span class="border-button" style="transform: scale(0.8)">
+          <mat-icon>add</mat-icon>
+        </span>
+        <span style="text-align: start;flex-direction: column">
+          <a class="link">
+            Add more Files
+          </a>
+          <a class="jasmine-empty">
+            {{appSession.transferFiles.SizeLimitRemaining | MemUnits}} remaining
+          </a>
+        </span>
+      </button>
+    </span>
+  </span>
+
+  <mat-divider style="width: 100%"></mat-divider>
+
+
+  <ng-container
+    @SlideUpDown
+
+    *ngIf="application.appState == AppState.MAIL_SELECT">
+    <span @SlideUpDown class="recipients">
+      <mat-chip-list #chipList [hidden]="appSession.form.recipients.length == 0">
+        <mat-chip *ngFor="let recipient of appSession.form.recipients;let index = index" (removed)="RemoveRecipient(index)">
+          {{recipient}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+    </span>
+
+    <span class="sign-up-input"
+          Tooltip
+          @SlideUpDown
+          #recipientError="Tooltip"
+          tooltipAlign="right"
+    >
+      <input @SlideUpDown id="recipient"
+             placeholder="Recipients"
+             required
+             (keydown.tab)="addToList(appSession.form.recipient,recipientError)"
+             [formControl]="appSession.form.recipient"
+             [matChipInputFor]="chipList"
+             [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="true"
+             (matChipInputTokenEnd)="addToList(appSession.form.recipient,recipientError)">
+      <label for="recipient">Recipients</label>
+
+<!--      <ng-container *ngIf="filteredRecipients!=undefined">-->
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let recipient of filteredRecipients | async" [value]="recipient">
+            {{recipient}}
+          </mat-option>
+        </mat-autocomplete>
+<!--      </ng-container>-->
+
+    </span>
+
+
+    <span class="sign-up-input"
+          @SlideUpDown
+          *ngIf="CurrentUser==undefined;else disabledInput"
+    >
+      <input @SlideUpDown  id="email"
+             #emailInput
+             placeholder="Your Email"
+             [formControl]="appSession.form.fromEmail"
+             matInput
+             required/>
+      <label for="email">Your Email</label>
+    </span>
+
+    <ng-template #disabledInput>
+      <span @SlideUpDown  class="sign-up-label">
+        <label class="value">
+          {{appSession.form.fromEmail.value}}
+        </label>
+        <label class="title">
+          Your Email
+        </label>
+      </span>
+    </ng-template>
+
+  </ng-container>
+
+
+
+  <span class="sign-up-input">
+    <input id="title"
+           [(ngModel)]="appSession.form.title"
+           placeholder="Title"
+           matInput required/>
+    <label for="title">Title</label>
+  </span>
+
+
+  <span class="sign-up-input">
+    <textarea id="message"
+              [(ngModel)]="appSession.form.message"
+              placeholder="Message"
+              matInput required></textarea>
+    <label for="message">Message</label>
+  </span>
+
+</div>
+
+<span class="sign-up-input bottom-actions">
+    <span>
+      <button mat-icon-button
+              (click)=" TestFunction();application.ToggleSelectFilesState()"
+              class="border-button">
+        <mat-icon *ngIf="application.appState == AppState.MAIL_SELECT;else linkSelect">link</mat-icon>
+        <ng-template #linkSelect>
+          <mat-icon>mail</mat-icon>
+        </ng-template>
+<!--        <mat-icon>more_horiz</mat-icon>-->
+      </button>
+    </span>
+    <span>
+      <button mat-flat-button
+              class="app-button"
+              (click)="next()"
+              [disabled]="!FormValid()"
+              style="
+              background: #6AC5AB;
+              border: 2px solid #293F4B;border-radius: 12px">
+        Transfer
+      </button>
+    </span>
+
+  </span>
+

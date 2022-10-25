@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./Views/home/home.component";
-import {SignInComponent} from "./Views/sign-in/sign-in.component";
-import {SignUpComponent} from "./Views/sign-up/sign-up.component";
+import {HomeComponent} from "./Views/Desktop/home/home.component";
+import {SignInComponent} from "./Views/Desktop/sign-in/sign-in.component";
+import {SignUpComponent} from "./Views/Desktop/sign-up/sign-up.component";
 import {MSignInComponent} from "./Views/Mobile/msign-in/msign-in.component";
 import {printer} from "./app.component";
 import {MSignUpComponent} from "./Views/Mobile/msign-up/msign-up.component";
@@ -19,6 +19,11 @@ export const isMobile = () => {
 const DesktopRoutes = [
   {
     path:'',
+
+    component:HomeComponent
+  },
+  {
+    path:'download',
     component:HomeComponent
   },
   {
@@ -51,7 +56,17 @@ const MobileRoutes = [
 
 ]
 
-const routes: Routes = (isMobile())?MobileRoutes:DesktopRoutes;
+const routes: Routes = [
+  {
+    path:'',
+    loadChildren:()=>{
+      if(!isMobile())
+        return import('./Views/Desktop/desktop.module').then(d => d.DesktopModule);
+      else
+        return import('./Views/Mobile/mobile.module').then(m => m.MobileModule);
+    }
+  }
+]
 
 
 

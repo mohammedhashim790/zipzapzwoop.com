@@ -1,77 +1,4 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  createUser(input: $input, condition: $condition) {
-    id
-    email
-    name
-    preferred_username
-    subscriptionPlan {
-      id
-      subscriptionPlansType
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
-      createdAt
-      updatedAt
-      subscriptionPlanUserId
-    }
-    createdAt
-    updatedAt
-    userSubscriptionPlanId
-    owner
-  }
-}
 mutation UpdateUser(
   $input: UpdateUserInput!
   $condition: ModelUserConditionInput
@@ -111,7 +38,9 @@ mutation UpdateUser(
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -120,7 +49,9 @@ mutation UpdateUser(
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -129,7 +60,9 @@ mutation UpdateUser(
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -138,7 +71,9 @@ mutation UpdateUser(
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
@@ -184,7 +119,9 @@ mutation DeleteUser(
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -193,7 +130,9 @@ mutation DeleteUser(
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -202,7 +141,9 @@ mutation DeleteUser(
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -211,84 +152,13 @@ mutation DeleteUser(
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
     owner
-  }
-}
-mutation CreateSubscriptionPlan(
-  $input: CreateSubscriptionPlanInput!
-  $condition: ModelSubscriptionPlanConditionInput
-) {
-  createSubscriptionPlan(input: $input, condition: $condition) {
-    id
-    subscriptionPlansType
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
-    createdAt
-    updatedAt
-    subscriptionPlanUserId
   }
 }
 mutation UpdateSubscriptionPlan(
@@ -327,6 +197,7 @@ mutation UpdateSubscriptionPlan(
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -335,7 +206,9 @@ mutation UpdateSubscriptionPlan(
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -344,7 +217,9 @@ mutation UpdateSubscriptionPlan(
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -353,7 +228,9 @@ mutation UpdateSubscriptionPlan(
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -362,6 +239,7 @@ mutation UpdateSubscriptionPlan(
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
 mutation DeleteSubscriptionPlan(
@@ -400,6 +278,7 @@ mutation DeleteSubscriptionPlan(
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -408,7 +287,9 @@ mutation DeleteSubscriptionPlan(
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -417,7 +298,9 @@ mutation DeleteSubscriptionPlan(
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -426,7 +309,9 @@ mutation DeleteSubscriptionPlan(
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -435,6 +320,7 @@ mutation DeleteSubscriptionPlan(
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
 mutation UpdateSession(
@@ -498,72 +384,10 @@ mutation UpdateSession(
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }
@@ -628,72 +452,10 @@ mutation DeleteSession(
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }
@@ -861,6 +623,168 @@ mutation DeleteBackdrop(
     owner
   }
 }
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    email
+    name
+    preferred_username
+    subscriptionPlan {
+      id
+      subscriptionPlansType
+      user {
+        id
+        email
+        name
+        preferred_username
+        subscriptionPlan {
+          id
+          subscriptionPlansType
+          user {
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              id
+              subscriptionPlansType
+              user {
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  id
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                  owner
+                }
+                subscriptionPlansType
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+              owner
+            }
+            subscriptionPlansType
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+          owner
+        }
+        subscriptionPlansType
+        createdAt
+        updatedAt
+        userSubscriptionPlanId
+        owner
+      }
+      createdAt
+      updatedAt
+      subscriptionPlanUserId
+      owner
+    }
+    subscriptionPlansType
+    createdAt
+    updatedAt
+    userSubscriptionPlanId
+    owner
+  }
+}
+mutation CreateSubscriptionPlan(
+  $input: CreateSubscriptionPlanInput!
+  $condition: ModelSubscriptionPlanConditionInput
+) {
+  createSubscriptionPlan(input: $input, condition: $condition) {
+    id
+    subscriptionPlansType
+    user {
+      id
+      email
+      name
+      preferred_username
+      subscriptionPlan {
+        id
+        subscriptionPlansType
+        user {
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            id
+            subscriptionPlansType
+            user {
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                id
+                subscriptionPlansType
+                user {
+                  id
+                  email
+                  name
+                  preferred_username
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+                owner
+              }
+              subscriptionPlansType
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+            owner
+          }
+          subscriptionPlansType
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+        createdAt
+        updatedAt
+        subscriptionPlanUserId
+        owner
+      }
+      subscriptionPlansType
+      createdAt
+      updatedAt
+      userSubscriptionPlanId
+      owner
+    }
+    createdAt
+    updatedAt
+    subscriptionPlanUserId
+    owner
+  }
+}
 mutation CreateSession(
   $input: CreateSessionInput!
   $condition: ModelSessionConditionInput
@@ -922,72 +846,10 @@ mutation CreateSession(
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }

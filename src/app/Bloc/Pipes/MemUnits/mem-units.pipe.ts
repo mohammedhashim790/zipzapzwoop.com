@@ -7,7 +7,7 @@ import {printer} from "../../../app.component";
 export class MemUnitsPipe implements PipeTransform {
 
   transform(value: number, ...args: unknown[]): string {
-    printer(value);
+    // printer(value);
     if(value>=(1024 ** 2) && value<(1024 ** 3)){
       return `${(value / (1024 ** 2)).toFixed(2)} MB `
     }

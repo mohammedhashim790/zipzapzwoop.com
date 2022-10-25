@@ -35,7 +35,9 @@ subscription OnCreateUser($owner: String) {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -44,7 +46,9 @@ subscription OnCreateUser($owner: String) {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -53,7 +57,9 @@ subscription OnCreateUser($owner: String) {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -62,7 +68,9 @@ subscription OnCreateUser($owner: String) {
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
@@ -105,7 +113,9 @@ subscription OnUpdateUser($owner: String) {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -114,7 +124,9 @@ subscription OnUpdateUser($owner: String) {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -123,7 +135,9 @@ subscription OnUpdateUser($owner: String) {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -132,7 +146,9 @@ subscription OnUpdateUser($owner: String) {
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
@@ -175,7 +191,9 @@ subscription OnDeleteUser($owner: String) {
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -184,7 +202,9 @@ subscription OnDeleteUser($owner: String) {
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -193,7 +213,9 @@ subscription OnDeleteUser($owner: String) {
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -202,15 +224,17 @@ subscription OnDeleteUser($owner: String) {
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
+    subscriptionPlansType
     createdAt
     updatedAt
     userSubscriptionPlanId
     owner
   }
 }
-subscription OnCreateSubscriptionPlan {
-  onCreateSubscriptionPlan {
+subscription OnCreateSubscriptionPlan($owner: String) {
+  onCreateSubscriptionPlan(owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -242,6 +266,7 @@ subscription OnCreateSubscriptionPlan {
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -250,7 +275,9 @@ subscription OnCreateSubscriptionPlan {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -259,7 +286,9 @@ subscription OnCreateSubscriptionPlan {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -268,7 +297,9 @@ subscription OnCreateSubscriptionPlan {
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -277,10 +308,11 @@ subscription OnCreateSubscriptionPlan {
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
-subscription OnUpdateSubscriptionPlan {
-  onUpdateSubscriptionPlan {
+subscription OnUpdateSubscriptionPlan($owner: String) {
+  onUpdateSubscriptionPlan(owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -312,6 +344,7 @@ subscription OnUpdateSubscriptionPlan {
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -320,7 +353,9 @@ subscription OnUpdateSubscriptionPlan {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -329,7 +364,9 @@ subscription OnUpdateSubscriptionPlan {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -338,7 +375,9 @@ subscription OnUpdateSubscriptionPlan {
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -347,10 +386,11 @@ subscription OnUpdateSubscriptionPlan {
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
-subscription OnDeleteSubscriptionPlan {
-  onDeleteSubscriptionPlan {
+subscription OnDeleteSubscriptionPlan($owner: String) {
+  onDeleteSubscriptionPlan(owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -382,6 +422,7 @@ subscription OnDeleteSubscriptionPlan {
                   email
                   name
                   preferred_username
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -390,7 +431,9 @@ subscription OnDeleteSubscriptionPlan {
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -399,7 +442,9 @@ subscription OnDeleteSubscriptionPlan {
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -408,7 +453,9 @@ subscription OnDeleteSubscriptionPlan {
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -417,6 +464,7 @@ subscription OnDeleteSubscriptionPlan {
     createdAt
     updatedAt
     subscriptionPlanUserId
+    owner
   }
 }
 subscription OnCreateRecipients($owner: String) {
@@ -504,72 +552,10 @@ subscription OnCreateSession($owner: String) {
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }
@@ -631,72 +617,10 @@ subscription OnUpdateSession($owner: String) {
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }
@@ -758,72 +682,10 @@ subscription OnDeleteSession($owner: String) {
     }
     shortUrl
     expiry
-    user {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
     SentOn
     updatedOn
     sessionMailInfoId
     sessionLinkInfoId
-    sessionUserId
     owner
   }
 }

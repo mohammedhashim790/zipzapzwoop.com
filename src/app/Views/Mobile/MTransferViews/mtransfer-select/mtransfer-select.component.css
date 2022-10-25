@@ -1,0 +1,114 @@
+*{
+  position: relative;
+  display: flex;
+
+}
+
+
+:host{
+  width: 100%;
+  height: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  /*justify-content: center;*/
+  /*background-color: #2196F3;*/
+  padding: 2% 0;
+}
+
+.options{
+  width: 90%;
+  height: auto;
+  flex-direction: column;
+  /*margin: 2%;*/
+}
+
+.options .option{
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  background-color: white;
+  padding: 3%;
+  font-size: 1.1em;
+}
+.options .option label {
+  width: 100%;
+}
+
+.options .option input[type="radio"]{
+  background-color: #A65574;
+  color: #A65574;
+  margin: 0 2%;
+}
+
+
+.file-select-container{
+  width: 95%;
+  height: 100%;
+  /*background-color: #C4C4C4;*/
+  margin: 2% auto;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: clip;
+
+}
+.file-select-container .select-file-input{
+  display: none;
+}
+
+.file-select-container .file-item{
+  width: 96%;
+  padding: 4%;
+  min-height: 2em;
+  height: max-content;
+  /*background-color: #504f6d;*/
+  flex-direction: row;
+}
+.file-select-container .file-item:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  border-bottom: 1px solid slategray;
+}
+
+.file-select-container .file-item .item{
+  width: 90%;
+  flex-direction: column;
+  text-align: start;
+  overflow: clip;
+  word-wrap: unset;
+  height: max-content;
+
+}
+.file-select-container .file-item .item label:first-child{
+  /*height: 90%;*/
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-select-container .file-item span{
+  width: 10%;
+}
+
+.file-select-container .select-button{
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  place-items: center;
+}
+::ng-deep .mat-button-wrapper {
+  width: 100%;
+  justify-content: center;
+  place-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.file-select-container .select-button mat-icon{
+  width: 100%;
+  height: 100%;
+  font-size: 14em;
+}

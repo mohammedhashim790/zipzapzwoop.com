@@ -1,0 +1,121 @@
+
+  <div #z3DropZone id="z3-drop-zone"
+       (drop)="onDrop($event)"
+       (dragenter)="onDragEnter($event)"
+       (dragover)="onDragOver($event)"
+       (dragleave)="onDragLeave($event)">
+    <span>
+      Drop your files here.
+    </span>
+  </div>
+
+
+  <backdrop></backdrop>
+
+  <nav>
+    <span>
+      <a href="">
+        <img src="../../../../assets/icons/ic_app_logo.png">
+      </a>
+    </span>
+    <span style="flex-direction: row-reverse">
+      <a routerLink="/auth" class="link nav-link" *ngIf="SignedIn == undefined;else profile" >
+        Log In
+      </a>
+      <ng-template #profile>
+        <a class="link nav-link" (click)="SignOut()">
+          Sign out
+        </a>
+      </ng-template>
+      <a class="link nav-link" href="https://stories.zipzapzwoop.com" target="_blank">
+        Stories
+      </a>
+      <a class="link nav-link" href="https://we.zipzapzwoop.com/terms" target="_blank">
+        Terms & Conditions
+      </a>
+      <a class="link nav-link" href="https://we.zipzapzwoop.com/privacy" target="_blank">
+        Privacy
+      </a>
+      <a class="link nav-link" href="https://we.zipzapzwoop.com" target="_blank">
+        About
+      </a>
+<!--      <a class="link nav-link" (click)="TestClick()">-->
+<!--        Test-->
+<!--      </a>-->
+
+
+    </span>
+  </nav>
+
+  <div class="prime-window"
+       Tooltip
+       #filesError="Tooltip"
+
+
+       [tooltipAlign]="tooltipParams.tooltipAlign"
+       [tooltipText]="tooltipParams.tooltipText">
+    <transfer-select
+      *ngIf="application.appState == AppState.MAIL_SELECT || application.appState == AppState.LINK_SELECT">
+
+    </transfer-select>
+
+
+    <transfer-verify *ngIf="application.appState == AppState.MAIL_VERIFY">
+
+    </transfer-verify>
+
+
+    <transfer-upload *ngIf="application.appState == AppState.UPLOAD">
+
+    </transfer-upload>
+
+
+    <transfer-completed *ngIf="application.appState == AppState.TRANSFER_SENT">
+
+    </transfer-completed >
+
+
+    <transfer-download *ngIf="application.appState == AppState.TRANSFER_DOWNLOAD">
+
+    </transfer-download>
+
+
+    <error-window *ngIf="application.appState == AppState.ERROR">
+
+    </error-window>
+
+  </div>
+
+
+<span class="ad-container bottom">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"
+          crossorigin="anonymous"></script>
+  <!-- AppUnit 1 -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4695651265515059"
+       data-ad-slot="2707698747"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</span>
+
+<span class="ad-container right">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"
+          crossorigin="anonymous"></script>
+  <!-- AppUnit 1 -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4695651265515059"
+       data-ad-slot="2707698747"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</span>
+
+
+
