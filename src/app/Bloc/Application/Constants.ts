@@ -179,11 +179,12 @@ export const AppAnimations = [
 
 
 export var banners:Array<string> = [
+  "../../../../assets/backdrops/offer/backdrop.html",
+
   // "../../../../assets/backdrops/about/backdrop.html",
   "../../../../assets/backdrops/backdrop-1/backdrop.html",
   "../../../../assets/backdrops/backdrop-2/backdrop.html",
   "../../../../assets/backdrops/stories/backdrop.html",
-  "../../../../assets/backdrops/offer/backdrop.html",
 ]
 
 export var promotionStyles = "width: calc(100% - calc(360px + 5em));" +

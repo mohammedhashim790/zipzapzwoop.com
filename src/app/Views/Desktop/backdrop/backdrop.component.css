@@ -75,16 +75,35 @@ iframe{
   width: 100%;
   height: 100%;
   /*opacity: 0;*/
-
+  transition: opacity 500ms ease-in;
+  -webkit-transition: opacity 500ms ease-in;
+  -ms-transition: opacity 500ms ease-in;
+  -o-transition: opacity 500ms ease-in;
 }
 
 .wallpaper-container-enter{
   animation: open 500ms ease-in forwards;
+  -webkit-animation: open 500ms ease-in forwards;
+  -o-animation: open 500ms ease-in forwards;
+  /*opacity: 0;*/
+
+  /*transition: opacity 500ms ease-in;*/
+  /*-webkit-transition: opacity 500ms ease-in;*/
+  /*-ms-transition: opacity 500ms ease-in;*/
+  /*-o-transition: opacity 500ms ease-in;*/
+
 }
 
 .wallpaper-container-exit{
-  opacity: 0 !important;
-  transition: opacity 500ms ease-in;
+  /*opacity: 0 !important;*/
+  /*transition: opacity 500ms ease-in;*/
+  /*-webkit-transition: opacity 500ms ease-in;*/
+  /*-ms-transition: opacity 500ms ease-in;*/
+  /*-o-transition: opacity 500ms ease-in;*/
+
+  animation: reverseOpen 500ms ease-in forwards;
+  -webkit-animation: reverseOpen 500ms ease-in forwards;
+  -o-animation: reverseOpen 500ms ease-in forwards;
 
 }
 
@@ -96,6 +115,36 @@ iframe{
     opacity: 1;
   }
 }
+@-webkit-keyframes open {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+
+@keyframes reverseOpen {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+@-webkit-keyframes reverseOpen {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+
+
+
 
 .drag-zone{
   width: 100%;

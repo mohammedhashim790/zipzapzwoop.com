@@ -6,9 +6,14 @@ import {AWSError, Lambda} from "aws-sdk";
 import {aws_exports} from "../aws-exports";
 import {AppAnimations, z3Session} from "./Bloc/Application/Constants";
 import ShortUniqueId from "short-unique-id";
+import {environment} from "../environments/environment";
+import {NavigationEnd, Router} from "@angular/router";
+import {filter} from "rxjs";
 
 
-export var printer = console.log;
+export var printer = (environment.production)?()=>{}:console.log;
+
+declare const gtag: Function;
 
 export interface IAppBrowserStorage{
   key:string;
@@ -48,7 +53,7 @@ export class AppComponent {
   // private awsLambda: Lambda;
   ShowTnC: boolean = false;
 
-  constructor() {
+  constructor(private router:Router) {
 
     this.SetBrowserCache();
 
@@ -69,10 +74,24 @@ export class AppComponent {
       // document.body.style.maxWidth = window.innerWidth + "px";
     }
 
+
+    this.ListenRoutingEvents();
+
   }
 
 
 
+  private ListenRoutingEvents(){
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event)=>{
+      if(event instanceof NavigationEnd)
+        gtag('event', 'page_view', {
+          page_path: event.urlAfterRedirects
+        })
+    });
+
+  }
 
   async SetBrowserCache(){
     let firstTime = window.localStorage.getItem(z3Session);

@@ -30,13 +30,13 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
   public count:number = 0;
 
-  timer:number = 2000 * 10;
+  timer:number = 1000 * 10;
   private interval!: NodeJS.Timeout;
   public _src: string = banners[this.count];
   private adContainer!: HTMLIFrameElement;
 
   private wallPaperContainer!:HTMLDivElement;
-  private currentFrameOnDisplay!: HTMLIFrameElement;
+  // private currentFrameOnDisplay!: HTMLIFrameElement;
 
   get src(){
     return this.sanitize.bypassSecurityTrustResourceUrl(banners[this.count]);
@@ -92,13 +92,33 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
     //Sets Control to drop as well as pointer events in IFrame
 
-    this.wallPaperContainer.addEventListener('transitionend',()=>{
+    // this.wallPaperContainer.addEventListener('transitionend',()=>{
+    //
+    //   printer("Transition End");
+    //   // this.currentFrameOnDisplay.remove();
+    //   this.addFrame();
+    //
+    // },false);
+    //
+    // this.wallPaperContainer.addEventListener('webkitTransitionEnd',()=>{
+    //
+    //   printer("Transition End");
+    //   // this.currentFrameOnDisplay.remove();
+    //   this.addFrame();
+    //
+    // },false);
+    //
+    // this.wallPaperContainer.addEventListener('mozTransitionEnd',()=>{
+    //
+    //   printer("Transition End");
+    //   // this.currentFrameOnDisplay.remove();
+    //   this.addFrame();
+    //
+    // },false);
 
-      printer("Transition End");
-      // this.currentFrameOnDisplay.remove();
-      this.addFrame();
 
-    });
+
+
 
     this.addFrame();
 
@@ -115,17 +135,23 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
       this.wallPaperContainer.innerHTML = '';
     }
 
+    printer("Action -Add ");
+    printer(this.wallPaperContainer)
+
     this.wallPaperContainer.classList.remove("wallpaper-container-exit");
     this.wallPaperContainer.classList.add("wallpaper-container-enter");
 
 
-    this.currentFrameOnDisplay = this.getFrame();
+    let frameElement = this.getFrame();
 
-    this.wallPaperContainer.appendChild(this.currentFrameOnDisplay);
+    printer("frame Element");
+    printer(frameElement);
+
+    this.wallPaperContainer.appendChild(frameElement);
 
 
     this.dropZone = document!.getElementById("z3-drop-zone");
-    let frame = document.getElementById("ad-container") as HTMLIFrameElement;
+    let frame = frameElement as HTMLIFrameElement;
     let iframe = frame.contentWindow;
     this.adContainer = frame;
     this.adContainer.src = banners[this.count];
@@ -157,15 +183,15 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
   RemoveFrame(){
     printer("Action : Removing Latest Child");
-    if(this.currentFrameOnDisplay==undefined){
-      if(this.wallPaperContainer.children.length == 0){
-        return;
-      }
-      this.currentFrameOnDisplay = this.wallPaperContainer.children.namedItem("ad-container") as HTMLIFrameElement;
-    }
+    printer("Action -Remove ");
 
     this.wallPaperContainer.classList.add("wallpaper-container-exit");
     this.wallPaperContainer.classList.remove("wallpaper-container-enter")
+
+    timer(3000).toPromise().then((res)=>{
+      printer("Adding Frames");
+      this.addFrame();
+    });
 
 
   }
@@ -175,7 +201,7 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
     frame.src = banners[this.count];
 
-    frame.id = "ad-container";
+    frame.id = "ad-container-"+ new Date();
     frame.width='100%';
     frame.height='100%';
     frame.classList.add('wallpaper-container-iframe');
