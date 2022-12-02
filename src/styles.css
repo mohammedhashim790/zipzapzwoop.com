@@ -12,7 +12,7 @@ html,body{
   min-width: 700px;
   height: 100%;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #z3-drop-zone{
