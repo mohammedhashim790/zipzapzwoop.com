@@ -12,7 +12,9 @@ html,body{
   min-width: 700px;
   height: 100%;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden !important;
+  /*background: black;*/
+  /*padding: unset !important;*/
 }
 
 #z3-drop-zone{
@@ -33,7 +35,7 @@ html,body{
 }
 
 
-.backdrop{
+.backdrop-image{
   position: absolute !important;
   top: 50%;
   left: 50%;
@@ -47,6 +49,7 @@ html,body{
 button{
   background: none;
   border: none;
+  cursor: pointer;
 }
 nav{
   margin: auto;
@@ -68,6 +71,8 @@ nav > *{
   /*background: rebeccapurple;*/
   display: flex;
   flex-direction: row;
+  place-items: center;
+
 }
 
 
@@ -427,6 +432,7 @@ mat-divider{
 @media screen and (max-width: 500px){
   html,body{
     background-color: white;
+    overflow-y: auto;
   }
 
   nav > *{
@@ -472,6 +478,9 @@ mat-divider{
   .terms-and-conditions .actions{
     width: 100% !important;
   }
+  .tiny-ad-container{
+    display: none !important;
+  }
 
 }
 
@@ -481,26 +490,38 @@ mat-divider{
 
 
 
-.ad-container{
-  position: absolute;
-  width: 100%;
-  min-height: 50px;
-  /*max-height: 100px;*/
-  height: max-content;
-  display: block;
+.tiny-ad-container{
+  /*position: absolute;*/
+  /*width: 300px;*/
+  /*height: 300px;*/
+  top: 50%;
+  transform: translateY(-50%);
+
   /*background-color: #A65574;*/
-  z-index: -99;
+  /*z-index: -99;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*place-items: center;*/
+
+
+  right: 0;
+
+  float: right;
+  position: fixed;
+  display: block;
+
+
 }
 .bottom{
   right: 0;
   bottom: 0;
 }
 .right{
-  right: 0;
-  top: 0;
-  height: 100%;
-  min-width: 50px;
-  width: max-content;
+  display: inline-block;
+  width: 300px;
+  height: 70%;
+  /*min-width: 50px;*/
+  /*width: max-content;*/
 }
 
 

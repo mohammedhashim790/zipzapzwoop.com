@@ -82,7 +82,7 @@ mat-form-field {
   background-color: #B14048 ;
 }
 
-.backdrop{
+.backdrop-image{
   /*min-width: 700px;*/
   min-height: 496px;
   height: auto;
@@ -92,7 +92,7 @@ mat-form-field {
   transform: translateX(-50%);
 }
 
-.backdrop .laptop-screen{
+.backdrop-image .laptop-screen{
   width: 95%;
   height: 100%;
   display: flex;
@@ -103,7 +103,7 @@ mat-form-field {
   /*padding: 1em;*/
 }
 
-.backdrop .laptop-screen .display{
+.backdrop-image .laptop-screen .display{
   width: 100%;
   /*height: 90%;*/
   display: flex;
@@ -113,27 +113,27 @@ mat-form-field {
   margin: 1em;
   place-items: center;
 }
-.backdrop .laptop-screen .display img{
+.backdrop-image .laptop-screen .display img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.backdrop .laptop-screen .user-icon{
+.backdrop-image .laptop-screen .user-icon{
   position: absolute;
   right: -25%;
   top: -55%;
   width: 350px;
 }
 
-.backdrop .laptop-screen .user-icon img{
+.backdrop-image .laptop-screen .user-icon img{
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.backdrop .laptop-screen .base{
+.backdrop-image .laptop-screen .base{
   position: absolute;
   bottom: -25px;
   width: 110%;
@@ -144,7 +144,7 @@ mat-form-field {
   /*min-height: 20px;*/
   left: -5%;
 }
-.backdrop .laptop-screen .base img{
+.backdrop-image .laptop-screen .base img{
   width: 100%;
 }
 

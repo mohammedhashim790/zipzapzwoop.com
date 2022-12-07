@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Application} from "../../../../Bloc/Application/Application";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'error-window',
@@ -8,12 +9,19 @@ import {Application} from "../../../../Bloc/Application/Application";
 })
 export class ErrorWindowComponent implements OnInit {
 
-  constructor(public application:Application) { }
+  constructor(
+    public application:Application,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   Reload() {
-    location.reload();
+    this.router.navigateByUrl('').then(()=>{
+      location.reload();
+    });
+
+
   }
 }

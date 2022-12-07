@@ -34,6 +34,9 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
   public error: Errors | undefined;
   Errors = Errors;
 
+
+  downloadStarted = false;
+
   get title(){
     if(this.isLink){
       return this.sessionData.linkInfo?.Title ?? '';
@@ -131,6 +134,7 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
   public DownloadTransfer(){
     try{
       let id = this.sessionData.id;
+      this.downloadStarted = true;
       if(this.sessionData.files!.length>1) {
         printer("Now Downloading");
         printer(environment.downloadUrl + "/" + id);
@@ -150,10 +154,15 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
         element.click();
       }
 
+      this.downloadStarted = false;
+
 
     }catch (e){
       printer(e);
-      // this.application.ErrorSlide();
+      this.downloadStarted = false;
+      this.application.ErrorSlide();
+    }finally {
+      this.downloadStarted = false;
     }
 
   }

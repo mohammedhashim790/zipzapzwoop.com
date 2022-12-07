@@ -14,6 +14,7 @@ import {TransferVerifyComponent} from "../Desktop/TransferViews/transfer-verify/
 import {TransferCompletedComponent} from "../Desktop/TransferViews/transfer-completed/transfer-completed.component";
 import {TransferDownloadComponent} from "../Desktop/TransferViews/transfer-download/transfer-download.component";
 import {MLandingComponent} from "./mlanding/mlanding.component";
+import {ErrorWindowComponent} from "../Desktop/TransferViews/error-window/error-window.component";
 
 const routes: Routes = [
   {
@@ -62,6 +63,13 @@ const routes: Routes = [
     path:'welcome',
     component:WelcomeUserComponent
   },
+  {
+    path:'error',
+    component:ErrorWindowComponent
+  },
+  { path: '404', redirectTo:'' },
+  { path: '**', redirectTo:'' }
+
 ];
 
 @NgModule({

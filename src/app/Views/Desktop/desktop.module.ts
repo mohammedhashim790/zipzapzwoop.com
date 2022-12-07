@@ -26,6 +26,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {PipesModule} from "../../Bloc/Pipes/pipes.module";
 import {Application} from "../../Bloc/Application/Application";
 import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
+import { ProfileComponent } from './TransferViews/profile/profile.component';
+import {MatListModule} from "@angular/material/list";
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
         ErrorWindowComponent,
         WelcomeUserComponent,
         TransferDownloadComponent,
-      IfChangesDirective
+      IfChangesDirective,
+      ProfileComponent
     ],
     imports: [
         CommonModule,
@@ -54,7 +57,8 @@ import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
         MaterialModuleModule,
         ClipboardModule,
         MatAutocompleteModule,
-        PipesModule
+        PipesModule,
+        MatListModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [Application],

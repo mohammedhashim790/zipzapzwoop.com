@@ -4,10 +4,11 @@ import {Application} from "../../../Bloc/Application/Application";
 import {printer} from "../../../app.component";
 import {ApplicationHelper} from "../../../Bloc/Application/ApplicationHelper";
 import {TooltipDirective, TooltipParams} from "../../../Bloc/Directives/Tooltip/tooltip.directive";
-import {getCurrentUser, SignOut} from "../../../Bloc/Signer/SignInHelper";
+import {getCurrentUser, getUserInitials, SignOut} from "../../../Bloc/Signer/SignInHelper";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import {getUser} from "../../../../graphql/queries";
 
 @Component({
   selector: 'app-home',
@@ -105,6 +106,9 @@ export class HomeComponent extends ApplicationHelper implements OnInit {
 
 
   AppState = AppState;
+  get UserInitials(){
+    return getUserInitials();
+  }
 
   constructor(
     private elementRef:ElementRef,

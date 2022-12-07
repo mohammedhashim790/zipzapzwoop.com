@@ -80,6 +80,7 @@
 <span class="validate-button-container">
 
   <button mat-flat-button
+          [disabled]="appSession.transferFiles.files.length == 0"
           class="app-button"
           (click)="Next()"
           style="

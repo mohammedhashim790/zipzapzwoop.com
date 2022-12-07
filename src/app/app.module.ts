@@ -105,4 +105,13 @@ Amplify.configure(updatedAwsConfig);
 export class AppModule {
 
 
+  constructor() {
+    let hostname = window.location.href;
+
+    if(hostname.includes("www.")){
+      let url = "https://" + hostname.split("www.").pop()
+      window.open(url,"_self");
+    }
+  }
+
 }

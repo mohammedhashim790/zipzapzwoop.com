@@ -56,6 +56,7 @@ export class MTransferSelectComponent extends ApplicationHelper implements OnIni
   }
 
   Next() {
-    this.router.navigateByUrl('option')
+    if(this.appSession.transferFiles.files.length!=0)
+      this.router.navigateByUrl('option')
   }
 }

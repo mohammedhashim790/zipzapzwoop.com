@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
+import {ProfileComponent} from "./TransferViews/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
     path:'sign-up',
     component:SignUpComponent
   },
+  {
+    path:'profile',
+    component:ProfileComponent
+  },
+  { path: '404', redirectTo:'' },
+  { path: '**', redirectTo:'' }
 ];;
 
 @NgModule({

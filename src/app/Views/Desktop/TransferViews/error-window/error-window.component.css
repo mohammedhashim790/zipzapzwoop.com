@@ -30,3 +30,19 @@
   overflow: clip;
   box-shadow: 0 0 0.3em black;
 }
+
+@media screen and (max-width: 500px){
+  :host{
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+  .content{
+    height: max-content !important;
+    max-height: 80% !important;
+    margin: auto;
+  }
+  .error-container{
+    justify-content: space-evenly;
+  }
+}
+

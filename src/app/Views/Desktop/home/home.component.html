@@ -24,9 +24,28 @@
       Log In
     </a>
     <ng-template #profile>
-      <a class="link nav-link" (click)="SignOut()">
-        Sign out
+      <a class="link nav-link">
+        <button mat-icon-button
+                [matMenuTriggerFor]="menu"
+                class="profile-button">
+          {{UserInitials}}
+        </button>
       </a>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/profile" class="profile-button-menu">
+          <mat-icon>supervised_user_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="SignOut()" class="profile-button-menu">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+
+<!--      <a class="link nav-link" (click)="SignOut()">-->
+<!--        Sign out-->
+<!--      </a>-->
+<!--      -->
     </ng-template>
     <a class="link nav-link" href="https://stories.zipzapzwoop.com" target="_blank">
       Stories
@@ -87,20 +106,5 @@
 
 </div>
 
-
-<span class="ad-container bottom">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"
-          crossorigin="anonymous"></script>
-  <!-- AppUnit 1 -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-4695651265515059"
-       data-ad-slot="2707698747"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</span>
 
 

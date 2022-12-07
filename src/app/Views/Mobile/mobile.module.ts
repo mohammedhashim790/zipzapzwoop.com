@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MSignInComponent} from './msign-in/msign-in.component';
 import {MaterialModuleModule} from "../material-module/material-module.module";
-import {AppComponent} from "../../app.component";
+import {AppComponent, printer} from "../../app.component";
 import {MSignUpComponent} from './msign-up/msign-up.component';
 import {AppRoutingModule} from "../../app-routing.module";
 import {MHomeComponent} from './mhome/mhome.component';
@@ -24,6 +24,8 @@ import {MobileRoutingModule} from "./mobile-routing.module";
 import {DesktopModule} from "../Desktop/desktop.module";
 import { MTransferOptionSelectComponent } from './MTransferViews/mtransfer-option-select/mtransfer-option-select.component';
 import { MLandingComponent } from './mlanding/mlanding.component';
+import {ActivatedRoute, Router} from "@angular/router";
+import {Session} from "../../Bloc/Application/Session";
 
 
 @NgModule({
@@ -54,10 +56,22 @@ import { MLandingComponent } from './mlanding/mlanding.component';
 })
 export class MobileModule {
 
+  private appSession = Session.GetInstance();
+
   constructor(
-    private application:Application
+    private application:Application,
+    private router:Router,
+    private routerParams:ActivatedRoute
   ) {
     this.application.appState = AppState.SELECT_FILES;
+
+    // printer("Url");
+    // printer(this.router.url);
+    // printer(this.appSession.transferFiles.files.length);
+    // printer(this.appSession.transferFiles.files.length == 0 && this.router.url!='/')
+    // if(this.appSession.transferFiles.files.length == 0 && this.router.url!='/'){
+    //   this.router.navigateByUrl('')
+    // }
   }
 
 }

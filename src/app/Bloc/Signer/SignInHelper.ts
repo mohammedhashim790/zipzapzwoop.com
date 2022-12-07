@@ -1,7 +1,7 @@
 import {Auth, Hub} from "aws-amplify";
 import {SignUpParams} from "@aws-amplify/auth/src/types";
 import {printer} from "../../app.component";
-import {CognitoUser, ISignUpResult} from "amazon-cognito-identity-js";
+import {CognitoUser, CognitoUserAttribute, ISignUpResult} from "amazon-cognito-identity-js";
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import API from "@aws-amplify/api-graphql";
 import {createUser} from "../../../graphql/mutations";
@@ -19,6 +19,27 @@ var currentAuthenticatedUser: CognitoUser |undefined;
 export var getCurrentUser = () =>{
   return currentAuthenticatedUser;
 }
+
+export var getUserInitials = () =>{
+  if(getCurrentUser()!=undefined){
+    var name = (getCurrentUser() as any)['attributes']['name'] as string;
+    return name.split(" ").reverse().reduce((previousValue,currentValue,index)=>{
+      if(index == 0){
+        return previousValue[0] + currentValue[0];
+      }
+      if(index>1){
+        return previousValue;
+      }
+      return previousValue + currentValue[0];
+    }," ").split("").reverse().join("");
+  }
+  return "";
+}
+
+
+
+
+
 
 
 export var setCurrentUser = async () => {
@@ -45,8 +66,11 @@ export var setCurrentUser = async () => {
       .currentAuthenticatedUser()
       .then((res) => {
         currentAuthenticatedUser = res;
-        printer("User Signed is as" + res);
+        printer("User Signed is as");
         printer(res);
+
+
+        // setCurrentUserAttributes();
 
         resolve(currentAuthenticatedUser);
 
