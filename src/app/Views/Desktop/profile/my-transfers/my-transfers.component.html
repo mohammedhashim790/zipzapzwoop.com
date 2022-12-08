@@ -1,0 +1,189 @@
+<header class="header-title">
+  My Transfer
+</header>
+<mat-divider></mat-divider>
+
+<div class="container">
+
+  <div class="axqbh1">
+    <span class="search-bar">
+      <input placeholder="Search...">
+    </span>
+    <ng-container *ngIf="sessions!=undefined;else skeletonLoader">
+      <button mat-button *ngFor="let session of sessions" (click)="onSelected(session)">
+        <span class="axqbh2">
+          <div>
+            <span class="icon">
+              <mat-icon *ngIf="session.mailInfo == null;else mailIcon">link</mat-icon>
+              <ng-template #mailIcon>
+                <mat-icon>mail</mat-icon>
+              </ng-template>
+            </span>
+          </div>
+          <div>
+            <span class="recipients">
+              {{session.mailInfo == null?session.linkInfo?.Title:session.mailInfo?.Title | NonNullableText:'Empty_Title'}}
+            </span>
+            <span class="recipient-message">
+              {{session.mailInfo == null?session.linkInfo?.Message:session.mailInfo?.Message | NonNullableText:'Empty_Message'}}
+            </span>
+          </div>
+        </span>
+        <mat-divider></mat-divider>
+
+      </button>
+    </ng-container>
+    <ng-template #skeletonLoader>
+      <button mat-button *ngFor="let _ of range(10)">
+        <span class="axqbh2 skeleton-load">
+          <div>
+            <span class="icon">
+            </span>
+          </div>
+          <div>
+            <span class="recipients">
+              Recipient
+            </span>
+            <span class="recipient-message">
+              message
+            </span>
+          </div>
+        </span>
+        <mat-divider></mat-divider>
+      </button>
+    </ng-template>
+
+  </div>
+
+  <div class="bqauc1" *ngIf="sessionOnView!=undefined">
+    <span class="axqbh2 header">
+      <div style="width: max-content">
+        <span class="icon">
+          <mat-icon *ngIf="sessionOnView.mailInfo == null;else mailIcon">link</mat-icon>
+          <ng-template #mailIcon>
+            <mat-icon>mail</mat-icon>
+          </ng-template>
+        </span>
+      </div>
+<!--      <div *ngIf="sessionOnView!=undefined && sessionOnView.mailInfo!=undefined && sessionOnView.mailInfo!=null;else linkDetails">-->
+<!--        <span class="recipients">-->
+<!--          Recipient-->
+<!--        </span>-->
+<!--        <span style="padding-left: 2%">-->
+<!--          <small class="dull">-->
+<!--            to 'recipients'-->
+<!--          </small>-->
+<!--        </span>-->
+<!--      </div>-->
+
+<!--      <ng-template #linkDetails>-->
+        <div>
+          <span class="recipients">
+            {{LinkTransfer?sessionOnView.linkInfo?.Title:sessionOnView.mailInfo?.Title | NonNullableText:'Empty_Title' }}
+          </span>
+          <span style="padding-left: 2%">
+            <small class="dull">
+              {{LinkTransfer?'Link Created on':'Sent on'}} {{sessionOnView.SentOn | date:'medium'}}
+            </small>
+          </span>
+        </div>
+<!--      </ng-template>-->
+      <div
+        class="session-actions">
+        <button
+          matTooltip="Copy Link"
+          mat-icon-button>
+          <mat-icon>link</mat-icon>
+        </button>
+        <button
+          matTooltip="Info"
+          [matMenuTriggerFor]="infoMenu"
+          mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+        <mat-menu #infoMenu xPosition="before" yPosition="below">
+          <span class="info-body">
+            <table>
+              <tr>
+                <td style="justify-content: center;flex-direction: column;place-items: center">
+                  <span class="expiry-length">
+                    !
+                  </span>
+                  <small class="dull">
+                    Expires on Date
+                  </small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small class="dull">
+                    {{LinkTransfer?'Created':'Sent'}}
+                  </small>
+                </td>
+                <td>
+                  <small class="dull">{{sessionOnView.SentOn | date:'medium'}}</small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <small class="dull">
+                    Link
+                  </small>
+                </td>
+                <td>
+                  <small class="dull" style="color: blue;text-decoration: underline">
+                    <a style="display: flex;place-items: baseline;">
+                      open<mat-icon style="width: 15px;height: 15px;font-size: 12px">open_in_new</mat-icon>
+                    </a>
+                  </small>
+                </td>
+              </tr>
+            </table>
+          </span>
+        </mat-menu>
+      </div>
+
+    </span>
+    <span class="content" style="flex-direction: column">
+      <h2>
+        {{LinkTransfer?sessionOnView.linkInfo?.Title:sessionOnView.mailInfo?.Title | NonNullableText:'Empty_Title'}}
+      </h2>
+      <p style="font-weight: normal">
+        {{LinkTransfer?sessionOnView.linkInfo?.Message:sessionOnView.mailInfo?.Message | NonNullableText:'Empty_Message'}}
+      </p>
+      <span style="margin: 4% auto;height:1px;width: 100%;background-color: #c9c9c9;"></span>
+      <h3>
+        Files
+      </h3>
+      <small class="dull">
+        {{sessionOnView.files?.length ?? 0}} files ,{{toNumber(sessionOnView.fileSize) | MemUnits}}
+      </small>
+      <span style="margin: 4% auto;height:1px;width: 100%;background-color: #c9c9c9;"></span>
+      <span class="content grid-view" style="flex-direction: column">
+        <span class="my-transfer-attachment-viewer" *ngFor="let file of sessionOnViewFiles">
+
+          <img *ngIf="fileIcon(file);else fileIconShow" [src]="SrcUrl(file)" loading="lazy"/>
+          <ng-template #fileIconShow>
+            <mat-icon><i class="ph-file-cloud"></i></mat-icon>
+          </ng-template>
+          <span class="_content">
+            <small class="header">
+              {{file!.key | ShortifyText}}
+            </small>
+            <span class="details">
+              <small>
+                {{toNumber(file!.size ?? 0) | MemUnits}}
+              </small>
+              <small>
+                {{fileExtension(file) ?? ''}}
+              </small>
+            </span>
+          </span>
+        </span>
+      </span>
+      <small *ngIf="sessionOnView!=undefined && sessionOnView.files!.length>18" style="color: darkred">
+        Limiting Files to 18 numbers to avoid rendering.
+      </small>
+    </span>
+  </div>
+</div>

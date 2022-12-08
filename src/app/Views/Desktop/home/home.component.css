@@ -26,27 +26,6 @@
   overflow-y: auto;
 }
 
-.profile-button{
-  width: 3em;
-  height: 3em;
-  border: 4px white solid;
-  border-radius: 50%;
-  background: linear-gradient(to right,darkslateblue,violet);
-  display: flex;
-  justify-content: center;
-  place-items: center;
-  box-shadow: 0 0 10px 2px slategray;
-
-  color: white;
-  /*MAX COMPATIBILITY*/
-  background: rgb(189,150,255);
-  background: -moz-linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
-  background: -webkit-linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
-  background: linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bd96ff",endColorstr="#002349",GradientType=1);
-
-}
-
 .profile-button-menu{
   width: 100%;
   display: flex;

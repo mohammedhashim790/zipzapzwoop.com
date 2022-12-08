@@ -5,5 +5,6 @@ export const environment = {
   emailApi:"https://4vtoog5dbr2det7orjapfxjyvi0qbygl.lambda-url.ap-south-1.on.aws/",
   we:"https://we.zipzapzwoop.com/",
   linkTransfer:"z3transfer.com",
-  stories:"stories.zipzapzwoop.com"
+  stories:"stories.zipzapzwoop.com",
+  media:"https://media.zipzapzwoop.com/"
 };

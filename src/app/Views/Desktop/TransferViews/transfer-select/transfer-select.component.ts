@@ -51,7 +51,6 @@ export class TransferSelectComponent extends ApplicationHelper implements OnInit
     private api:APIService
   ) {
     super();
-
     this.api.ListMailInfos().then((res)=>{
       this.SelectRecipients(res.items);
     }).catch((err)=>{

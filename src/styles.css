@@ -88,6 +88,13 @@ nav > *{
   margin: 0 1em;
 }
 
+
+.dark-mode{
+  color: white !important;
+  background: #2F2F2F !important;
+}
+
+
 .dark .link{
 
 }
@@ -175,6 +182,8 @@ nav > *{
   resize: none;
   font-size: 0.8em;
   flex: unset !important;
+  overflow: clip;
+
 }
 
 .sign-up-input label,.sign-up-label .title{
@@ -425,6 +434,28 @@ mat-divider{
 }
 
 
+.profile-button{
+  width: 3em;
+  height: 3em;
+  border: 4px white solid;
+  border-radius: 50%;
+  background: linear-gradient(to right,darkslateblue,violet);
+  display: flex;
+  justify-content: center;
+  place-items: center;
+  box-shadow: 0 0 10px 2px slategray;
+
+  color: white;
+  /*MAX COMPATIBILITY*/
+  background: rgb(189,150,255);
+  background: -moz-linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
+  background: -webkit-linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
+  background: linear-gradient(127deg, rgba(189,150,255,1) 0%, rgba(27,1,48,1) 40%, rgba(0,35,73,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bd96ff",endColorstr="#002349",GradientType=1);
+
+}
+
+
 
 
 
@@ -523,6 +554,62 @@ mat-divider{
   /*min-width: 50px;*/
   /*width: max-content;*/
 }
+
+input[disabled]{
+  opacity: 0.5;
+}
+
+.my-transfer-attachment-viewer{
+  width: 200px;
+  height: 60px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 7px slategray;
+  overflow: clip;
+  background-color: #F8F8F8;
+  padding: 2%;
+
+}
+.my-transfer-attachment-viewer img,.my-transfer-attachment-viewer mat-icon{
+  width: 30%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+}
+.my-transfer-attachment-viewer mat-icon{
+  font-size: xxx-large;
+  display: flex;
+  justify-content: center;
+  place-items: center;
+}
+.my-transfer-attachment-viewer ._content{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /*background-color: #b0d8ff;*/
+}
+.my-transfer-attachment-viewer ._content .header{
+  width: 100%;
+  padding: 4px;
+}
+.my-transfer-attachment-viewer ._content .details{
+  width: 100%;
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.my-transfer-attachment-viewer ._content .details >* {
+  width: 100%;
+  text-align: start;
+  overflow: hidden;
+  color: #9A9A9A;
+}
+
+
 
 
 

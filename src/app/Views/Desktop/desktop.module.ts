@@ -26,8 +26,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {PipesModule} from "../../Bloc/Pipes/pipes.module";
 import {Application} from "../../Bloc/Application/Application";
 import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
-import { ProfileComponent } from './TransferViews/profile/profile.component';
 import {MatListModule} from "@angular/material/list";
+import {ProfileModule} from "./profile/profile.module";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -47,19 +48,20 @@ import {MatListModule} from "@angular/material/list";
         WelcomeUserComponent,
         TransferDownloadComponent,
       IfChangesDirective,
-      ProfileComponent
     ],
-    imports: [
-        CommonModule,
-        DesktopRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModuleModule,
-        ClipboardModule,
-        MatAutocompleteModule,
-        PipesModule,
-        MatListModule
-    ],
+  imports: [
+    CommonModule,
+    DesktopRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModuleModule,
+    ClipboardModule,
+    MatAutocompleteModule,
+    PipesModule,
+    MatListModule,
+    ProfileModule,
+    MatTooltipModule
+  ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [Application],
     exports: [

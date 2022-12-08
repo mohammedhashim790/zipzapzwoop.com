@@ -1,0 +1,103 @@
+
+<form [formGroup]="userAttributes">
+  <table>
+    <tr>
+      <button mat-icon-button
+              style="width: 8em;height: 8em;font-size: larger"
+              class="profile-button">
+        {{UserInitials}}
+      </button>
+    </tr>
+    <tr style="width: 60%">
+      <td>
+<!--        <button-->
+<!--          *ngIf="userAttributes.disabled;else saveAndUpdate"-->
+<!--          mat-button-->
+<!--          matTooltip="Edit Details"-->
+<!--          (click)="EnableEdit()"-->
+<!--          class="icon-button">-->
+<!--          <mat-icon>edit</mat-icon>-->
+<!--        </button>-->
+<!--        <ng-template #saveAndUpdate>-->
+<!--          <button-->
+<!--            mat-button-->
+<!--            matTooltip="Update My Details"-->
+<!--            (click)="SaveAndUpdateForm()"-->
+<!--            class="icon-button">-->
+<!--            <mat-icon>save</mat-icon>-->
+<!--          </button>-->
+<!--        </ng-template>-->
+
+        <button
+          *ngIf="this.currentUserAttributes!['identities']==undefined"
+          mat-button
+          class="icon-button"
+          matTooltip="Change Password">
+          <mat-icon><i class="ph-password"></i></mat-icon>
+        </button>
+        <button mat-button class="icon-button" (click)="SignOut()" matTooltip="Log Out">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="values">
+        <span @SlideUpDown class="sign-up-label">
+          <label class="value">
+            {{userAttributes.value['name']}}
+          </label>
+          <label class="title">
+            Full name
+          </label>
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="values">
+        <span @SlideUpDown class="sign-up-label">
+          <label class="value">
+            {{userAttributes.value['email']}}
+          </label>
+          <label class="title">
+            Username
+          </label>
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="values">
+        <span class="sign-up-input" *ngIf="userAttributes.enabled;else disabledEmail">
+          <input id="email"
+                 placeholder="Email"
+                 formControlName="email"/>
+          <label *ngIf="userAttributes.enabled" for="email">Email ID</label>
+        </span>
+        <ng-template #disabledEmail>
+          <span @SlideUpDown  class="sign-up-label">
+            <label class="value">
+              {{userAttributes.value['email']}}
+            </label>
+            <label class="title">
+              Email ID
+            </label>
+          </span>
+        </ng-template>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="values">
+        <span class="sign-up-input checkbox">
+          <span>Email Verified</span>
+          <input type="checkbox"
+                 placeholder="Email Verified"
+                 formControlName="email_verified"/>
+        </span>
+      </td>
+    </tr>
+
+  </table>
+</form>

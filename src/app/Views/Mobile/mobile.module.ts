@@ -26,6 +26,7 @@ import { MTransferOptionSelectComponent } from './MTransferViews/mtransfer-optio
 import { MLandingComponent } from './mlanding/mlanding.component';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Session} from "../../Bloc/Application/Session";
+import {ProfileModule} from "../Desktop/profile/profile.module";
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {Session} from "../../Bloc/Application/Session";
         ClipboardModule,
         MatAutocompleteModule,
         PipesModule,
-        DesktopModule
+        DesktopModule,
+      ProfileModule
     ],
   bootstrap:[AppComponent]
 })

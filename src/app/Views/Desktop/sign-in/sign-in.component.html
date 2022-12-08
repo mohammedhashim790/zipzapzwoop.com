@@ -37,11 +37,11 @@
 
     <form [formGroup]="signInForm" (ngSubmit)="ValidateSignIn()">
 
-    <span class="error-display-container" *ngIf="errorText!=''" @SlideUpDown>
-      <label>
-        {{errorText}}
-      </label>
-    </span>
+      <span class="error-display-container" *ngIf="errorText!=''" @SlideUpDown>
+        <label>
+          {{errorText}}
+        </label>
+      </span>
 
       <span class="sign-up-input">
         <input placeholder="Email" formControlName="username"/>
@@ -67,7 +67,6 @@
       <span class="sign-up-input" style="flex-direction: row;font-size: smaller;justify-content: space-between">
         <mat-slide-toggle>Remember Me</mat-slide-toggle>
         <a class="link" style="font-size: 14px;color: #A7A6A5;font-weight: normal">Forgot Password</a>
-
       </span>
 
       <span class="sign-up-input" style="place-items: center">

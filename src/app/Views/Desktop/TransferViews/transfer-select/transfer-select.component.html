@@ -189,7 +189,8 @@
 <span class="sign-up-input bottom-actions">
     <span>
       <button mat-icon-button
-              (click)=" TestFunction();application.ToggleSelectFilesState()"
+              [matTooltip]="(application.appState == AppState.MAIL_SELECT)?'Get a link':'Send as Email'"
+              (click)="application.ToggleSelectFilesState()"
               class="border-button">
         <mat-icon *ngIf="application.appState == AppState.MAIL_SELECT;else linkSelect">link</mat-icon>
         <ng-template #linkSelect>

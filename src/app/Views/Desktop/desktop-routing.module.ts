@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
-import {ProfileComponent} from "./TransferViews/profile/profile.component";
+import {ProfileComponent} from "./profile/profile.component";
+import {isMobile} from "../../app-routing.module";
 
 const routes: Routes = [
   {
@@ -25,11 +26,13 @@ const routes: Routes = [
   },
   {
     path:'profile',
-    component:ProfileComponent
+    loadChildren:()=> {
+        return import('./profile/profile.module').then(d => d.ProfileModule);
+    }
   },
   { path: '404', redirectTo:'' },
   { path: '**', redirectTo:'' }
-];;
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -4669,8 +4669,8 @@ export class APIService {
     return <GetSessionQuery>response.data.getSession;
   }
   async ListSessions(
-    filter?: ModelSessionFilterInput,
     limit?: number,
+    filter?: ModelSessionFilterInput,
     nextToken?: string
   ): Promise<ListSessionsQuery> {
     const statement = `query ListSessions($filter: ModelSessionFilterInput, $limit: Int, $nextToken: String) {

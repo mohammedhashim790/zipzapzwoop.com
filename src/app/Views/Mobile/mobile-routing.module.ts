@@ -48,7 +48,13 @@ const routes: Routes = [
       {
         path:'download',
         component:TransferDownloadComponent
-      }
+      },
+      {
+        path:'profile',
+        loadChildren:()=> {
+          return import('./../Desktop/profile/profile.module').then(d => d.ProfileModule);
+        }
+      },
     ]
   },
   {

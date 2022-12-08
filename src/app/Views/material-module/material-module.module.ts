@@ -13,8 +13,11 @@ import {MatMenuModule} from "@angular/material/menu";
 
 
 
+
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   exports:[
     MatInputModule,
     MatButtonModule,
@@ -27,6 +30,7 @@ import {MatMenuModule} from "@angular/material/menu";
     MatDividerModule,
     MatChipsModule,
     MatMenuModule,
+
   ]
 })
 export class MaterialModuleModule { }
