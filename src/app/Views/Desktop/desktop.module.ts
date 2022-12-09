@@ -29,6 +29,8 @@ import {IfChangesDirective} from "../../Bloc/Directives/IfChanges/IfChanges";
 import {MatListModule} from "@angular/material/list";
 import {ProfileModule} from "./profile/profile.module";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {DirectiveModule} from "../../Bloc/Directives/directive.module";
+import {ForgotPasswordActionComponent} from "../DialogViews/forgot-password-action/forgot-password-action.component";
 
 
 @NgModule({
@@ -43,11 +45,12 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         TransferVerifyComponent,
         TransferUploadComponent,
         TransferCompletedComponent,
-        TooltipDirective,
         ErrorWindowComponent,
         WelcomeUserComponent,
         TransferDownloadComponent,
       IfChangesDirective,
+      ForgotPasswordActionComponent,
+
     ],
   imports: [
     CommonModule,
@@ -60,12 +63,13 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     PipesModule,
     MatListModule,
     ProfileModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DirectiveModule
   ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [Application],
     exports: [
-        TooltipDirective
+      DirectiveModule
     ]
 })
 export class DesktopModule { }

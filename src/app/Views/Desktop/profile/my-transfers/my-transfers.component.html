@@ -7,31 +7,45 @@
 
   <div class="axqbh1">
     <span class="search-bar">
-      <input placeholder="Search...">
+      <input placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="OnSearchChange($event)">
     </span>
     <ng-container *ngIf="sessions!=undefined;else skeletonLoader">
-      <button mat-button *ngFor="let session of sessions" (click)="onSelected(session)">
-        <span class="axqbh2">
-          <div>
-            <span class="icon">
-              <mat-icon *ngIf="session.mailInfo == null;else mailIcon">link</mat-icon>
-              <ng-template #mailIcon>
-                <mat-icon>mail</mat-icon>
-              </ng-template>
-            </span>
-          </div>
-          <div>
-            <span class="recipients">
-              {{session.mailInfo == null?session.linkInfo?.Title:session.mailInfo?.Title | NonNullableText:'Empty_Title'}}
-            </span>
-            <span class="recipient-message">
-              {{session.mailInfo == null?session.linkInfo?.Message:session.mailInfo?.Message | NonNullableText:'Empty_Message'}}
-            </span>
-          </div>
-        </span>
-        <mat-divider></mat-divider>
 
-      </button>
+      <ng-container *ngIf="sessions.length!=0;else emptyApi">
+        <button mat-button
+                [class.focus]="session.id == sessionOnView.id"
+                *ngFor="let session of sessions" (click)="onSelected(session)">
+          <span class="axqbh2">
+            <div>
+              <span class="icon">
+                <mat-icon *ngIf="session.mailInfo == null;else mailIcon">link</mat-icon>
+                <ng-template #mailIcon>
+                  <mat-icon>mail</mat-icon>
+                </ng-template>
+              </span>
+            </div>
+            <div>
+              <span class="recipients">
+                {{session.mailInfo == null?session.linkInfo?.Title:session.mailInfo?.Title | ShortifyText:14 | NonNullableText:'Empty_text'}}
+              </span>
+
+              <span class="recipient-message">
+                {{session.mailInfo == null?session.linkInfo?.Message:session.mailInfo?.Message | ShortifyText:14 | NonNullableText:'Empty_text'}}
+              </span>
+            </div>
+            <div style="display: flex;justify-content: center;place-items: center">
+              <span *ngIf="hasExpired(session)<0" style="margin: 2%;color: darkred;display: flex;justify-content: center;place-items: center">
+                !
+              </span>
+            </div>
+
+          </span>
+          <mat-divider></mat-divider>
+
+        </button>
+      </ng-container>
+
+
     </ng-container>
     <ng-template #skeletonLoader>
       <button mat-button *ngFor="let _ of range(10)">
@@ -55,6 +69,20 @@
 
   </div>
 
+  <ng-template #emptyApi>
+    <div class="axqbh1" style="justify-content: center;place-items: center;border: none">
+      <img class="empty-icon-display" src="assets/icons/empty-state.webp"/>
+      <span>
+        <small class="dull" style="text-align: center;justify-content: center;display: flex;flex-direction: column">
+          Your transfer history seems to be empty.
+          <br>
+          <a href="">Send a file?</a>
+        </small>
+      </span>
+    </div>
+
+  </ng-template>
+
   <div class="bqauc1" *ngIf="sessionOnView!=undefined">
     <span class="axqbh2 header">
       <div style="width: max-content">
@@ -77,21 +105,30 @@
 <!--      </div>-->
 
 <!--      <ng-template #linkDetails>-->
-        <div>
-          <span class="recipients">
-            {{LinkTransfer?sessionOnView.linkInfo?.Title:sessionOnView.mailInfo?.Title | NonNullableText:'Empty_Title' }}
-          </span>
-          <span style="padding-left: 2%">
-            <small class="dull">
-              {{LinkTransfer?'Link Created on':'Sent on'}} {{sessionOnView.SentOn | date:'medium'}}
-            </small>
-          </span>
-        </div>
+      <div>
+        <span class="recipients">
+          {{LinkTransfer?sessionOnView.linkInfo?.Title:sessionOnView.mailInfo?.Title | NonNullableText:'Empty_Title' }}
+        </span>
+
+        <span style="padding-left: 2%">
+          <small class="dull">
+            {{LinkTransfer?'Link Created on':'Sent on'}} {{sessionOnView.SentOn | date:'medium'}}
+          </small>
+        </span>
+      </div>
+
 <!--      </ng-template>-->
       <div
         class="session-actions">
         <button
+          #linkBoard="Tooltip"
+          Tooltip
+          [tooltipText]="'Link copied to clipboard'"
+          tooltipAlign="bottom"
+          *ngIf="(DaysRemaining>=0)"
           matTooltip="Copy Link"
+          (click)="linkBoard.Show()"
+          [cdkCopyToClipboard]="CopyLink"
           mat-icon-button>
           <mat-icon>link</mat-icon>
         </button>
@@ -106,11 +143,11 @@
             <table>
               <tr>
                 <td style="justify-content: center;flex-direction: column;place-items: center">
-                  <span class="expiry-length">
-                    !
+                  <span class="expiry-length" style="background-color: {{(DaysRemaining<=0)?'darkred':'green'}} ">
+                    {{DaysRemaining<=0? '!' : '✓'}}
                   </span>
                   <small class="dull">
-                    Expires on Date
+                    {{DaysRemaining <0 ? 'Expired on ': 'Expires on '}} {{Expiry | date}}
                   </small>
                 </td>
               </tr>
@@ -132,7 +169,7 @@
                 </td>
                 <td>
                   <small class="dull" style="color: blue;text-decoration: underline">
-                    <a style="display: flex;place-items: baseline;">
+                    <a [href]="CopyLink" target="_blank" style="display: flex;place-items: baseline;">
                       open<mat-icon style="width: 15px;height: 15px;font-size: 12px">open_in_new</mat-icon>
                     </a>
                   </small>
@@ -148,6 +185,26 @@
       <h2>
         {{LinkTransfer?sessionOnView.linkInfo?.Title:sessionOnView.mailInfo?.Title | NonNullableText:'Empty_Title'}}
       </h2>
+      <span class="recipients dull">
+        <small *ngIf="!LinkTransfer && sessionOnView.mailInfo!=null">
+          sent to {{sessionOnView.mailInfo!.Recipients[0]}}
+          <a style="text-decoration: underline;cursor: pointer" [matMenuTriggerFor]="recipientList">
+            {{((sessionOnView.mailInfo!.Recipients.length>1)? '+' + ((sessionOnView.mailInfo!.Recipients!.length-1) + ' Other(s)') : '')}}
+          </a>
+        </small>
+      </span>
+      <mat-menu #recipientList>
+        <span style="display: flex;flex-direction: column;width: 250px;padding: 15px;gap: 5px;">
+          <h4>
+            Recipient List
+          </h4>
+          <ng-container *ngIf="!LinkTransfer">
+            <small class="dull" *ngFor="let recipient of sessionOnView.mailInfo!.Recipients">
+              {{recipient}}
+            </small>
+          </ng-container>
+        </span>
+      </mat-menu>
       <p style="font-weight: normal">
         {{LinkTransfer?sessionOnView.linkInfo?.Message:sessionOnView.mailInfo?.Message | NonNullableText:'Empty_Message'}}
       </p>
@@ -160,9 +217,12 @@
       </small>
       <span style="margin: 4% auto;height:1px;width: 100%;background-color: #c9c9c9;"></span>
       <span class="content grid-view" style="flex-direction: column">
-        <span class="my-transfer-attachment-viewer" *ngFor="let file of sessionOnViewFiles">
+        <span
+          class="my-transfer-attachment-viewer"
+          [matTooltip]="(DaysRemaining<0)?'preview not available':file.key"
+          *ngFor="let file of sessionOnViewFiles">
 
-          <img *ngIf="fileIcon(file);else fileIconShow" [src]="SrcUrl(file)" loading="lazy"/>
+          <img *ngIf="fileIcon(file) && DaysRemaining>=0;else fileIconShow" [src]="SrcUrl(file)" loading="lazy"/>
           <ng-template #fileIconShow>
             <mat-icon><i class="ph-file-cloud"></i></mat-icon>
           </ng-template>

@@ -5,6 +5,7 @@ import {APIService} from "../../../../API.service";
 import {printer} from "../../../../app.component";
 import {S3Object, Session} from "../../../../../models";
 import {environment} from "../../../../../environments/environment";
+import {ConvertToEpochInSeconds} from "../../../../Bloc/Application/ApplicationHelper";
 
 // import * as prettyIcons from 'pretty-file-icons';
 
@@ -21,8 +22,52 @@ export class MyTransfersComponent implements OnInit {
 
   sessions!:Array<Session>;
 
+  sessionsResult!:Array<Session>;
+
+
+
   sessionOnView!:Session;
   sessionOnViewFiles: Array<S3Object> = [];
+  searchQuery: string = "";
+  get Expiry(){
+    if(this.sessionOnView==null || this.sessionOnView.expiry==null){
+      return 1;
+    }
+    return new Date(this.sessionOnView.expiry * 1000).getTime() ;
+  };
+
+  get Expired(){
+    if(this.sessionOnView==null || this.sessionOnView.expiry==null){
+      return true;
+    }
+    let expiry = this.sessionOnView.expiry;
+    let currentDate = new Date();
+    expiry*=1000;
+    let expiryDate = new Date(expiry);
+    printer(currentDate <= expiryDate);
+    return !(currentDate <= expiryDate);
+  }
+
+  get DaysRemaining(){
+    if(this.sessionOnView==null || this.sessionOnView.expiry==null){
+      return 0;
+    }
+    let expiry = this.sessionOnView.expiry;
+    let currentDate = new Date();
+    expiry*=1000;
+    let expiryDate = new Date(expiry);
+    return (expiryDate.getDate() - currentDate.getDate());
+  }
+
+  get CopyLink(){
+    if(this.LinkTransfer){
+      return "http://z3transfer.com/" + this.sessionOnView.shortUrl;
+    }
+    return "https://zipzapzwoop.com/download?id="+this.sessionOnView.id;
+  }
+
+
+
 
   get LinkTransfer(){
     return this.sessionOnView.mailInfo == undefined;
@@ -42,6 +87,18 @@ export class MyTransfersComponent implements OnInit {
   }
 
 
+  hasExpired(session:Session){
+    if(session==null || session.expiry==null){
+      return 0;
+    }
+    let expiry = session.expiry;
+    let currentDate = new Date();
+    expiry*=1000;
+    let expiryDate = new Date(expiry);
+    return (expiryDate.getDate() - currentDate.getDate());
+  }
+
+
 
 
 
@@ -57,6 +114,7 @@ export class MyTransfersComponent implements OnInit {
       this.sessions.sort((session1,session2)=>{
         return (Date.parse(session2!.SentOn as string) - Date.parse(session1!.SentOn as string));
       });
+      this.sessionsResult = this.sessions;
       this.onSelected(this.sessions[0])
       printer(this.sessions);
     });
@@ -84,5 +142,40 @@ export class MyTransfersComponent implements OnInit {
     this.sessionOnView = session;
     this.sessionOnViewFiles = (session!.files?.slice(0,18) as Array<S3Object>) ;
     printer(session);
+  }
+
+  OnSearchChange(key: string) {
+
+    if(key == ""){
+      this.sessions = this.sessionsResult;
+      return;
+    }
+
+    let filtered = this.sessions.filter((session)=>{
+
+      let sessionInfo;
+
+      if(session.mailInfo == undefined){
+      //  Mail
+        sessionInfo = session!.linkInfo;
+      }else{
+      //  Link
+        sessionInfo = session!.mailInfo;
+      }
+      if(
+        sessionInfo!.Title.includes(key) ||
+        sessionInfo!.Message.includes(key) ||
+        session!.mailInfo?.Recipients!.includes(key) ||
+        session!.files?.map((file)=>file?.key).includes(key)
+      ){
+        return true;
+      }
+      return false;
+    })
+
+    printer("Filtered");
+    printer(filtered);
+    this.sessions = filtered;
+
   }
 }

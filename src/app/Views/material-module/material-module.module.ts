@@ -10,6 +10,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatMenuModule} from "@angular/material/menu";
+import {TooltipDirective} from "../../Bloc/Directives/Tooltip/tooltip.directive";
 
 
 

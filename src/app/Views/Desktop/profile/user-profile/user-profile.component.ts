@@ -4,6 +4,13 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {printer} from "../../../../app.component";
 import {AppAnimations} from "../../../../Bloc/Application/Constants";
+import {
+  ForgotPasswordActionComponent
+} from "../../../DialogViews/forgot-password-action/forgot-password-action.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ChangePasswordActionComponent
+} from "../../../DialogViews/change-password-action/change-password-action.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -23,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   }
 
 
+
   userAttributes:FormGroup = new FormBuilder().group({
     email:new FormControl('',[Validators.required]),
     email_verified:new FormControl(false,[Validators.required]),
@@ -38,7 +46,9 @@ export class UserProfileComponent implements OnInit {
     return getUserInitials();
   }
 
-  constructor(private router:Router) { }
+  constructor(
+    private router:Router,
+    private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.currentUserAttributes = (getCurrentUser() as any).attributes;
@@ -74,4 +84,13 @@ export class UserProfileComponent implements OnInit {
     this.userAttributes.disable();
   }
 
+  ChangePassword() {
+    this.dialog.open(
+      ChangePasswordActionComponent,
+      {
+        data: {
+        },
+      }
+    );
+  }
 }

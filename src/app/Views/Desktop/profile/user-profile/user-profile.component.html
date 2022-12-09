@@ -31,6 +31,7 @@
         <button
           *ngIf="this.currentUserAttributes!['identities']==undefined"
           mat-button
+          (click)="ChangePassword()"
           class="icon-button"
           matTooltip="Change Password">
           <mat-icon><i class="ph-password"></i></mat-icon>

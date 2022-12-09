@@ -9,6 +9,7 @@ import {SignIn, SignInWithGoogle, SignOut} from 'src/app/Bloc/Signer/SignInHelpe
 import {Router} from "@angular/router";
 import {AppAnimations} from "../../../Bloc/Application/Constants";
 import {VerifyUserComponent} from "../../DialogViews/verify-user/verify-user.component";
+import {ForgotPasswordActionComponent} from "../../DialogViews/forgot-password-action/forgot-password-action.component";
 
 
 // params = "custom:subscription";
@@ -36,6 +37,15 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // this.dialog.open(
+    //   ForgotPasswordActionComponent,
+    //   {
+    //     data: {
+    //     }
+    //   }
+    // );
+
   }
 
   ValidateSignIn() {
@@ -152,4 +162,17 @@ export class SignInComponent implements OnInit {
   SignInWithGoogle() {
     SignInWithGoogle();
   }
+
+
+  ForgotPassword(){
+    this.dialog.open(
+      ForgotPasswordActionComponent,
+      {
+        data: {
+        },
+      }
+    );
+  }
+
+
 }

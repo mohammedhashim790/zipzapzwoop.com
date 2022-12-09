@@ -6,8 +6,9 @@ import {max} from "rxjs";
 })
 export class ShortifyTextPipe implements PipeTransform {
 
-  transform(value: string, maxLength:number = 12): string {
+  transform(value: any, maxLength:number = 12): string {
 
+    value = String(value);
     if(maxLength<12){
       maxLength = 12;
     }

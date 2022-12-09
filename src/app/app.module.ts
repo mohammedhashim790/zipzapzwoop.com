@@ -10,6 +10,12 @@ import {aws_exports} from "../aws-exports";
 import {Amplify, Auth} from "aws-amplify";
 import {HttpClientModule} from "@angular/common/http";
 import {environment} from "../environments/environment";
+import { ForgotPasswordActionComponent } from './Views/DialogViews/forgot-password-action/forgot-password-action.component';
+import { ChangePasswordActionComponent } from './Views/DialogViews/change-password-action/change-password-action.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -56,14 +62,19 @@ Amplify.configure(updatedAwsConfig);
 @NgModule({
     declarations: [
         AppComponent,
+        ChangePasswordActionComponent,
     ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        MatButtonModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+  ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [Application],
     exports: [

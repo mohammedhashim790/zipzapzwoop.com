@@ -135,6 +135,16 @@ export async function CompleteNewPassword(user:any,password:string){
   });
 }
 
+export async function ChangePassword(user:any,oldPassword:string,password:string){
+  return new Promise<any>( (resolve, reject) => {
+    Auth.changePassword(user,oldPassword,password)
+      .then((res)=>resolve(res))
+      .catch((error)=> reject(error));
+  });
+}
+
+
+
 export async function ConfirmSignUp(user:any, code:string){
   return new Promise<any>( (resolve, reject) => {
     Auth.confirmSignUp(user,code)

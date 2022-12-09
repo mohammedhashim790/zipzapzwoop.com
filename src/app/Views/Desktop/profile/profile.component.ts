@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {getCurrentUser, getUserInitials, SignOut} from "../../../Bloc/Signer/SignInHelper";
 import {printer} from "../../../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
     return window.location.pathname;
   }
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     printer("Pathname");
@@ -38,7 +39,9 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
   SignOut() {
     SignOut().finally(()=>{
-      window.location.reload();
+      this.router.navigateByUrl('').then((res)=>{
+        window.location.reload();
+      });
     })
   }
 

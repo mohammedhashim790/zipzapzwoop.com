@@ -5,6 +5,7 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {isMobile} from "../../app-routing.module";
+import {AuthGuard} from "../../Bloc/Guards/AuthGuard/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
   },
   {
     path:'profile',
+    canActivateChild:[AuthGuard],
     loadChildren:()=> {
         return import('./profile/profile.module').then(d => d.ProfileModule);
     }

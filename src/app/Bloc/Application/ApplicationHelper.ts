@@ -54,7 +54,7 @@ export function TransferExpiry(){
   return ConvertToEpochInSeconds((addDate(new Date(),TransferConstants.expiryDate()).getTime()));
 }
 
-function ConvertToEpochInSeconds(value:number){
+export function ConvertToEpochInSeconds(value:number){
   return Math.floor(value/1000);
 }
 function addDate(date1:Date ,date2:Date | number){

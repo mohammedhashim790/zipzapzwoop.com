@@ -177,10 +177,9 @@ export const AppAnimations = [
 
 ]
 
-
 export var banners:Array<string> = [
   "../../../../assets/backdrops/offer/backdrop.html",
-
+  "../../../../assets/backdrops/Tracker/backdrop.html",
   // "../../../../assets/backdrops/about/backdrop.html",
   "../../../../assets/backdrops/backdrop-1/backdrop.html",
   "../../../../assets/backdrops/backdrop-2/backdrop.html",

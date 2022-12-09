@@ -16,12 +16,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { MyTransfersComponent } from './my-transfers/my-transfers.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {DirectiveModule} from "../../../Bloc/Directives/directive.module";
 
 @NgModule({
   declarations: [
     ProfileComponent,
     UserProfileComponent,
     MyTransfersComponent,
+
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     MatListModule,
     MatTooltipModule,
     FontAwesomeModule,
+    DirectiveModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

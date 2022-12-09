@@ -15,6 +15,8 @@ import {TransferCompletedComponent} from "../Desktop/TransferViews/transfer-comp
 import {TransferDownloadComponent} from "../Desktop/TransferViews/transfer-download/transfer-download.component";
 import {MLandingComponent} from "./mlanding/mlanding.component";
 import {ErrorWindowComponent} from "../Desktop/TransferViews/error-window/error-window.component";
+import {Auth} from "aws-amplify";
+import {AuthGuard} from "../../Bloc/Guards/AuthGuard/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -51,6 +53,7 @@ const routes: Routes = [
       },
       {
         path:'profile',
+        canActivateChild:[AuthGuard],
         loadChildren:()=> {
           return import('./../Desktop/profile/profile.module').then(d => d.ProfileModule);
         }
