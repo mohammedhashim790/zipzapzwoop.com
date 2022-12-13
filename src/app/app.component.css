@@ -37,4 +37,11 @@
 }
 
 
+@media screen and (max-width: 480px) {
+  :host{
+    overflow:unset !important;
+    overflow-x: hidden;
+  }
+}
+
 

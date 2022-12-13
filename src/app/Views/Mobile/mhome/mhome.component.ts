@@ -3,7 +3,7 @@ import {ApplicationHelper} from "../../../Bloc/Application/ApplicationHelper";
 import {Application} from "../../../Bloc/Application/Application";
 import {AppState} from "../../../Bloc/Application/AppState";
 import {printer} from "../../../app.component";
-import {SignIn, SignOut} from "../../../Bloc/Signer/SignInHelper";
+import {getCurrentUser, SignIn, SignOut} from "../../../Bloc/Signer/SignInHelper";
 import {Router} from "@angular/router";
 
 @Component({
@@ -13,6 +13,12 @@ import {Router} from "@angular/router";
 })
 export class MHomeComponent extends ApplicationHelper implements OnInit {
   AppState = AppState;
+  get UserName(){
+    if(getCurrentUser() == undefined){
+      return undefined;
+    }
+    return (getCurrentUser() as any).attributes.name;
+  }
 
   get isHome(){
     printer(this.router.url);
@@ -38,5 +44,9 @@ export class MHomeComponent extends ApplicationHelper implements OnInit {
 
   SignIn() {
     this.router.navigateByUrl('auth')
+  }
+
+  OpenUrl(url: string) {
+    window.open(url,"_blank");
   }
 }

@@ -112,6 +112,19 @@ export const AppAnimations = [
       animate(duration, style({ transform: 'translateX(100%)' }))
     ])
   ]),
+
+  trigger('SlideInOut', [
+    state('in', style({ transform: 'translateX(0)' })),
+    transition('void => *', [
+      style({ transform: 'translateX(-100%)' }),
+      animate(duration)
+    ]),
+    transition('* => void', [
+      animate(duration, style({ transform: 'translateX(-100%)' }))
+    ])
+  ]),
+
+
   trigger("fadeInOut",[
     transition("* => void",[
       style({

@@ -27,6 +27,8 @@ import { MLandingComponent } from './mlanding/mlanding.component';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Session} from "../../Bloc/Application/Session";
 import {ProfileModule} from "../Desktop/profile/profile.module";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {NavigationDrawerComponent} from "../DialogViews/navigation-drawer/navigation-drawer.component";
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import {ProfileModule} from "../Desktop/profile/profile.module";
     MTransferDownloadComponent,
     MTransferOptionSelectComponent,
     MLandingComponent,
+    NavigationDrawerComponent,
   ],
     imports: [
         CommonModule,
@@ -52,7 +55,8 @@ import {ProfileModule} from "../Desktop/profile/profile.module";
         MatAutocompleteModule,
         PipesModule,
         DesktopModule,
-      ProfileModule
+        ProfileModule,
+        MatSidenavModule,
     ],
   bootstrap:[AppComponent]
 })

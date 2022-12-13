@@ -1,0 +1,15 @@
+
+<ng-container
+  *ngIf="this.show">
+  <div class="barrier"
+       @fadeInOut
+       (click)="this.Close()">
+
+  </div>
+
+  <div @SlideInOut class="content">
+    <ng-content>
+
+    </ng-content>
+  </div>
+</ng-container>

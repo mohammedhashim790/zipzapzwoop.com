@@ -39,7 +39,7 @@
   justify-content: center;
   place-items: center;
 }
-.content{
+.content-container{
   width: 100%;
   height: 100%;
   max-height: 21em;
@@ -49,11 +49,11 @@
   overflow-y: auto;
   text-align: center;
 }
-.content > *{
+.content-container > *{
   flex-direction: column;
   height: 100%;
 }
-.content .content-header{
+.content-container .content-header{
   font-size: 1.2em;
   font-weight: bold;
   color: lightslategray;
@@ -63,27 +63,27 @@
   text-align: center;
   margin: 5% auto;
 }
-.content .content-header label{
+.content-container .content-header label{
   width: 100%;
   text-align: center;
   justify-content: center;
 }
-.content .details{
+.content-container .details{
   width: 80%;
   font-size: 1.2em;
   margin-top: 1em;
   height: auto;
 }
-.content .details > label{
+.content-container .details > label{
   text-align: start;
   border-bottom: 1px solid slategray;
   padding-top: 1ch;
   /*padding-bottom: 1ch;*/
 }
-.content .details .message{
+.content-container .details .message{
   min-height: 8ch;
 }
-.content .details .file{
+.content-container .details .file{
   width: 100%;
   font-size: 0.8em;
   display: flex;
@@ -94,10 +94,10 @@
   padding: 1ch 0;
   cursor: pointer;
 }
-.content .details .file *{
+.content-container .details .file *{
   cursor: pointer;
 }
-.content .details .file:hover{
+.content-container .details .file:hover{
   background-color: rgba(0, 0, 0, 0.10);
 }
 
@@ -117,7 +117,7 @@ mat-icon{
   justify-content: center;
   display: flex;
 }
-.content ion-icon{
+.content-container ion-icon{
   min-height: 100px;
   height: 100%;
   width: 100%;
@@ -140,7 +140,7 @@ mat-icon{
     height: 100% !important;
     max-height: 100% !important;
   }
-  .content{
+  .content-container{
     height: max-content !important;
     max-height: 80% !important;
     margin: auto;

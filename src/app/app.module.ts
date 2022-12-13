@@ -16,6 +16,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
+import { NavigationDrawerComponent } from './Views/DialogViews/navigation-drawer/navigation-drawer.component';
 
 
 
@@ -63,6 +64,7 @@ Amplify.configure(updatedAwsConfig);
     declarations: [
         AppComponent,
         ChangePasswordActionComponent,
+
     ],
   imports: [
     BrowserModule,

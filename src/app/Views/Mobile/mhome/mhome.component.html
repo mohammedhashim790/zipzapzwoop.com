@@ -1,10 +1,96 @@
 
-<nav>
-  <a class="ic_app_logo" href="" routerLink="">
-    <img src="assets/icons/ic_app_logo.png"/>
+<navigation-drawer #drawer
+                   [showOnStart]="false">
+
+  <div class="drawer">
+    <span class="header">
+      <img class="icon" src="https://cdn.zipzapzwoop.com/ic_app_logo.png"/>
+      <label style="color: #8d8d8d">
+        Hello!
+      </label>
+      <label class="username" style="font-size: {{UserName!=undefined?'1.4rem':'1.0rem'}}">
+        {{UserName ?? "Hey There!. Sign in/Sign up to explore more feature"}}
+      </label>
+    </span>
+
+    <span class="items">
+
+      <button *ngIf="UserName == undefined"
+              class="drawer-item"
+              (click)="SignIn()"
+              mat-button>
+        <span class="drawer-item">
+          <mat-icon class="icon"><i class="ph-sign-in"></i></mat-icon>
+          <label class="item-label">Sign in</label>
+        </span>
+      </button>
+
+<!--      <button class="drawer-item" mat-button>-->
+<!--        <span class="drawer-item">-->
+<!--          <mat-icon class="icon"><i class="ph-info"></i></mat-icon>-->
+<!--          <label class="item-label">About</label>-->
+<!--        </span>-->
+<!--      </button>-->
+
+
+
+      <button class="drawer-item" mat-button
+              (click)="OpenUrl('https://we.zipzapzwoop.com')">
+        <span class="drawer-item">
+          <mat-icon class="icon">V</mat-icon>
+          <label class="item-label">we.zipzapzwoop.com</label>
+        </span>
+      </button>
+
+      <button class="drawer-item" mat-button
+              (click)="OpenUrl('https://stories.zipzapzwoop.com')">
+        <span class="drawer-item">
+          <mat-icon class="icon"><i class="ph-books"></i></mat-icon>
+          <label class="item-label">Stories</label>
+        </span>
+      </button>
+
+    </span>
+
+    <span class="bottom-items items">
+      <button class="drawer-item"
+              mat-button
+              (click)="OpenUrl('https://www.linkedin.com/in/mohammed-hashim790/')">
+        <span class="drawer-item">
+          <mat-icon class="icon"><i class="ph-linkedin-logo"></i></mat-icon>
+          <label class="item-label">Contact</label>
+        </span>
+      </button>
+
+      <button class="drawer-item"
+              *ngIf="UserName!=undefined"
+              (click)="SignOut()"
+              mat-button>
+        <span class="drawer-item">
+          <mat-icon class="icon"><i class="ph-sign-out"></i></mat-icon>
+          <label class="item-label">Sign out</label>
+        </span>
+      </button>
+
+
+
+    </span>
+
+
+  </div>
+
+</navigation-drawer>
+
+
+
+<nav style="width: 96%;z-index: 9999;padding: 0 2%;justify-content: center;margin: auto">
+  <a class="ic_app_logo">
+    <button class="ic_app_info" (click)="drawer.Open()">
+      <mat-icon>menu</mat-icon>
+    </button>
   </a>
   <a class="ic_app_logo" href="" routerLink="">
-    <label>zipzapzwoop</label>
+    <img src="assets/icons/ic_app_logo.png"/>
   </a>
 
   <button *ngIf="CurrentUser == undefined;else signOutAction"
@@ -26,6 +112,7 @@
     </button>
   </ng-template>
 </nav>
+
 
 
 <div class="prime-window">
