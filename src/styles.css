@@ -511,12 +511,12 @@ mat-divider{
   .terms-and-conditions .actions{
     width: 100% !important;
   }
-  /*.tiny-ad-container{*/
-  /*  display: none !important;*/
-  /*}*/
-  /*.bottom-ad-container{*/
-  /*  display: none !important;*/
-  /*}*/
+  .tiny-ad-container{
+    display: none !important;
+  }
+  .bottom-ad-container{
+    display: none !important;
+  }
 
 
 }

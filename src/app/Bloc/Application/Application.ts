@@ -42,6 +42,7 @@ export class Application{
 
 
   constructor() {
+    // this.appState = AppState.MAIL_VERIFY;
     this.appState = AppState.MAIL_SELECT;
   }
 

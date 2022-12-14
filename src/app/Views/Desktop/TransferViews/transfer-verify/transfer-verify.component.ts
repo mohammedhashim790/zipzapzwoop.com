@@ -48,7 +48,7 @@ export class TransferVerifyComponent extends ApplicationHelper implements OnInit
       Validators.maxLength(6),Validators.pattern("[0-9]")
     ]);
   private counter!: NodeJS.Timeout;
-  resendCounter = 60;
+  resendCounter = 30;
 
 
 
@@ -84,7 +84,7 @@ export class TransferVerifyComponent extends ApplicationHelper implements OnInit
       .then((response)=>{
         if(response!=undefined){
           printer(response);
-          let result = response as any;
+          let result = (response as any).response;
           let statusCode = result["statusCode"];
           printer(statusCode);
           if( statusCode == 200){
@@ -94,6 +94,12 @@ export class TransferVerifyComponent extends ApplicationHelper implements OnInit
               this.router.navigateByUrl('upload')
             }else{
               this.application.nextSlide();
+            }
+
+            if(statusCode == ErrorCode.INVALID_CODE){
+              this.code.setErrors({'invalid':true});
+            }else if(statusCode == ErrorCode.INVALID_ACCESS || statusCode == ErrorCode.SESSION_EXPIRED){
+              this.code.setErrors({'expired':true});
             }
 
 
@@ -128,6 +134,7 @@ export class TransferVerifyComponent extends ApplicationHelper implements OnInit
       sessionId: this.appSession.sessionId
     }
 
+    printer(params);
     return this.httpClient!.post(environment.emailApi, JSON.stringify(params), {
       headers: this.headers,
     }).pipe().toPromise().then((res)=>{

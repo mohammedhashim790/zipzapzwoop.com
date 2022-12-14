@@ -17,10 +17,10 @@
       <mat-icon><i class="ph-arrow-clockwise"></i></mat-icon>
     </button>
   </span>
-  <span class="error" *ngIf="code.invalid && (code.dirty || code.touched)">
-    <mat-error style="color: inherit" *ngIf="code.errors?.['required']">
-      Code is required
-    </mat-error>
+  <span class="error">
+<!--    <mat-error style="color: inherit" *ngIf="code.errors?.['required']">-->
+<!--      Code is required-->
+<!--    </mat-error>-->
     <mat-error style="color: inherit" *ngIf="code.errors?.['invalid']">
       Code is invalid
     </mat-error>

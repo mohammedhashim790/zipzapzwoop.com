@@ -17,6 +17,7 @@
   padding: 2%;
   background-color: white;
   box-shadow: -5px 0 10px black;
+  z-index: 99999999999;
 }
 .terms-and-conditions .title{
   width: 80%;
