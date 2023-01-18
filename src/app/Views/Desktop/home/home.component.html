@@ -20,53 +20,84 @@
     </a>
   </span>
   <span style="flex-direction: row-reverse">
-    <a routerLink="/auth" class="link nav-link" *ngIf="SignedIn == undefined;else profile" >
-      Log In
-    </a>
-    <ng-template #profile>
-      <a class="link nav-link">
-        <button mat-icon-button
-                [matMenuTriggerFor]="menu"
-                class="profile-button">
-          {{UserInitials}}
-        </button>
-      </a>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/profile" class="profile-button-menu">
-          <mat-icon>supervised_user_circle</mat-icon>
-          <span>Profile</span>
-        </button>
-        <button mat-menu-item (click)="SignOut()" class="profile-button-menu">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Sign Out</span>
-        </button>
-      </mat-menu>
 
-<!--      <a class="link nav-link" (click)="SignOut()">-->
-<!--        Sign out-->
-<!--      </a>-->
-<!--      -->
-    </ng-template>
-    <a class="link nav-link" href="https://stories.zipzapzwoop.com" target="_blank">
-      Stories
-    </a>
-    <a class="link nav-link" href="https://www.linkedin.com/in/mohammed-hashim790/" target="_blank">
-      Contact
-    </a>
+    <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menu">
+      <mat-icon style="font-size: 20px"><i class="ph-list"></i></mat-icon>
+    </button>
 
-    <a class="link nav-link" href="https://we.zipzapzwoop.com/terms" target="_blank">
-      Terms & Conditions
-    </a>
-    <a class="link nav-link" href="https://we.zipzapzwoop.com/privacy" target="_blank">
-      Privacy
-    </a>
-    <a class="link nav-link" href="https://we.zipzapzwoop.com" target="_blank">
-      About
-    </a>
+    <mat-menu #menu style="overflow: clip">
+      <span class="menu-list">
 
-<!--      <a class="link nav-link" (click)="TestClick()">-->
-<!--        Test-->
-<!--      </a>-->
+        <button mat-button >
+          <a class="link nav-link" href="https://we.zipzapzwoop.com" target="_blank">
+            About
+          </a>
+        </button>
+
+        <button mat-button>
+          <a class="link nav-link" href="https://we.zipzapzwoop.com/privacy" target="_blank">
+            Privacy
+          </a>
+        </button>
+
+        <button mat-button>
+          <a class="link nav-link" href="https://stories.zipzapzwoop.com" target="_blank">
+            Stories
+          </a>
+        </button>
+
+        <button mat-button>
+          <a class="link nav-link" href="https://www.linkedin.com/in/mohammed-hashim790/" target="_blank">
+            Contact
+          </a>
+        </button>
+
+<!--        <button class="link nav-link" href="https://we.zipzapzwoop.com/terms" target="_blank">-->
+<!--          Terms & Conditions-->
+<!--        </button>-->
+
+
+        <button mat-button *ngIf="SignedIn == undefined;else profile" >
+          <a routerLink="/auth" class="link nav-link" >
+            Log In
+          </a>
+        </button>
+        <ng-template #profile>
+<!--          <button class="link nav-link">-->
+          <!--            <button mat-icon-button-->
+          <!--                    [matMenuTriggerFor]="menu"-->
+          <!--                    class="profile-button">-->
+          <!--              {{UserInitials}}-->
+          <!--            </button>-->
+            <button mat-button>
+              <a class="link nav-link" routerLink="/profile">
+                Profile
+              </a>
+            </button>
+
+            <button mat-button>
+              <a class="link nav-link" (click)="SignOut()">
+                Sign out
+              </a>
+            </button>
+
+          <!--          </button>-->
+<!--          <mat-menu #menu="matMenu">-->
+<!--            <button mat-menu-item routerLink="/profile" class="profile-button-menu">-->
+<!--              <mat-icon>supervised_user_circle</mat-icon>-->
+<!--              <span>Profile</span>-->
+<!--            </button>-->
+<!--            <button mat-menu-item (click)="SignOut()" class="profile-button-menu">-->
+<!--              <mat-icon>exit_to_app</mat-icon>-->
+<!--              <span>Sign Out</span>-->
+<!--            </button>-->
+<!--          </mat-menu>-->
+        </ng-template>
+
+      </span>
+
+    </mat-menu>
+
 
 
   </span>
@@ -112,4 +143,110 @@
 </div>
 
 
+
+<!--  Bottom Left-->
+<!--<div class="ad ad-bottom" style="left: 10%;transform: unset">-->
+<!--  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"-->
+<!--          crossorigin="anonymous"></script>-->
+<!--  &lt;!&ndash; ad-placement-2-bottom &ndash;&gt;-->
+<!--  <ins class="adsbygoogle"-->
+<!--       style="-->
+<!--       display: inline-block;-->
+<!--       min-height: 130px;-->
+<!--       max-height: 150px;-->
+<!--       min-width: 500px;-->
+<!--       width: 100%;-->
+<!--       max-width: 800px;-->
+<!--       vertical-align: bottom;"-->
+<!--       data-ad-client="ca-pub-4695651265515059"-->
+<!--       data-ad-slot="9862909581"-->
+<!--       data-ad-format="auto"-->
+<!--       data-full-width-responsive="true"></ins>-->
+<!--  <script>-->
+<!--    (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--  </script>-->
+
+<!--</div>-->
+
+
+<!--Bottom Right-->
+<div class="ad ad-bottom" style="right: 10%;transform: unset;left: unset">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"
+          crossorigin="anonymous"></script>
+  <!-- ad-placement-2-bottom -->
+  <ins class="adsbygoogle"
+       style="
+       display: inline-block;
+       min-height: 130px;
+       max-height: 150px;
+       min-width: 500px;
+       width: 100%;
+       max-width: 800px;
+       vertical-align: bottom;"
+       data-ad-client="ca-pub-4695651265515059"
+       data-ad-slot="9862909581"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+</div>
+
+
+
+
+
+
+<!--  TOP-->
+<div class="ad ad-bottom" style="bottom: unset;top: 0;height: auto !important;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"
+          crossorigin="anonymous"></script>
+  <!-- ad-placement2-top -->
+  <ins class="adsbygoogle"
+       style="
+       display: inline-block;
+       min-height: 100px;
+       max-height: 100px;
+       width: 100%;
+       min-width: 800px;
+       max-width: 900px;
+       vertical-align: bottom;"
+       data-ad-client="ca-pub-4695651265515059"
+       data-ad-slot="6132079332"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+</div>
+
+
+
+
+<!--left-->
+<!--<div class="ad ad-placement-1" style="left: 0;right: unset;height: auto !important;">-->
+
+
+<!--  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4695651265515059"-->
+<!--          crossorigin="anonymous"></script>-->
+<!--  <ins class="adsbygoogle"-->
+<!--       style="-->
+<!--         display: inline-block;-->
+<!--         min-width: 150px;-->
+<!--         width: 100%;-->
+<!--         max-height: 70%;-->
+<!--         height: 600px;-->
+<!--         vertical-align: bottom;"-->
+<!--       data-ad-format="autorelaxed"-->
+<!--       data-ad-client="ca-pub-4695651265515059"-->
+<!--       data-ad-slot="6328855613"-->
+<!--       data-full-width-responsive="true"></ins>-->
+<!--  <script>-->
+<!--    (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--  </script>-->
+
+
+<!--</div>-->
 

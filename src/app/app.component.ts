@@ -63,6 +63,7 @@ export class AppComponent {
         this.session.form.fromEmail.setValue((res as any).attributes.email);
     });
 
+
     if(isMobile()){
       document.documentElement.style.minWidth = "unset";
       document.documentElement.style.overflowX = "hidden";

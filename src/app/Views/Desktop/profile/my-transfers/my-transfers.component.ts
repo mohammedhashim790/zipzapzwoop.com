@@ -49,14 +49,7 @@ export class MyTransfersComponent implements OnInit {
   }
 
   get DaysRemaining(){
-    if(this.sessionOnView==null || this.sessionOnView.expiry==null){
-      return 0;
-    }
-    let expiry = this.sessionOnView.expiry;
-    let currentDate = new Date();
-    expiry*=1000;
-    let expiryDate = new Date(expiry);
-    return (expiryDate.getDate() - currentDate.getDate());
+    return this.hasExpired(this.sessionOnView);
   }
 
   get CopyLink(){
@@ -95,7 +88,7 @@ export class MyTransfersComponent implements OnInit {
     let currentDate = new Date();
     expiry*=1000;
     let expiryDate = new Date(expiry);
-    return (expiryDate.getDate() - currentDate.getDate());
+    return (expiryDate.getTime() - currentDate.getTime());
   }
 
 

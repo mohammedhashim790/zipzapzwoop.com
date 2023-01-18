@@ -25,15 +25,22 @@
               </span>
             </div>
             <div>
-              <span class="recipients">
+              <label class="recipients">
                 {{session.mailInfo == null?session.linkInfo?.Title:session.mailInfo?.Title | ShortifyText:14 | NonNullableText:'Empty_text'}}
-              </span>
+              </label>
 
               <span class="recipient-message">
                 {{session.mailInfo == null?session.linkInfo?.Message:session.mailInfo?.Message | ShortifyText:14 | NonNullableText:'Empty_text'}}
               </span>
             </div>
-            <div style="display: flex;justify-content: center;place-items: center">
+            <div style="
+            display: flex;
+            justify-content: center;
+            place-items: center;
+            position: absolute;
+            top: 50%;
+            right: 2%;
+            transform: translateY(-50%);">
               <span *ngIf="hasExpired(session)<0" style="margin: 2%;color: darkred;display: flex;justify-content: center;place-items: center">
                 !
               </span>
@@ -216,13 +223,15 @@
         {{sessionOnView.files?.length ?? 0}} files ,{{toNumber(sessionOnView.fileSize) | MemUnits}}
       </small>
       <span style="margin: 4% auto;height:1px;width: 100%;background-color: #c9c9c9;"></span>
-      <span class="content grid-view" style="flex-direction: column">
+      <span class="content grid-view" style="flex-direction: column;padding: 4%">
         <span
           class="my-transfer-attachment-viewer"
+          [matMenuTriggerFor]="attachmentViewerContextMenu"
           [matTooltip]="(DaysRemaining<0)?'preview not available':file.key"
           *ngFor="let file of sessionOnViewFiles">
 
           <img *ngIf="fileIcon(file) && DaysRemaining>=0;else fileIconShow" [src]="SrcUrl(file)" loading="lazy"/>
+
           <ng-template #fileIconShow>
             <mat-icon><i class="ph-file-cloud"></i></mat-icon>
           </ng-template>
@@ -239,7 +248,23 @@
               </small>
             </span>
           </span>
+
+
+          <mat-menu #attachmentViewerContextMenu>
+            <button mat-button [cdkCopyToClipboard]="SrcUrl(file)">
+              <mat-icon>
+                <i class="ph-copy-simple"></i>
+              </mat-icon>
+              <mat-label>
+                Copy Url
+              </mat-label>
+            </button>
+
+          </mat-menu>
+
+
         </span>
+
       </span>
       <small *ngIf="sessionOnView!=undefined && sessionOnView.files!.length>18" style="color: darkred">
         Limiting Files to 18 numbers to avoid rendering.

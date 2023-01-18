@@ -89,10 +89,12 @@ export class StorageHelper {
   public async UploadObject(
     key: string,
     file: File | string | null | ArrayBuffer,
-    iter: number) {
+    iter: number,
+    ) {
     try {
       let res = await Storage.put(key, file, {
-        completeCallback:(event)=>{
+        // serverSideEncryption:"AES256",
+      completeCallback:(event)=>{
           // printer("Uploaded" + key);
         },
         progressCallback : (progress: any) =>{
@@ -106,6 +108,8 @@ export class StorageHelper {
           this.fileProgress[iter] = progress.loaded;
           // printer(this.current);
         },
+        // tagging:"autoDelete=1",
+        // expires: expires
       });
       this.iterProgress = this.current;
       // printer("Uploaded File " + key + "Progress " + this.iterProgress);

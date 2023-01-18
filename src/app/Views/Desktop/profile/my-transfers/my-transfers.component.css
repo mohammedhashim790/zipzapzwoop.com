@@ -113,6 +113,9 @@
   text-align: start;
   display: flex;
   place-items: center;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  overflow: hidden;
 }
 
 .axqbh2 .recipient-message{
