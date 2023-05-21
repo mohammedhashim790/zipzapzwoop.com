@@ -9,7 +9,7 @@ import {
   ViewChild, ViewContainerRef
 } from '@angular/core';
 import {printer} from "../../../app.component";
-import {AppAnimations, banners, promotionStyles} from "../../../Bloc/Application/Constants";
+import {AppAnimations, banners} from "../../../Bloc/Application/Constants";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {DomSanitizer} from "@angular/platform-browser";
 import {timer} from "rxjs";
@@ -68,13 +68,13 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
   private startTimer(){
     this.interval = setInterval(()=>{
-      printer(this.wallPaperContainer);
+      // printer(this.wallPaperContainer);
       if(this.wallPaperContainer == undefined){
         this.wallPaperContainer = this.wallPaper.nativeElement;
         this.addFrame();
       }
       else{
-        printer(this.count);
+        // printer(this.count);
         this.RemoveFrame();
         this.count++;
         this.count%=banners.length;
@@ -117,9 +117,6 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
     // },false);
 
 
-
-
-
     this.addFrame();
 
     this.startTimer();
@@ -129,14 +126,14 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
   addFrame(){
 
-    printer("Action : Adding Frame");
+    // printer("Action : Adding Frame");
 
     if(this.wallPaperContainer.children.length>0){
       this.wallPaperContainer.innerHTML = '';
     }
-
-    printer("Action -Add ");
-    printer(this.wallPaperContainer)
+    //
+    // printer("Action -Add ");
+    // printer(this.wallPaperContainer)
 
     this.wallPaperContainer.classList.remove("wallpaper-container-exit");
     this.wallPaperContainer.classList.add("wallpaper-container-enter");
@@ -144,8 +141,6 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
 
     let frameElement = this.getFrame();
 
-    printer("frame Element");
-    printer(frameElement);
 
     this.wallPaperContainer.appendChild(frameElement);
 
@@ -156,14 +151,12 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
     this.adContainer = frame;
     this.adContainer.src = banners[this.count];
     iframe!.onload = ()=>{
-      printer("Iframe");
 
       iframe!.document.ondrag = (event)=>{
         event.preventDefault();
       }
 
       iframe!.document.ondragover = (event)=>{
-        printer("Iframe Drag Over");
         event.preventDefault();
 
 
@@ -182,14 +175,12 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
   }
 
   RemoveFrame(){
-    printer("Action : Removing Latest Child");
-    printer("Action -Remove ");
 
     this.wallPaperContainer.classList.add("wallpaper-container-exit");
     this.wallPaperContainer.classList.remove("wallpaper-container-enter")
 
     timer(3000).toPromise().then((res)=>{
-      printer("Adding Frames");
+      // printer("Adding Frames");
       this.addFrame();
     });
 
@@ -214,18 +205,5 @@ export class BackdropComponent implements OnInit,OnDestroy,AfterViewInit {
     clearInterval(this.interval);
   }
 
-
-  SampleFunction() {
-    printer("Clicked");
-  }
-
-  OnMouseEnter(event: MouseEvent) {
-    printer("Mouse")
-    printer(event)
-  }
-
-  DragEvent() {
-    printer("Drag Enter from New")
-  }
 
 }

@@ -2,81 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    createUser(input: $input, condition: $condition) {
-      id
-      email
-      name
-      preferred_username
-      subscriptionPlan {
-        id
-        subscriptionPlansType
-        user {
-          id
-          email
-          name
-          preferred_username
-          subscriptionPlan {
-            id
-            subscriptionPlansType
-            user {
-              id
-              email
-              name
-              preferred_username
-              subscriptionPlan {
-                id
-                subscriptionPlansType
-                user {
-                  id
-                  email
-                  name
-                  preferred_username
-                  subscriptionPlan {
-                    id
-                    subscriptionPlansType
-                    createdAt
-                    updatedAt
-                    subscriptionPlanUserId
-                  }
-                  createdAt
-                  updatedAt
-                  userSubscriptionPlanId
-                  owner
-                }
-                createdAt
-                updatedAt
-                subscriptionPlanUserId
-              }
-              createdAt
-              updatedAt
-              userSubscriptionPlanId
-              owner
-            }
-            createdAt
-            updatedAt
-            subscriptionPlanUserId
-          }
-          createdAt
-          updatedAt
-          userSubscriptionPlanId
-          owner
-        }
-        createdAt
-        updatedAt
-        subscriptionPlanUserId
-      }
-      createdAt
-      updatedAt
-      userSubscriptionPlanId
-      owner
-    }
-  }
-`;
 export const updateUser = /* GraphQL */ `
   mutation UpdateUser(
     $input: UpdateUserInput!
@@ -117,7 +42,9 @@ export const updateUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -126,7 +53,9 @@ export const updateUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -135,7 +64,9 @@ export const updateUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -144,7 +75,9 @@ export const updateUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -192,7 +125,9 @@ export const deleteUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -201,7 +136,9 @@ export const deleteUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -210,7 +147,9 @@ export const deleteUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -219,86 +158,13 @@ export const deleteUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
       owner
-    }
-  }
-`;
-export const createSubscriptionPlan = /* GraphQL */ `
-  mutation CreateSubscriptionPlan(
-    $input: CreateSubscriptionPlanInput!
-    $condition: ModelSubscriptionPlanConditionInput
-  ) {
-    createSubscriptionPlan(input: $input, condition: $condition) {
-      id
-      subscriptionPlansType
-      user {
-        id
-        email
-        name
-        preferred_username
-        subscriptionPlan {
-          id
-          subscriptionPlansType
-          user {
-            id
-            email
-            name
-            preferred_username
-            subscriptionPlan {
-              id
-              subscriptionPlansType
-              user {
-                id
-                email
-                name
-                preferred_username
-                subscriptionPlan {
-                  id
-                  subscriptionPlansType
-                  user {
-                    id
-                    email
-                    name
-                    preferred_username
-                    createdAt
-                    updatedAt
-                    userSubscriptionPlanId
-                    owner
-                  }
-                  createdAt
-                  updatedAt
-                  subscriptionPlanUserId
-                }
-                createdAt
-                updatedAt
-                userSubscriptionPlanId
-                owner
-              }
-              createdAt
-              updatedAt
-              subscriptionPlanUserId
-            }
-            createdAt
-            updatedAt
-            userSubscriptionPlanId
-            owner
-          }
-          createdAt
-          updatedAt
-          subscriptionPlanUserId
-        }
-        createdAt
-        updatedAt
-        userSubscriptionPlanId
-        owner
-      }
-      createdAt
-      updatedAt
-      subscriptionPlanUserId
     }
   }
 `;
@@ -339,6 +205,7 @@ export const updateSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -347,7 +214,9 @@ export const updateSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -356,7 +225,9 @@ export const updateSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -365,7 +236,9 @@ export const updateSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -374,6 +247,7 @@ export const updateSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
@@ -414,6 +288,7 @@ export const deleteSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -422,7 +297,9 @@ export const deleteSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -431,7 +308,9 @@ export const deleteSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -440,7 +319,9 @@ export const deleteSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -449,6 +330,7 @@ export const deleteSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
@@ -467,6 +349,7 @@ export const updateSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -504,6 +387,7 @@ export const updateSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -537,6 +421,7 @@ export const deleteSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -574,6 +459,7 @@ export const deleteSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -720,6 +606,7 @@ export const createBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
@@ -744,6 +631,7 @@ export const updateBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
@@ -768,10 +656,177 @@ export const deleteBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
       updatedAt
+      owner
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      email
+      name
+      preferred_username
+      subscriptionPlan {
+        id
+        subscriptionPlansType
+        user {
+          id
+          email
+          name
+          preferred_username
+          subscriptionPlan {
+            id
+            subscriptionPlansType
+            user {
+              id
+              email
+              name
+              preferred_username
+              subscriptionPlan {
+                id
+                subscriptionPlansType
+                user {
+                  id
+                  email
+                  name
+                  preferred_username
+                  subscriptionPlan {
+                    id
+                    subscriptionPlansType
+                    createdAt
+                    updatedAt
+                    subscriptionPlanUserId
+                    owner
+                  }
+                  subscriptionPlansType
+                  createdAt
+                  updatedAt
+                  userSubscriptionPlanId
+                  owner
+                }
+                createdAt
+                updatedAt
+                subscriptionPlanUserId
+                owner
+              }
+              subscriptionPlansType
+              createdAt
+              updatedAt
+              userSubscriptionPlanId
+              owner
+            }
+            createdAt
+            updatedAt
+            subscriptionPlanUserId
+            owner
+          }
+          subscriptionPlansType
+          createdAt
+          updatedAt
+          userSubscriptionPlanId
+          owner
+        }
+        createdAt
+        updatedAt
+        subscriptionPlanUserId
+        owner
+      }
+      subscriptionPlansType
+      createdAt
+      updatedAt
+      userSubscriptionPlanId
+      owner
+    }
+  }
+`;
+export const createSubscriptionPlan = /* GraphQL */ `
+  mutation CreateSubscriptionPlan(
+    $input: CreateSubscriptionPlanInput!
+    $condition: ModelSubscriptionPlanConditionInput
+  ) {
+    createSubscriptionPlan(input: $input, condition: $condition) {
+      id
+      subscriptionPlansType
+      user {
+        id
+        email
+        name
+        preferred_username
+        subscriptionPlan {
+          id
+          subscriptionPlansType
+          user {
+            id
+            email
+            name
+            preferred_username
+            subscriptionPlan {
+              id
+              subscriptionPlansType
+              user {
+                id
+                email
+                name
+                preferred_username
+                subscriptionPlan {
+                  id
+                  subscriptionPlansType
+                  user {
+                    id
+                    email
+                    name
+                    preferred_username
+                    subscriptionPlansType
+                    createdAt
+                    updatedAt
+                    userSubscriptionPlanId
+                    owner
+                  }
+                  createdAt
+                  updatedAt
+                  subscriptionPlanUserId
+                  owner
+                }
+                subscriptionPlansType
+                createdAt
+                updatedAt
+                userSubscriptionPlanId
+                owner
+              }
+              createdAt
+              updatedAt
+              subscriptionPlanUserId
+              owner
+            }
+            subscriptionPlansType
+            createdAt
+            updatedAt
+            userSubscriptionPlanId
+            owner
+          }
+          createdAt
+          updatedAt
+          subscriptionPlanUserId
+          owner
+        }
+        subscriptionPlansType
+        createdAt
+        updatedAt
+        userSubscriptionPlanId
+        owner
+      }
+      createdAt
+      updatedAt
+      subscriptionPlanUserId
       owner
     }
   }
@@ -791,6 +846,7 @@ export const createSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -828,6 +884,7 @@ export const createSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt

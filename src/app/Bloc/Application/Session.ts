@@ -18,11 +18,15 @@ export interface SessionParams{
 }
 
 
+export function getUUID(){
+  return uuidv4().replace(/-/g,"");
+}
+
 
 export class Session{
   private static _instance:Session = Session.GetInstance();
 
-  public transferFiles:TransferFiles = new TransferFiles();
+  public transferFiles:TransferFiles;
 
   public form:SessionParams;
 
@@ -33,7 +37,6 @@ export class Session{
   public sessionId:string;
 
   constructor() {
-    this.transferFiles = new TransferFiles();
     this.form = {
       fromEmail:new FormControl('',[Validators.required,Validators.email]),
       recipient:new FormControl('',[Validators.required,Validators.email]),
@@ -42,7 +45,10 @@ export class Session{
       message:''
     }
     this.sessionLink = new ShortUniqueId({length:10})();
-    this.sessionId = uuidv4();
+    // this.sessionId = uuidv4();
+    this.sessionId = getUUID();
+    this.transferFiles = new TransferFiles(this.sessionId);
+
   }
 
   public static GetInstance(){

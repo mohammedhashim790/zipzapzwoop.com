@@ -52,7 +52,7 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
   }
 
   get Files(){
-    return this.sessionData.files?.slice(0,5);
+    return this.sessionData.files!.slice(0,5);
   }
 
   constructor(
@@ -137,12 +137,19 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
       this.downloadStarted = true;
       if(this.sessionData.files!.length>1) {
         printer("Now Downloading");
-        printer(environment.downloadUrl + "/" + id);
+
+        let url = environment.downloadUrl + "/" + id;
+
+        printer(url);
+
+
+
         let element = document.createElement("a");
-        element.href = environment.downloadUrl + "/" + id;
+        element.href = url;
         element.target = "_self";
         element.click();
         element.remove();
+
       }else{
         let storageHelper = new StorageHelper();
         let element = document.createElement("a");

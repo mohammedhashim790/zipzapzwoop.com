@@ -51,8 +51,14 @@
         <mat-icon><i class="ph-file"></i></mat-icon>
       </span>
       <span class="details">
-        <h3>{{file.name}}</h3>
-        <h6>{{file.size | MemUnits}}</h6>
+        <h3 [matTooltip]="file.file.name">{{file.file.name}}</h3>
+        <h6
+          *ngIf="file.file.webkitRelativePath.length!=0"
+          [matTooltip]="'/' + file.file.webkitRelativePath"
+        >
+          /{{file.file.webkitRelativePath}}
+        </h6>
+        <h6>{{file.file.size | MemUnits}}</h6>
       </span>
       <button style="color: black" matSuffix mat-icon-button (click)="appSession.Remove(index)">
         <mat-icon>close</mat-icon>
@@ -87,6 +93,11 @@
           <a class="jasmine-empty">
             {{appSession.transferFiles.SizeLimitRemaining | MemUnits}} remaining
           </a>
+
+<!--          <a class="jasmine-empty">-->
+<!--            {{appSession.transferFiles.CountLimitRemaining}} files can be added-->
+<!--          </a>-->
+
         </span>
       </button>
     </span>
@@ -210,6 +221,17 @@
         Transfer
       </button>
     </span>
+<!--    <span>-->
+<!--      <button mat-flat-button-->
+<!--              class="app-button"-->
+<!--              (click)="check()"-->
+<!--              style="-->
+<!--              background: #6AC5AB;-->
+<!--              border: 2px solid #293F4B;border-radius: 12px">-->
+<!--        Check-->
+<!--      </button>-->
+<!--    </span>-->
+
 
   </span>
 

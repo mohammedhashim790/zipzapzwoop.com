@@ -13,6 +13,7 @@ import {map, startWith} from "rxjs";
 import {AppAnimations} from "../../../../Bloc/Application/Constants";
 import {getCurrentUser} from "../../../../Bloc/Signer/SignInHelper";
 
+
 @Component({
   selector: 'app-mtransfer-option-select',
   templateUrl: './mtransfer-option-select.component.html',
@@ -41,13 +42,11 @@ export class MTransferOptionSelectComponent extends ApplicationHelper implements
   ) {
     super();
 
-    this.api.ListMailInfos().then((res)=>{
+    this.api.ListMailInfos().then((res: { items: any[]; })=>{
       this.SelectRecipients(res.items);
     });
 
     application.appState = AppState.MAIL_SELECT;
-
-    printer()
 
   }
 

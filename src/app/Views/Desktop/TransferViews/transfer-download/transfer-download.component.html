@@ -46,7 +46,7 @@
           <span
             *ngFor="let file of Files"
             class="file">
-            <label>{{file?.key}}</label>
+            <label>{{file?.relativePath ?? ""}}</label>
           </span>
           <small style="margin-right: 0;margin-left: auto">
             +{{sessionData!.files!.length - Files!.length}} more

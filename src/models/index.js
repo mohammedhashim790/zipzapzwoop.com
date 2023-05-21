@@ -8,16 +8,16 @@ const SubscriptionPlanType = {
   "PROFESSIONAL": "PROFESSIONAL"
 };
 
-const { User, SubscriptionPlan, Session, MailInfo, LinkInfo, Backdrop, Recipients, S3Object } = initSchema(schema);
+const { User, SubscriptionPlan, Session, Recipients, MailInfo, LinkInfo, Backdrop, S3Object } = initSchema(schema);
 
 export {
   User,
   SubscriptionPlan,
   Session,
+  Recipients,
   MailInfo,
   LinkInfo,
   Backdrop,
-  Recipients,
   SubscriptionPlanType,
   S3Object
 };

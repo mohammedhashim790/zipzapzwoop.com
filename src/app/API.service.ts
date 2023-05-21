@@ -186,6 +186,7 @@ export type S3ObjectInput = {
   size?: string | null;
   extension?: string | null;
   mimetype?: string | null;
+  identifier: string;
 };
 
 export type ModelSessionConditionInput = {
@@ -248,6 +249,7 @@ export type S3Object = {
   size?: string | null;
   extension?: string | null;
   mimetype?: string | null;
+  identifier: string;
 };
 
 export type MailInfo = {
@@ -551,6 +553,117 @@ export type ModelBackdropFilterInput = {
   and?: Array<ModelBackdropFilterInput | null> | null;
   or?: Array<ModelBackdropFilterInput | null> | null;
   not?: ModelBackdropFilterInput | null;
+};
+
+export type ModelSubscriptionUserFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  email?: ModelSubscriptionStringInput | null;
+  name?: ModelSubscriptionStringInput | null;
+  preferred_username?: ModelSubscriptionStringInput | null;
+  subscriptionPlansType?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionUserFilterInput | null> | null;
+  or?: Array<ModelSubscriptionUserFilterInput | null> | null;
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  in?: Array<string | null> | null;
+  notIn?: Array<string | null> | null;
+};
+
+export type ModelSubscriptionStringInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  in?: Array<string | null> | null;
+  notIn?: Array<string | null> | null;
+};
+
+export type ModelSubscriptionSubscriptionPlanFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  subscriptionPlansType?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionSubscriptionPlanFilterInput | null> | null;
+  or?: Array<ModelSubscriptionSubscriptionPlanFilterInput | null> | null;
+};
+
+export type ModelSubscriptionRecipientsFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  recipient?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionRecipientsFilterInput | null> | null;
+  or?: Array<ModelSubscriptionRecipientsFilterInput | null> | null;
+};
+
+export type ModelSubscriptionSessionFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  fileSize?: ModelSubscriptionStringInput | null;
+  password?: ModelSubscriptionStringInput | null;
+  passwordProtected?: ModelSubscriptionBooleanInput | null;
+  shortUrl?: ModelSubscriptionStringInput | null;
+  expiry?: ModelSubscriptionIntInput | null;
+  and?: Array<ModelSubscriptionSessionFilterInput | null> | null;
+  or?: Array<ModelSubscriptionSessionFilterInput | null> | null;
+};
+
+export type ModelSubscriptionBooleanInput = {
+  ne?: boolean | null;
+  eq?: boolean | null;
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  in?: Array<number | null> | null;
+  notIn?: Array<number | null> | null;
+};
+
+export type ModelSubscriptionMailInfoFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  FromEmail?: ModelSubscriptionStringInput | null;
+  Recipients?: ModelSubscriptionStringInput | null;
+  Cc?: ModelSubscriptionStringInput | null;
+  Bcc?: ModelSubscriptionStringInput | null;
+  Subject?: ModelSubscriptionStringInput | null;
+  Title?: ModelSubscriptionStringInput | null;
+  Message?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionMailInfoFilterInput | null> | null;
+  or?: Array<ModelSubscriptionMailInfoFilterInput | null> | null;
+};
+
+export type ModelSubscriptionLinkInfoFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  Title?: ModelSubscriptionStringInput | null;
+  Message?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionLinkInfoFilterInput | null> | null;
+  or?: Array<ModelSubscriptionLinkInfoFilterInput | null> | null;
+};
+
+export type ModelSubscriptionBackdropFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  SessionID?: ModelSubscriptionIDInput | null;
+  static?: ModelSubscriptionBooleanInput | null;
+  and?: Array<ModelSubscriptionBackdropFilterInput | null> | null;
+  or?: Array<ModelSubscriptionBackdropFilterInput | null> | null;
 };
 
 export type UpdateUserMutation = {
@@ -905,6 +1018,7 @@ export type UpdateSessionMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -947,6 +1061,7 @@ export type UpdateSessionMutation = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -976,6 +1091,7 @@ export type DeleteSessionMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -1018,6 +1134,7 @@ export type DeleteSessionMutation = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -1125,6 +1242,7 @@ export type CreateBackdropMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -1145,6 +1263,7 @@ export type UpdateBackdropMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -1165,6 +1284,7 @@ export type DeleteBackdropMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -1354,6 +1474,7 @@ export type CreateSessionMutation = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -1396,6 +1517,7 @@ export type CreateSessionMutation = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -1799,6 +1921,7 @@ export type GetSessionQuery = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -1841,6 +1964,7 @@ export type GetSessionQuery = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -1872,6 +1996,7 @@ export type ListSessionsQuery = {
       size?: string | null;
       extension?: string | null;
       mimetype?: string | null;
+      identifier: string;
     } | null> | null;
     fileSize?: string | null;
     password?: string | null;
@@ -1914,6 +2039,7 @@ export type ListSessionsQuery = {
           size?: string | null;
           extension?: string | null;
           mimetype?: string | null;
+          identifier: string;
         };
         static: boolean;
         createdAt: string;
@@ -2004,6 +2130,7 @@ export type GetBackdropQuery = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -2026,6 +2153,7 @@ export type ListBackdropsQuery = {
       size?: string | null;
       extension?: string | null;
       mimetype?: string | null;
+      identifier: string;
     };
     static: boolean;
     createdAt: string;
@@ -2584,6 +2712,7 @@ export type OnCreateSessionSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -2626,6 +2755,7 @@ export type OnCreateSessionSubscription = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -2655,6 +2785,7 @@ export type OnUpdateSessionSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -2697,6 +2828,7 @@ export type OnUpdateSessionSubscription = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -2726,6 +2858,7 @@ export type OnDeleteSessionSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   } | null> | null;
   fileSize?: string | null;
   password?: string | null;
@@ -2768,6 +2901,7 @@ export type OnDeleteSessionSubscription = {
         size?: string | null;
         extension?: string | null;
         mimetype?: string | null;
+        identifier: string;
       };
       static: boolean;
       createdAt: string;
@@ -2873,6 +3007,7 @@ export type OnCreateBackdropSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -2893,6 +3028,7 @@ export type OnUpdateBackdropSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -2913,6 +3049,7 @@ export type OnDeleteBackdropSubscription = {
     size?: string | null;
     extension?: string | null;
     mimetype?: string | null;
+    identifier: string;
   };
   static: boolean;
   createdAt: string;
@@ -3345,6 +3482,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -3387,6 +3525,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -3432,6 +3571,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -3474,6 +3614,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -3709,6 +3850,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -3745,6 +3887,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -3781,6 +3924,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -4018,6 +4162,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -4060,6 +4205,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -4601,6 +4747,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -4643,6 +4790,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -4669,8 +4817,8 @@ export class APIService {
     return <GetSessionQuery>response.data.getSession;
   }
   async ListSessions(
-    limit?: number,
     filter?: ModelSessionFilterInput,
+    limit?: number,
     nextToken?: string
   ): Promise<ListSessionsQuery> {
     const statement = `query ListSessions($filter: ModelSessionFilterInput, $limit: Int, $nextToken: String) {
@@ -4688,6 +4836,7 @@ export class APIService {
               size
               extension
               mimetype
+              identifier
             }
             fileSize
             password
@@ -4730,6 +4879,7 @@ export class APIService {
                   size
                   extension
                   mimetype
+                  identifier
                 }
                 static
                 createdAt
@@ -4899,6 +5049,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -4935,6 +5086,7 @@ export class APIService {
               size
               extension
               mimetype
+              identifier
             }
             static
             createdAt
@@ -4960,12 +5112,13 @@ export class APIService {
     return <ListBackdropsQuery>response.data.listBackdrops;
   }
   OnCreateUserListener(
+    filter?: ModelSubscriptionUserFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUser">>
   > {
-    const statement = `subscription OnCreateUser($owner: String) {
-        onCreateUser(owner: $owner) {
+    const statement = `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+        onCreateUser(filter: $filter, owner: $owner) {
           __typename
           id
           email
@@ -5051,6 +5204,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5062,12 +5218,13 @@ export class APIService {
   }
 
   OnUpdateUserListener(
+    filter?: ModelSubscriptionUserFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUser">>
   > {
-    const statement = `subscription OnUpdateUser($owner: String) {
-        onUpdateUser(owner: $owner) {
+    const statement = `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+        onUpdateUser(filter: $filter, owner: $owner) {
           __typename
           id
           email
@@ -5153,6 +5310,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5164,12 +5324,13 @@ export class APIService {
   }
 
   OnDeleteUserListener(
+    filter?: ModelSubscriptionUserFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUser">>
   > {
-    const statement = `subscription OnDeleteUser($owner: String) {
-        onDeleteUser(owner: $owner) {
+    const statement = `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput, $owner: String) {
+        onDeleteUser(filter: $filter, owner: $owner) {
           __typename
           id
           email
@@ -5255,6 +5416,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5266,14 +5430,15 @@ export class APIService {
   }
 
   OnCreateSubscriptionPlanListener(
+    filter?: ModelSubscriptionSubscriptionPlanFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onCreateSubscriptionPlan">
     >
   > {
-    const statement = `subscription OnCreateSubscriptionPlan($owner: String) {
-        onCreateSubscriptionPlan(owner: $owner) {
+    const statement = `subscription OnCreateSubscriptionPlan($filter: ModelSubscriptionSubscriptionPlanFilterInput, $owner: String) {
+        onCreateSubscriptionPlan(filter: $filter, owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -5359,6 +5524,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5372,14 +5540,15 @@ export class APIService {
   }
 
   OnUpdateSubscriptionPlanListener(
+    filter?: ModelSubscriptionSubscriptionPlanFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onUpdateSubscriptionPlan">
     >
   > {
-    const statement = `subscription OnUpdateSubscriptionPlan($owner: String) {
-        onUpdateSubscriptionPlan(owner: $owner) {
+    const statement = `subscription OnUpdateSubscriptionPlan($filter: ModelSubscriptionSubscriptionPlanFilterInput, $owner: String) {
+        onUpdateSubscriptionPlan(filter: $filter, owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -5465,6 +5634,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5478,14 +5650,15 @@ export class APIService {
   }
 
   OnDeleteSubscriptionPlanListener(
+    filter?: ModelSubscriptionSubscriptionPlanFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<
       Pick<__SubscriptionContainer, "onDeleteSubscriptionPlan">
     >
   > {
-    const statement = `subscription OnDeleteSubscriptionPlan($owner: String) {
-        onDeleteSubscriptionPlan(owner: $owner) {
+    const statement = `subscription OnDeleteSubscriptionPlan($filter: ModelSubscriptionSubscriptionPlanFilterInput, $owner: String) {
+        onDeleteSubscriptionPlan(filter: $filter, owner: $owner) {
           __typename
           id
           subscriptionPlansType
@@ -5571,6 +5744,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5584,12 +5760,13 @@ export class APIService {
   }
 
   OnCreateRecipientsListener(
+    filter?: ModelSubscriptionRecipientsFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateRecipients">>
   > {
-    const statement = `subscription OnCreateRecipients($owner: String) {
-        onCreateRecipients(owner: $owner) {
+    const statement = `subscription OnCreateRecipients($filter: ModelSubscriptionRecipientsFilterInput, $owner: String) {
+        onCreateRecipients(filter: $filter, owner: $owner) {
           __typename
           id
           recipient
@@ -5599,6 +5776,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5610,12 +5790,13 @@ export class APIService {
   }
 
   OnUpdateRecipientsListener(
+    filter?: ModelSubscriptionRecipientsFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateRecipients">>
   > {
-    const statement = `subscription OnUpdateRecipients($owner: String) {
-        onUpdateRecipients(owner: $owner) {
+    const statement = `subscription OnUpdateRecipients($filter: ModelSubscriptionRecipientsFilterInput, $owner: String) {
+        onUpdateRecipients(filter: $filter, owner: $owner) {
           __typename
           id
           recipient
@@ -5625,6 +5806,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5636,12 +5820,13 @@ export class APIService {
   }
 
   OnDeleteRecipientsListener(
+    filter?: ModelSubscriptionRecipientsFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteRecipients">>
   > {
-    const statement = `subscription OnDeleteRecipients($owner: String) {
-        onDeleteRecipients(owner: $owner) {
+    const statement = `subscription OnDeleteRecipients($filter: ModelSubscriptionRecipientsFilterInput, $owner: String) {
+        onDeleteRecipients(filter: $filter, owner: $owner) {
           __typename
           id
           recipient
@@ -5651,6 +5836,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5662,12 +5850,13 @@ export class APIService {
   }
 
   OnCreateSessionListener(
+    filter?: ModelSubscriptionSessionFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateSession">>
   > {
-    const statement = `subscription OnCreateSession($owner: String) {
-        onCreateSession(owner: $owner) {
+    const statement = `subscription OnCreateSession($filter: ModelSubscriptionSessionFilterInput, $owner: String) {
+        onCreateSession(filter: $filter, owner: $owner) {
           __typename
           id
           files {
@@ -5679,6 +5868,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -5721,6 +5911,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -5739,6 +5930,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5750,12 +5944,13 @@ export class APIService {
   }
 
   OnUpdateSessionListener(
+    filter?: ModelSubscriptionSessionFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateSession">>
   > {
-    const statement = `subscription OnUpdateSession($owner: String) {
-        onUpdateSession(owner: $owner) {
+    const statement = `subscription OnUpdateSession($filter: ModelSubscriptionSessionFilterInput, $owner: String) {
+        onUpdateSession(filter: $filter, owner: $owner) {
           __typename
           id
           files {
@@ -5767,6 +5962,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -5809,6 +6005,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -5827,6 +6024,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5838,12 +6038,13 @@ export class APIService {
   }
 
   OnDeleteSessionListener(
+    filter?: ModelSubscriptionSessionFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteSession">>
   > {
-    const statement = `subscription OnDeleteSession($owner: String) {
-        onDeleteSession(owner: $owner) {
+    const statement = `subscription OnDeleteSession($filter: ModelSubscriptionSessionFilterInput, $owner: String) {
+        onDeleteSession(filter: $filter, owner: $owner) {
           __typename
           id
           files {
@@ -5855,6 +6056,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           fileSize
           password
@@ -5897,6 +6099,7 @@ export class APIService {
                 size
                 extension
                 mimetype
+                identifier
               }
               static
               createdAt
@@ -5915,6 +6118,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5926,12 +6132,13 @@ export class APIService {
   }
 
   OnCreateMailInfoListener(
+    filter?: ModelSubscriptionMailInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateMailInfo">>
   > {
-    const statement = `subscription OnCreateMailInfo($owner: String) {
-        onCreateMailInfo(owner: $owner) {
+    const statement = `subscription OnCreateMailInfo($filter: ModelSubscriptionMailInfoFilterInput, $owner: String) {
+        onCreateMailInfo(filter: $filter, owner: $owner) {
           __typename
           id
           FromEmail
@@ -5947,6 +6154,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5958,12 +6168,13 @@ export class APIService {
   }
 
   OnUpdateMailInfoListener(
+    filter?: ModelSubscriptionMailInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateMailInfo">>
   > {
-    const statement = `subscription OnUpdateMailInfo($owner: String) {
-        onUpdateMailInfo(owner: $owner) {
+    const statement = `subscription OnUpdateMailInfo($filter: ModelSubscriptionMailInfoFilterInput, $owner: String) {
+        onUpdateMailInfo(filter: $filter, owner: $owner) {
           __typename
           id
           FromEmail
@@ -5979,6 +6190,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -5990,12 +6204,13 @@ export class APIService {
   }
 
   OnDeleteMailInfoListener(
+    filter?: ModelSubscriptionMailInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteMailInfo">>
   > {
-    const statement = `subscription OnDeleteMailInfo($owner: String) {
-        onDeleteMailInfo(owner: $owner) {
+    const statement = `subscription OnDeleteMailInfo($filter: ModelSubscriptionMailInfoFilterInput, $owner: String) {
+        onDeleteMailInfo(filter: $filter, owner: $owner) {
           __typename
           id
           FromEmail
@@ -6011,6 +6226,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6022,12 +6240,13 @@ export class APIService {
   }
 
   OnCreateLinkInfoListener(
+    filter?: ModelSubscriptionLinkInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateLinkInfo">>
   > {
-    const statement = `subscription OnCreateLinkInfo($owner: String) {
-        onCreateLinkInfo(owner: $owner) {
+    const statement = `subscription OnCreateLinkInfo($filter: ModelSubscriptionLinkInfoFilterInput, $owner: String) {
+        onCreateLinkInfo(filter: $filter, owner: $owner) {
           __typename
           id
           Title
@@ -6038,6 +6257,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6049,12 +6271,13 @@ export class APIService {
   }
 
   OnUpdateLinkInfoListener(
+    filter?: ModelSubscriptionLinkInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateLinkInfo">>
   > {
-    const statement = `subscription OnUpdateLinkInfo($owner: String) {
-        onUpdateLinkInfo(owner: $owner) {
+    const statement = `subscription OnUpdateLinkInfo($filter: ModelSubscriptionLinkInfoFilterInput, $owner: String) {
+        onUpdateLinkInfo(filter: $filter, owner: $owner) {
           __typename
           id
           Title
@@ -6065,6 +6288,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6076,12 +6302,13 @@ export class APIService {
   }
 
   OnDeleteLinkInfoListener(
+    filter?: ModelSubscriptionLinkInfoFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteLinkInfo">>
   > {
-    const statement = `subscription OnDeleteLinkInfo($owner: String) {
-        onDeleteLinkInfo(owner: $owner) {
+    const statement = `subscription OnDeleteLinkInfo($filter: ModelSubscriptionLinkInfoFilterInput, $owner: String) {
+        onDeleteLinkInfo(filter: $filter, owner: $owner) {
           __typename
           id
           Title
@@ -6092,6 +6319,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6103,12 +6333,13 @@ export class APIService {
   }
 
   OnCreateBackdropListener(
+    filter?: ModelSubscriptionBackdropFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateBackdrop">>
   > {
-    const statement = `subscription OnCreateBackdrop($owner: String) {
-        onCreateBackdrop(owner: $owner) {
+    const statement = `subscription OnCreateBackdrop($filter: ModelSubscriptionBackdropFilterInput, $owner: String) {
+        onCreateBackdrop(filter: $filter, owner: $owner) {
           __typename
           id
           SessionID
@@ -6121,6 +6352,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -6129,6 +6361,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6140,12 +6375,13 @@ export class APIService {
   }
 
   OnUpdateBackdropListener(
+    filter?: ModelSubscriptionBackdropFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateBackdrop">>
   > {
-    const statement = `subscription OnUpdateBackdrop($owner: String) {
-        onUpdateBackdrop(owner: $owner) {
+    const statement = `subscription OnUpdateBackdrop($filter: ModelSubscriptionBackdropFilterInput, $owner: String) {
+        onUpdateBackdrop(filter: $filter, owner: $owner) {
           __typename
           id
           SessionID
@@ -6158,6 +6394,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -6166,6 +6403,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }
@@ -6177,12 +6417,13 @@ export class APIService {
   }
 
   OnDeleteBackdropListener(
+    filter?: ModelSubscriptionBackdropFilterInput,
     owner?: string
   ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteBackdrop">>
   > {
-    const statement = `subscription OnDeleteBackdrop($owner: String) {
-        onDeleteBackdrop(owner: $owner) {
+    const statement = `subscription OnDeleteBackdrop($filter: ModelSubscriptionBackdropFilterInput, $owner: String) {
+        onDeleteBackdrop(filter: $filter, owner: $owner) {
           __typename
           id
           SessionID
@@ -6195,6 +6436,7 @@ export class APIService {
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -6203,6 +6445,9 @@ export class APIService {
         }
       }`;
     const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
     if (owner) {
       gqlAPIServiceArguments.owner = owner;
     }

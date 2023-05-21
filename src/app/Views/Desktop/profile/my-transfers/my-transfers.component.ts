@@ -124,7 +124,7 @@ export class MyTransfersComponent implements OnInit {
 
 
   SrcUrl(path: S3Object) {
-    return environment.media +this.sessionOnView!.id + '/' + path.key;
+    return environment.media + path.key.replace("res/public/","");
   }
 
   toNumber(fileSize: any) {

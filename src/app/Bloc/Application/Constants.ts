@@ -199,16 +199,16 @@ export var banners:Array<string> = [
   "../../../../assets/backdrops/stories/backdrop.html",
 ]
 
-export var promotionStyles = "width: calc(100% - calc(360px + 5em));" +
-  "position: fixed;" +
-  "left: calc(360px + 5em);" +
-  "padding: 0 3em;" +
-  "height: 80%;" +
-  "z-index: 10;" +
-  "margin: auto;" +
-  "top: 50%;" +
-  "transform: translateY(-50%);" +
-  "display: flex;" +
-  "flex-direction: column;" +
-  "justify-content: start;" +
-  "place-items: start;"
+// export var promotionStyles = "width: calc(100% - calc(360px + 5em));" +
+//   "position: fixed;" +
+//   "left: calc(360px + 5em);" +
+//   "padding: 0 3em;" +
+//   "height: 80%;" +
+//   "z-index: 10;" +
+//   "margin: auto;" +
+//   "top: 50%;" +
+//   "transform: translateY(-50%);" +
+//   "display: flex;" +
+//   "flex-direction: column;" +
+//   "justify-content: start;" +
+//   "place-items: start;"

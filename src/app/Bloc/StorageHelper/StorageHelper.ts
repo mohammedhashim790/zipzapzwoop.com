@@ -6,6 +6,7 @@ import * as JSZip from "jszip";
 import {printer} from "../../app.component";
 import {AppErrors} from "../Application/AppErrors";
 import {Errors} from "../Application/Constants";
+import {S3ObjectParams} from "../API/S3ObjectParam";
 
 
 
@@ -32,7 +33,7 @@ export class StorageHelper {
 
   totalFiles = -1;
   private fileProgress: Array<boolean> = [];
-  private files: Array<File> = [];
+  private files: Array<S3ObjectParams> = [];
 
 
   private _instanceLocked:boolean = false;
@@ -135,8 +136,9 @@ export class StorageHelper {
    * @param sessionId
    * @constructor
    */
-  public async UploadObjects(filesToUpload: Array<File>,
+  public async UploadObjects(filesToUpload: Array<S3ObjectParams>,
                               sessionId:string) {
+
 
     if(this._instanceLocked) {
       printer("Instance Locked. ")
@@ -149,7 +151,7 @@ export class StorageHelper {
 
       this.fileProgress = Array(this.files.length).fill(false);
 
-      this.totalSize = this.files.reduce((num:number,file:File)=> num + file.size,0);
+      this.totalSize = this.files.reduce((num:number,file)=> num + file.file.size,0);
 
       printer("Files " + this.files.length );
       printer("Total Size " + this.totalSize);
@@ -157,17 +159,13 @@ export class StorageHelper {
       this.files = this.files.flat();
       if(this.files.length == 1){
         let file = this.files[0];
-        let key = this.getKey(sessionId,this.filePathKey(file));
-        // let key = this.filePathKey(file);
-        await this.UploadObject(key, file, 0);
+        await this.UploadObject(file.key, file.file, 0);
         return sessionId;
       }
       this.iterProgress = 0;
       for (let iter = 0; iter < this.files.length; iter++) {
         let file = this.files[iter];
-        let key = this.getKey(sessionId,this.filePathKey(file));
-        // let key = this.filePathKey(file);
-        await this.UploadObject(key, file,iter);
+        await this.UploadObject(file.key, file.file,iter);
         // printer(`Completed ${iter}`);
         // if(iter == 4){
         //   throw new AppErrors(Errors.CUSTOM_ERROR,"Custom Error");

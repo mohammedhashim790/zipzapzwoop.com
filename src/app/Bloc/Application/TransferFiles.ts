@@ -15,7 +15,7 @@ export class TransferConstants{
     }
     return ONE_GIGABYTE * 2;
   };
-  public static readonly FILE_COUNT_LIMIT: number = 400;
+  public static readonly FILE_COUNT_LIMIT: number = 500;
 
 
   //LIMITS
@@ -32,12 +32,19 @@ export class TransferConstants{
     }
     return ExpiryDatePlan.BASIC;
   };
+}
+
+
+class FileInfo{
 
 
 
 }
 
+
+
 export class TransferFiles {
+  private sessionId: string;
 
   get locked(): boolean {
     return this._locked;
@@ -54,14 +61,19 @@ export class TransferFiles {
   }
   // ONE_GIGABYTE / 512;
 
-  public files: Array<Array<File> | any | File>;
+  public files: Array<S3ObjectParams> = [];
+  // public files: Array<Array<File> | any | File>;
 
   get size() {
-    return this.files.reduce((sum, file) => sum + file.size, 0);
+    return this.files.reduce((sum, file) => sum + file.file.size, 0);
   }
 
   get SizeLimitRemaining() {
     return TransferConstants.FILE_SIZE_LIMIT() - this.size;
+  }
+
+  get CountLimitRemaining(){
+    return TransferConstants.FILE_COUNT_LIMIT - this.files.length;
   }
 
   get MaxLimitExceeded() {
@@ -69,19 +81,14 @@ export class TransferFiles {
   }
 
   get ProcessedS3Object(){
-    return this.files.map((file) =>
-      new S3ObjectParams(
-        filePathKey(file),
-        file.webkitRelativePath,
-        String(file.size),
-        file.name.split(".")[-1],
-        file.type
-      )
-    );
+    return this.files;
   }
 
-  constructor() {
+  constructor(
+    sessionId:string
+  ) {
     this.files = [];
+    this.sessionId = sessionId;
   }
 
   push(files: Array<File>) {
@@ -96,12 +103,12 @@ export class TransferFiles {
 
     if (this.MaxLimitExceeded || totalSize(files) > TransferConstants.FILE_SIZE_LIMIT()) {
       this.ReleaseInstance();
-      throw new AppErrors(Errors.FILE_MAX_LIMIT_EXCEEDED, "Maximum File size limit exceeded!");
+      throw new AppErrors(Errors.FILE_MAX_LIMIT_EXCEEDED, "Maximum File size limit exceeded! ");
     }
 
     if (this.files.length > TransferConstants.FILE_COUNT_LIMIT) {
       this.ReleaseInstance();
-      throw new AppErrors(Errors.FILE_LIMIT_EXCEEDED, "Maximum File Count limit exceeded!");
+      throw new AppErrors(Errors.FILE_LIMIT_EXCEEDED, `Maximum File Count  limit exceeded!`);
     }
 
 
@@ -113,15 +120,19 @@ export class TransferFiles {
         break;
       }
 
-      if (this.files.findIndex((value) => value.name == file.name) == -1) {
-        this.files.push(file);
-      } else {
-        printer("Duplicate Found");
-        postFunc = () => {
-          throw new AppErrors(Errors.DUPLICATE_FILE_EXCEPTION,
-            "Files with the same name were found. Please rename and re-select files.");
-        }
-      }
+      this.files.push(new S3ObjectParams(
+        this.sessionId,
+        file
+      ));
+      // if (this.files.findIndex((value) => value.name == file.name) == -1) {
+      //   this.files.push(file);
+      // } else {
+      //   printer("Duplicate Found");
+      //   postFunc = () => {
+      //     throw new AppErrors(Errors.DUPLICATE_FILE_EXCEPTION,
+      //       "Files with the same name were found. Please rename and re-select files.");
+      //   }
+      // }
     }
 
     this.ReleaseInstance();
@@ -140,14 +151,6 @@ export class TransferFiles {
   }
 
 
-  hasDuplicates(files: Array<File> | File | any) {
-    if (files instanceof Array) {
-      return this.files.filter((file) => {
-        return files.findIndex((file2) => file2.name == file.name) == -1;
-      }).length == 0;
-    }
-    return this.files.indexOf((value: any) => value.name == files.name) != -1;
-  }
 
 
   FILE_SIZE_LIMIT() {

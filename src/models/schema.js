@@ -45,6 +45,15 @@ export const schema = {
                         "targetName": "userSubscriptionPlanId"
                     }
                 },
+                "subscriptionPlansType": {
+                    "name": "subscriptionPlansType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "SubscriptionPlanType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -80,6 +89,12 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create"
+                                ]
+                            },
                             {
                                 "provider": "userPools",
                                 "ownerField": "owner",
@@ -169,6 +184,22 @@ export const schema = {
                     "type": "auth",
                     "properties": {
                         "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "read"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
                             {
                                 "groupClaim": "cognito:groups",
                                 "provider": "userPools",
@@ -291,20 +322,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "user": {
-                    "name": "user",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id",
-                        "targetName": "sessionUserId"
-                    }
-                },
                 "SentOn": {
                     "name": "SentOn",
                     "isArray": false,
@@ -334,13 +351,6 @@ export const schema = {
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
-                },
-                "sessionUserId": {
-                    "name": "sessionUserId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -365,6 +375,90 @@ export const schema = {
                                     "create",
                                     "read"
                                 ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "operations": [
+                                    "create",
+                                    "read",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "admin"
+                                ],
+                                "operations": [
+                                    "create",
+                                    "read",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Recipients": {
+            "name": "Recipients",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "recipient": {
+                    "name": "recipient",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "SentOn": {
+                    "name": "SentOn",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedOn": {
+                    "name": "updatedOn",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Recipients",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {
+                        "timestamps": {
+                            "createdAt": "SentOn",
+                            "updatedAt": "updatedOn"
+                        }
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": []
                             },
                             {
                                 "provider": "userPools",
@@ -728,90 +822,6 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "Recipients": {
-            "name": "Recipients",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "recipient": {
-                    "name": "recipient",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "SentOn": {
-                    "name": "SentOn",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedOn": {
-                    "name": "updatedOn",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Recipients",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {
-                        "timestamps": {
-                            "createdAt": "SentOn",
-                            "updatedAt": "updatedOn"
-                        }
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": []
-                            },
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "create",
-                                    "read",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            },
-                            {
-                                "groupClaim": "cognito:groups",
-                                "provider": "userPools",
-                                "allow": "groups",
-                                "groups": [
-                                    "admin"
-                                ],
-                                "operations": [
-                                    "create",
-                                    "read",
-                                    "update",
-                                    "delete"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
         }
     },
     "enums": {
@@ -876,9 +886,17 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "identifier": {
+                    "name": "identifier",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
                 }
             }
         }
     },
-    "version": "18f87f31f61e15761b7aaada6304d856"
+    "codegenVersion": "3.4.0",
+    "version": "f4e8494638d0f5d4f1e9ad576f5c80e2"
 };

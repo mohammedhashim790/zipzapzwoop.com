@@ -181,4 +181,7 @@ export class TransferSelectComponent extends ApplicationHelper implements OnInit
   }
 
 
+  // check() {
+  //   printer(this.appSession.transferFiles.files);
+  // }
 }

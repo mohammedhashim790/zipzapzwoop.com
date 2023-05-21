@@ -5,7 +5,7 @@ import {
   CreateMailInfoInput, CreateMailInfoMutation,
   CreateSessionInput, CreateSessionMutation
 } from "../../API.service";
-import {Session} from "../Application/Session";
+import {getUUID, Session} from "../Application/Session";
 import {printer} from "../../app.component";
 import {v4 as uuidv4} from 'uuid';
 import API from "@aws-amplify/api-graphql";
@@ -28,7 +28,8 @@ export var CreateSession = async (
 
   if(session.linkTransfer){
   //  LINK TRANSFER
-    transferInfo.id = uuidv4();
+  //   transferInfo.id = uuidv4();
+    transferInfo.id = getUUID();
 
     res = await API.graphql({
       query:createLinkInfo,
@@ -46,7 +47,8 @@ export var CreateSession = async (
   }
   else{
   //MAIL TRANSFER
-    transferInfo.id = uuidv4();
+    transferInfo.id = getUUID();
+    // transferInfo.id = uuidv4();
 
     res = await API.graphql({
       query:createMailInfo,

@@ -3,8 +3,11 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       email
       name
@@ -39,7 +42,9 @@ export const onCreateUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -48,7 +53,9 @@ export const onCreateUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -57,7 +64,9 @@ export const onCreateUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -66,7 +75,9 @@ export const onCreateUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -75,8 +86,11 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       email
       name
@@ -111,7 +125,9 @@ export const onUpdateUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -120,7 +136,9 @@ export const onUpdateUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -129,7 +147,9 @@ export const onUpdateUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -138,7 +158,9 @@ export const onUpdateUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -147,8 +169,11 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       email
       name
@@ -183,7 +208,9 @@ export const onDeleteUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -192,7 +219,9 @@ export const onDeleteUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -201,7 +230,9 @@ export const onDeleteUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -210,7 +241,9 @@ export const onDeleteUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -219,8 +252,11 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateSubscriptionPlan = /* GraphQL */ `
-  subscription OnCreateSubscriptionPlan {
-    onCreateSubscriptionPlan {
+  subscription OnCreateSubscriptionPlan(
+    $filter: ModelSubscriptionSubscriptionPlanFilterInput
+    $owner: String
+  ) {
+    onCreateSubscriptionPlan(filter: $filter, owner: $owner) {
       id
       subscriptionPlansType
       user {
@@ -252,6 +288,7 @@ export const onCreateSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -260,7 +297,9 @@ export const onCreateSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -269,7 +308,9 @@ export const onCreateSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -278,7 +319,9 @@ export const onCreateSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -287,12 +330,16 @@ export const onCreateSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
 export const onUpdateSubscriptionPlan = /* GraphQL */ `
-  subscription OnUpdateSubscriptionPlan {
-    onUpdateSubscriptionPlan {
+  subscription OnUpdateSubscriptionPlan(
+    $filter: ModelSubscriptionSubscriptionPlanFilterInput
+    $owner: String
+  ) {
+    onUpdateSubscriptionPlan(filter: $filter, owner: $owner) {
       id
       subscriptionPlansType
       user {
@@ -324,6 +371,7 @@ export const onUpdateSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -332,7 +380,9 @@ export const onUpdateSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -341,7 +391,9 @@ export const onUpdateSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -350,7 +402,9 @@ export const onUpdateSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -359,12 +413,16 @@ export const onUpdateSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
 export const onDeleteSubscriptionPlan = /* GraphQL */ `
-  subscription OnDeleteSubscriptionPlan {
-    onDeleteSubscriptionPlan {
+  subscription OnDeleteSubscriptionPlan(
+    $filter: ModelSubscriptionSubscriptionPlanFilterInput
+    $owner: String
+  ) {
+    onDeleteSubscriptionPlan(filter: $filter, owner: $owner) {
       id
       subscriptionPlansType
       user {
@@ -396,6 +454,7 @@ export const onDeleteSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -404,7 +463,9 @@ export const onDeleteSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -413,7 +474,9 @@ export const onDeleteSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -422,7 +485,9 @@ export const onDeleteSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -431,12 +496,16 @@ export const onDeleteSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
 export const onCreateRecipients = /* GraphQL */ `
-  subscription OnCreateRecipients($owner: String) {
-    onCreateRecipients(owner: $owner) {
+  subscription OnCreateRecipients(
+    $filter: ModelSubscriptionRecipientsFilterInput
+    $owner: String
+  ) {
+    onCreateRecipients(filter: $filter, owner: $owner) {
       id
       recipient
       SentOn
@@ -446,8 +515,11 @@ export const onCreateRecipients = /* GraphQL */ `
   }
 `;
 export const onUpdateRecipients = /* GraphQL */ `
-  subscription OnUpdateRecipients($owner: String) {
-    onUpdateRecipients(owner: $owner) {
+  subscription OnUpdateRecipients(
+    $filter: ModelSubscriptionRecipientsFilterInput
+    $owner: String
+  ) {
+    onUpdateRecipients(filter: $filter, owner: $owner) {
       id
       recipient
       SentOn
@@ -457,8 +529,11 @@ export const onUpdateRecipients = /* GraphQL */ `
   }
 `;
 export const onDeleteRecipients = /* GraphQL */ `
-  subscription OnDeleteRecipients($owner: String) {
-    onDeleteRecipients(owner: $owner) {
+  subscription OnDeleteRecipients(
+    $filter: ModelSubscriptionRecipientsFilterInput
+    $owner: String
+  ) {
+    onDeleteRecipients(filter: $filter, owner: $owner) {
       id
       recipient
       SentOn
@@ -468,8 +543,11 @@ export const onDeleteRecipients = /* GraphQL */ `
   }
 `;
 export const onCreateSession = /* GraphQL */ `
-  subscription OnCreateSession($owner: String) {
-    onCreateSession(owner: $owner) {
+  subscription OnCreateSession(
+    $filter: ModelSubscriptionSessionFilterInput
+    $owner: String
+  ) {
+    onCreateSession(filter: $filter, owner: $owner) {
       id
       files {
         key
@@ -479,6 +557,7 @@ export const onCreateSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -516,6 +595,7 @@ export const onCreateSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -535,8 +615,11 @@ export const onCreateSession = /* GraphQL */ `
   }
 `;
 export const onUpdateSession = /* GraphQL */ `
-  subscription OnUpdateSession($owner: String) {
-    onUpdateSession(owner: $owner) {
+  subscription OnUpdateSession(
+    $filter: ModelSubscriptionSessionFilterInput
+    $owner: String
+  ) {
+    onUpdateSession(filter: $filter, owner: $owner) {
       id
       files {
         key
@@ -546,6 +629,7 @@ export const onUpdateSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -583,6 +667,7 @@ export const onUpdateSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -602,8 +687,11 @@ export const onUpdateSession = /* GraphQL */ `
   }
 `;
 export const onDeleteSession = /* GraphQL */ `
-  subscription OnDeleteSession($owner: String) {
-    onDeleteSession(owner: $owner) {
+  subscription OnDeleteSession(
+    $filter: ModelSubscriptionSessionFilterInput
+    $owner: String
+  ) {
+    onDeleteSession(filter: $filter, owner: $owner) {
       id
       files {
         key
@@ -613,6 +701,7 @@ export const onDeleteSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -650,6 +739,7 @@ export const onDeleteSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -669,8 +759,11 @@ export const onDeleteSession = /* GraphQL */ `
   }
 `;
 export const onCreateMailInfo = /* GraphQL */ `
-  subscription OnCreateMailInfo($owner: String) {
-    onCreateMailInfo(owner: $owner) {
+  subscription OnCreateMailInfo(
+    $filter: ModelSubscriptionMailInfoFilterInput
+    $owner: String
+  ) {
+    onCreateMailInfo(filter: $filter, owner: $owner) {
       id
       FromEmail
       Recipients
@@ -686,8 +779,11 @@ export const onCreateMailInfo = /* GraphQL */ `
   }
 `;
 export const onUpdateMailInfo = /* GraphQL */ `
-  subscription OnUpdateMailInfo($owner: String) {
-    onUpdateMailInfo(owner: $owner) {
+  subscription OnUpdateMailInfo(
+    $filter: ModelSubscriptionMailInfoFilterInput
+    $owner: String
+  ) {
+    onUpdateMailInfo(filter: $filter, owner: $owner) {
       id
       FromEmail
       Recipients
@@ -703,8 +799,11 @@ export const onUpdateMailInfo = /* GraphQL */ `
   }
 `;
 export const onDeleteMailInfo = /* GraphQL */ `
-  subscription OnDeleteMailInfo($owner: String) {
-    onDeleteMailInfo(owner: $owner) {
+  subscription OnDeleteMailInfo(
+    $filter: ModelSubscriptionMailInfoFilterInput
+    $owner: String
+  ) {
+    onDeleteMailInfo(filter: $filter, owner: $owner) {
       id
       FromEmail
       Recipients
@@ -720,8 +819,11 @@ export const onDeleteMailInfo = /* GraphQL */ `
   }
 `;
 export const onCreateLinkInfo = /* GraphQL */ `
-  subscription OnCreateLinkInfo($owner: String) {
-    onCreateLinkInfo(owner: $owner) {
+  subscription OnCreateLinkInfo(
+    $filter: ModelSubscriptionLinkInfoFilterInput
+    $owner: String
+  ) {
+    onCreateLinkInfo(filter: $filter, owner: $owner) {
       id
       Title
       Message
@@ -732,8 +834,11 @@ export const onCreateLinkInfo = /* GraphQL */ `
   }
 `;
 export const onUpdateLinkInfo = /* GraphQL */ `
-  subscription OnUpdateLinkInfo($owner: String) {
-    onUpdateLinkInfo(owner: $owner) {
+  subscription OnUpdateLinkInfo(
+    $filter: ModelSubscriptionLinkInfoFilterInput
+    $owner: String
+  ) {
+    onUpdateLinkInfo(filter: $filter, owner: $owner) {
       id
       Title
       Message
@@ -744,8 +849,11 @@ export const onUpdateLinkInfo = /* GraphQL */ `
   }
 `;
 export const onDeleteLinkInfo = /* GraphQL */ `
-  subscription OnDeleteLinkInfo($owner: String) {
-    onDeleteLinkInfo(owner: $owner) {
+  subscription OnDeleteLinkInfo(
+    $filter: ModelSubscriptionLinkInfoFilterInput
+    $owner: String
+  ) {
+    onDeleteLinkInfo(filter: $filter, owner: $owner) {
       id
       Title
       Message
@@ -756,8 +864,11 @@ export const onDeleteLinkInfo = /* GraphQL */ `
   }
 `;
 export const onCreateBackdrop = /* GraphQL */ `
-  subscription OnCreateBackdrop($owner: String) {
-    onCreateBackdrop(owner: $owner) {
+  subscription OnCreateBackdrop(
+    $filter: ModelSubscriptionBackdropFilterInput
+    $owner: String
+  ) {
+    onCreateBackdrop(filter: $filter, owner: $owner) {
       id
       SessionID
       S3Object {
@@ -768,6 +879,7 @@ export const onCreateBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
@@ -777,8 +889,11 @@ export const onCreateBackdrop = /* GraphQL */ `
   }
 `;
 export const onUpdateBackdrop = /* GraphQL */ `
-  subscription OnUpdateBackdrop($owner: String) {
-    onUpdateBackdrop(owner: $owner) {
+  subscription OnUpdateBackdrop(
+    $filter: ModelSubscriptionBackdropFilterInput
+    $owner: String
+  ) {
+    onUpdateBackdrop(filter: $filter, owner: $owner) {
       id
       SessionID
       S3Object {
@@ -789,6 +904,7 @@ export const onUpdateBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
@@ -798,8 +914,11 @@ export const onUpdateBackdrop = /* GraphQL */ `
   }
 `;
 export const onDeleteBackdrop = /* GraphQL */ `
-  subscription OnDeleteBackdrop($owner: String) {
-    onDeleteBackdrop(owner: $owner) {
+  subscription OnDeleteBackdrop(
+    $filter: ModelSubscriptionBackdropFilterInput
+    $owner: String
+  ) {
+    onDeleteBackdrop(filter: $filter, owner: $owner) {
       id
       SessionID
       S3Object {
@@ -810,6 +929,7 @@ export const onDeleteBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt

@@ -63,7 +63,18 @@
     font: inherit;
     font-size: smaller;
     color: #8d8d8d;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 20px;
+    width: 165px;
   }
+  &>*:nth-child(3){
+    font-weight: normal;
+    font: inherit;
+    font-size: smaller;
+    color: #8d8d8d;
+  }
+
 
 
 }

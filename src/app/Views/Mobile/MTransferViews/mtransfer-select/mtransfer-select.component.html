@@ -44,10 +44,10 @@
     let index = index">
       <span class="item">
         <label>
-          {{file.name}}
+          {{file.file.name}}
         </label>
         <small>
-          {{file.size | MemUnits}}
+          {{file.file.size | MemUnits}}
         </small>
       </span>
       <span>
@@ -66,6 +66,10 @@
         <small>
           {{appSession.transferFiles.SizeLimitRemaining | MemUnits}} remaining
         </small>
+        <small>
+          {{appSession.transferFiles.CountLimitRemaining}} more files can be added
+        </small>
+
       </span>
       <span>
         <button mat-icon-button>

@@ -227,7 +227,7 @@
         <span
           class="my-transfer-attachment-viewer"
           [matMenuTriggerFor]="attachmentViewerContextMenu"
-          [matTooltip]="(DaysRemaining<0)?'preview not available':file.key"
+          [matTooltip]="(DaysRemaining<0)?'preview not available':file.identifier"
           *ngFor="let file of sessionOnViewFiles">
 
           <img *ngIf="fileIcon(file) && DaysRemaining>=0;else fileIconShow" [src]="SrcUrl(file)" loading="lazy"/>
@@ -237,7 +237,7 @@
           </ng-template>
           <span class="_content">
             <small class="header">
-              {{file!.key | ShortifyText}}
+              {{file!.identifier | ShortifyText}}
             </small>
             <span class="details">
               <small>

@@ -39,7 +39,9 @@ export const getUser = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -48,7 +50,9 @@ export const getUser = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -57,7 +61,9 @@ export const getUser = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -66,7 +72,9 @@ export const getUser = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
+      subscriptionPlansType
       createdAt
       updatedAt
       userSubscriptionPlanId
@@ -110,6 +118,7 @@ export const listUsers = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -118,7 +127,9 @@ export const listUsers = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -127,7 +138,9 @@ export const listUsers = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -136,7 +149,9 @@ export const listUsers = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -180,6 +195,7 @@ export const getSubscriptionPlan = /* GraphQL */ `
                     email
                     name
                     preferred_username
+                    subscriptionPlansType
                     createdAt
                     updatedAt
                     userSubscriptionPlanId
@@ -188,7 +204,9 @@ export const getSubscriptionPlan = /* GraphQL */ `
                   createdAt
                   updatedAt
                   subscriptionPlanUserId
+                  owner
                 }
+                subscriptionPlansType
                 createdAt
                 updatedAt
                 userSubscriptionPlanId
@@ -197,7 +215,9 @@ export const getSubscriptionPlan = /* GraphQL */ `
               createdAt
               updatedAt
               subscriptionPlanUserId
+              owner
             }
+            subscriptionPlansType
             createdAt
             updatedAt
             userSubscriptionPlanId
@@ -206,7 +226,9 @@ export const getSubscriptionPlan = /* GraphQL */ `
           createdAt
           updatedAt
           subscriptionPlanUserId
+          owner
         }
+        subscriptionPlansType
         createdAt
         updatedAt
         userSubscriptionPlanId
@@ -215,6 +237,7 @@ export const getSubscriptionPlan = /* GraphQL */ `
       createdAt
       updatedAt
       subscriptionPlanUserId
+      owner
     }
   }
 `;
@@ -259,7 +282,9 @@ export const listSubscriptionPlans = /* GraphQL */ `
                     createdAt
                     updatedAt
                     subscriptionPlanUserId
+                    owner
                   }
+                  subscriptionPlansType
                   createdAt
                   updatedAt
                   userSubscriptionPlanId
@@ -268,7 +293,9 @@ export const listSubscriptionPlans = /* GraphQL */ `
                 createdAt
                 updatedAt
                 subscriptionPlanUserId
+                owner
               }
+              subscriptionPlansType
               createdAt
               updatedAt
               userSubscriptionPlanId
@@ -277,7 +304,9 @@ export const listSubscriptionPlans = /* GraphQL */ `
             createdAt
             updatedAt
             subscriptionPlanUserId
+            owner
           }
+          subscriptionPlansType
           createdAt
           updatedAt
           userSubscriptionPlanId
@@ -286,6 +315,7 @@ export const listSubscriptionPlans = /* GraphQL */ `
         createdAt
         updatedAt
         subscriptionPlanUserId
+        owner
       }
       nextToken
     }
@@ -332,6 +362,7 @@ export const getSession = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       fileSize
       password
@@ -369,6 +400,7 @@ export const getSession = /* GraphQL */ `
             size
             extension
             mimetype
+            identifier
           }
           static
           createdAt
@@ -404,6 +436,7 @@ export const listSessions = /* GraphQL */ `
           size
           extension
           mimetype
+          identifier
         }
         fileSize
         password
@@ -441,6 +474,7 @@ export const listSessions = /* GraphQL */ `
               size
               extension
               mimetype
+              identifier
             }
             static
             createdAt
@@ -546,6 +580,7 @@ export const getBackdrop = /* GraphQL */ `
         size
         extension
         mimetype
+        identifier
       }
       static
       createdAt
@@ -572,6 +607,7 @@ export const listBackdrops = /* GraphQL */ `
           size
           extension
           mimetype
+          identifier
         }
         static
         createdAt

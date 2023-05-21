@@ -1,6 +1,9 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUser($owner: String) {
-  onCreateUser(owner: $owner) {
+subscription OnCreateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onCreateUser(filter: $filter, owner: $owner) {
     id
     email
     name
@@ -77,8 +80,11 @@ subscription OnCreateUser($owner: String) {
     owner
   }
 }
-subscription OnUpdateUser($owner: String) {
-  onUpdateUser(owner: $owner) {
+subscription OnUpdateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onUpdateUser(filter: $filter, owner: $owner) {
     id
     email
     name
@@ -155,8 +161,11 @@ subscription OnUpdateUser($owner: String) {
     owner
   }
 }
-subscription OnDeleteUser($owner: String) {
-  onDeleteUser(owner: $owner) {
+subscription OnDeleteUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onDeleteUser(filter: $filter, owner: $owner) {
     id
     email
     name
@@ -233,8 +242,11 @@ subscription OnDeleteUser($owner: String) {
     owner
   }
 }
-subscription OnCreateSubscriptionPlan($owner: String) {
-  onCreateSubscriptionPlan(owner: $owner) {
+subscription OnCreateSubscriptionPlan(
+  $filter: ModelSubscriptionSubscriptionPlanFilterInput
+  $owner: String
+) {
+  onCreateSubscriptionPlan(filter: $filter, owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -311,8 +323,11 @@ subscription OnCreateSubscriptionPlan($owner: String) {
     owner
   }
 }
-subscription OnUpdateSubscriptionPlan($owner: String) {
-  onUpdateSubscriptionPlan(owner: $owner) {
+subscription OnUpdateSubscriptionPlan(
+  $filter: ModelSubscriptionSubscriptionPlanFilterInput
+  $owner: String
+) {
+  onUpdateSubscriptionPlan(filter: $filter, owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -389,8 +404,11 @@ subscription OnUpdateSubscriptionPlan($owner: String) {
     owner
   }
 }
-subscription OnDeleteSubscriptionPlan($owner: String) {
-  onDeleteSubscriptionPlan(owner: $owner) {
+subscription OnDeleteSubscriptionPlan(
+  $filter: ModelSubscriptionSubscriptionPlanFilterInput
+  $owner: String
+) {
+  onDeleteSubscriptionPlan(filter: $filter, owner: $owner) {
     id
     subscriptionPlansType
     user {
@@ -467,8 +485,11 @@ subscription OnDeleteSubscriptionPlan($owner: String) {
     owner
   }
 }
-subscription OnCreateRecipients($owner: String) {
-  onCreateRecipients(owner: $owner) {
+subscription OnCreateRecipients(
+  $filter: ModelSubscriptionRecipientsFilterInput
+  $owner: String
+) {
+  onCreateRecipients(filter: $filter, owner: $owner) {
     id
     recipient
     SentOn
@@ -476,8 +497,11 @@ subscription OnCreateRecipients($owner: String) {
     owner
   }
 }
-subscription OnUpdateRecipients($owner: String) {
-  onUpdateRecipients(owner: $owner) {
+subscription OnUpdateRecipients(
+  $filter: ModelSubscriptionRecipientsFilterInput
+  $owner: String
+) {
+  onUpdateRecipients(filter: $filter, owner: $owner) {
     id
     recipient
     SentOn
@@ -485,8 +509,11 @@ subscription OnUpdateRecipients($owner: String) {
     owner
   }
 }
-subscription OnDeleteRecipients($owner: String) {
-  onDeleteRecipients(owner: $owner) {
+subscription OnDeleteRecipients(
+  $filter: ModelSubscriptionRecipientsFilterInput
+  $owner: String
+) {
+  onDeleteRecipients(filter: $filter, owner: $owner) {
     id
     recipient
     SentOn
@@ -494,8 +521,11 @@ subscription OnDeleteRecipients($owner: String) {
     owner
   }
 }
-subscription OnCreateSession($owner: String) {
-  onCreateSession(owner: $owner) {
+subscription OnCreateSession(
+  $filter: ModelSubscriptionSessionFilterInput
+  $owner: String
+) {
+  onCreateSession(filter: $filter, owner: $owner) {
     id
     files {
       key
@@ -505,6 +535,7 @@ subscription OnCreateSession($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     fileSize
     password
@@ -542,6 +573,7 @@ subscription OnCreateSession($owner: String) {
           size
           extension
           mimetype
+          identifier
         }
         static
         createdAt
@@ -559,8 +591,11 @@ subscription OnCreateSession($owner: String) {
     owner
   }
 }
-subscription OnUpdateSession($owner: String) {
-  onUpdateSession(owner: $owner) {
+subscription OnUpdateSession(
+  $filter: ModelSubscriptionSessionFilterInput
+  $owner: String
+) {
+  onUpdateSession(filter: $filter, owner: $owner) {
     id
     files {
       key
@@ -570,6 +605,7 @@ subscription OnUpdateSession($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     fileSize
     password
@@ -607,6 +643,7 @@ subscription OnUpdateSession($owner: String) {
           size
           extension
           mimetype
+          identifier
         }
         static
         createdAt
@@ -624,8 +661,11 @@ subscription OnUpdateSession($owner: String) {
     owner
   }
 }
-subscription OnDeleteSession($owner: String) {
-  onDeleteSession(owner: $owner) {
+subscription OnDeleteSession(
+  $filter: ModelSubscriptionSessionFilterInput
+  $owner: String
+) {
+  onDeleteSession(filter: $filter, owner: $owner) {
     id
     files {
       key
@@ -635,6 +675,7 @@ subscription OnDeleteSession($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     fileSize
     password
@@ -672,6 +713,7 @@ subscription OnDeleteSession($owner: String) {
           size
           extension
           mimetype
+          identifier
         }
         static
         createdAt
@@ -689,8 +731,11 @@ subscription OnDeleteSession($owner: String) {
     owner
   }
 }
-subscription OnCreateMailInfo($owner: String) {
-  onCreateMailInfo(owner: $owner) {
+subscription OnCreateMailInfo(
+  $filter: ModelSubscriptionMailInfoFilterInput
+  $owner: String
+) {
+  onCreateMailInfo(filter: $filter, owner: $owner) {
     id
     FromEmail
     Recipients
@@ -704,8 +749,11 @@ subscription OnCreateMailInfo($owner: String) {
     owner
   }
 }
-subscription OnUpdateMailInfo($owner: String) {
-  onUpdateMailInfo(owner: $owner) {
+subscription OnUpdateMailInfo(
+  $filter: ModelSubscriptionMailInfoFilterInput
+  $owner: String
+) {
+  onUpdateMailInfo(filter: $filter, owner: $owner) {
     id
     FromEmail
     Recipients
@@ -719,8 +767,11 @@ subscription OnUpdateMailInfo($owner: String) {
     owner
   }
 }
-subscription OnDeleteMailInfo($owner: String) {
-  onDeleteMailInfo(owner: $owner) {
+subscription OnDeleteMailInfo(
+  $filter: ModelSubscriptionMailInfoFilterInput
+  $owner: String
+) {
+  onDeleteMailInfo(filter: $filter, owner: $owner) {
     id
     FromEmail
     Recipients
@@ -734,8 +785,11 @@ subscription OnDeleteMailInfo($owner: String) {
     owner
   }
 }
-subscription OnCreateLinkInfo($owner: String) {
-  onCreateLinkInfo(owner: $owner) {
+subscription OnCreateLinkInfo(
+  $filter: ModelSubscriptionLinkInfoFilterInput
+  $owner: String
+) {
+  onCreateLinkInfo(filter: $filter, owner: $owner) {
     id
     Title
     Message
@@ -744,8 +798,11 @@ subscription OnCreateLinkInfo($owner: String) {
     owner
   }
 }
-subscription OnUpdateLinkInfo($owner: String) {
-  onUpdateLinkInfo(owner: $owner) {
+subscription OnUpdateLinkInfo(
+  $filter: ModelSubscriptionLinkInfoFilterInput
+  $owner: String
+) {
+  onUpdateLinkInfo(filter: $filter, owner: $owner) {
     id
     Title
     Message
@@ -754,8 +811,11 @@ subscription OnUpdateLinkInfo($owner: String) {
     owner
   }
 }
-subscription OnDeleteLinkInfo($owner: String) {
-  onDeleteLinkInfo(owner: $owner) {
+subscription OnDeleteLinkInfo(
+  $filter: ModelSubscriptionLinkInfoFilterInput
+  $owner: String
+) {
+  onDeleteLinkInfo(filter: $filter, owner: $owner) {
     id
     Title
     Message
@@ -764,8 +824,11 @@ subscription OnDeleteLinkInfo($owner: String) {
     owner
   }
 }
-subscription OnCreateBackdrop($owner: String) {
-  onCreateBackdrop(owner: $owner) {
+subscription OnCreateBackdrop(
+  $filter: ModelSubscriptionBackdropFilterInput
+  $owner: String
+) {
+  onCreateBackdrop(filter: $filter, owner: $owner) {
     id
     SessionID
     S3Object {
@@ -776,6 +839,7 @@ subscription OnCreateBackdrop($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     static
     createdAt
@@ -783,8 +847,11 @@ subscription OnCreateBackdrop($owner: String) {
     owner
   }
 }
-subscription OnUpdateBackdrop($owner: String) {
-  onUpdateBackdrop(owner: $owner) {
+subscription OnUpdateBackdrop(
+  $filter: ModelSubscriptionBackdropFilterInput
+  $owner: String
+) {
+  onUpdateBackdrop(filter: $filter, owner: $owner) {
     id
     SessionID
     S3Object {
@@ -795,6 +862,7 @@ subscription OnUpdateBackdrop($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     static
     createdAt
@@ -802,8 +870,11 @@ subscription OnUpdateBackdrop($owner: String) {
     owner
   }
 }
-subscription OnDeleteBackdrop($owner: String) {
-  onDeleteBackdrop(owner: $owner) {
+subscription OnDeleteBackdrop(
+  $filter: ModelSubscriptionBackdropFilterInput
+  $owner: String
+) {
+  onDeleteBackdrop(filter: $filter, owner: $owner) {
     id
     SessionID
     S3Object {
@@ -814,6 +885,7 @@ subscription OnDeleteBackdrop($owner: String) {
       size
       extension
       mimetype
+      identifier
     }
     static
     createdAt

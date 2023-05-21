@@ -128,7 +128,7 @@ export class TransferUploadComponent extends ApplicationHelper implements OnInit
     let sessionInput: CreateSessionInput = {
       id: this.appSession.sessionId,
       files: this.appSession.transferFiles.ProcessedS3Object,
-      fileSize: this.appSession.transferFiles.size,
+      fileSize: String(this.appSession.transferFiles.size),
       shortUrl:this.appSession.sessionLink,
       expiry:TransferExpiry()
     }
