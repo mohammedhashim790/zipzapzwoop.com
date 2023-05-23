@@ -97,6 +97,13 @@
 .content-container .details .file *{
   cursor: pointer;
 }
+.content-container .details .file label{
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  /*Add Ellipsis when the text is overflowing*/
+  text-overflow: ellipsis;
+}
 .content-container .details .file:hover{
   background-color: rgba(0, 0, 0, 0.10);
 }

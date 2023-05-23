@@ -132,9 +132,10 @@ export class MyTransfersComponent implements OnInit {
   }
 
   onSelected(session: Session){
-    this.sessionOnView = session;
-    this.sessionOnViewFiles = (session!.files?.slice(0,18) as Array<S3Object>) ;
-    printer(session);
+    if(session!=undefined) {
+      this.sessionOnView = session;
+      this.sessionOnViewFiles = (session!.files?.slice(0, 18) as Array<S3Object>);
+    }
   }
 
   OnSearchChange(key: string) {
