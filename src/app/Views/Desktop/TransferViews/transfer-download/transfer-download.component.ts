@@ -141,9 +141,6 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
         let url = environment.downloadUrl + "/" + id;
 
         printer(url);
-
-
-
         let element = document.createElement("a");
         element.href = url;
         element.target = "_self";
@@ -151,11 +148,12 @@ export class TransferDownloadComponent extends ApplicationHelper implements OnIn
         element.remove();
 
       }else{
-        let storageHelper = new StorageHelper();
         let element = document.createElement("a");
         let file = this.sessionData!.files![0];
-        printer(storageHelper.getEmbeddedURL(id, file!.key));
-        element.href = storageHelper.getEmbeddedURL(id, file!.key);
+
+        let url = environment.media + file!.key.replace("res/public/","");
+        printer(url);
+        element.href = url;
         element.download = file!.key;
         element.target = "_self";
         element.click();

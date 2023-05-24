@@ -91,11 +91,12 @@ export class StorageHelper {
     key: string,
     file: File | string | null | ArrayBuffer,
     iter: number,
+    attachmentName:string
     ) {
     try {
       let res = await Storage.put(key, file, {
         // serverSideEncryption:"AES256",
-      completeCallback:(event)=>{
+        completeCallback:(event)=>{
           // printer("Uploaded" + key);
         },
         progressCallback : (progress: any) =>{
@@ -108,9 +109,10 @@ export class StorageHelper {
 
           this.fileProgress[iter] = progress.loaded;
           // printer(this.current);
-        },
+  },
         // tagging:"autoDelete=1",
-        // expires: expires
+        // expires: expires,
+        contentDisposition:"attachment; filename=\""+ attachmentName +"\""
       });
       this.iterProgress = this.current;
       // printer("Uploaded File " + key + "Progress " + this.iterProgress);
@@ -155,17 +157,17 @@ export class StorageHelper {
 
       printer("Files " + this.files.length );
       printer("Total Size " + this.totalSize);
-
+      debugger;
       this.files = this.files.flat();
       if(this.files.length == 1){
         let file = this.files[0];
-        await this.UploadObject(file.key, file.file, 0);
+        await this.UploadObject(file.key, file.file, 0,file.file.name);
         return sessionId;
       }
       this.iterProgress = 0;
       for (let iter = 0; iter < this.files.length; iter++) {
         let file = this.files[iter];
-        await this.UploadObject(file.key, file.file,iter);
+        await this.UploadObject(file.key, file.file,iter,file.file.name);
         // printer(`Completed ${iter}`);
         // if(iter == 4){
         //   throw new AppErrors(Errors.CUSTOM_ERROR,"Custom Error");
