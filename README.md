@@ -1,27 +1,71 @@
-# Zipzapzwoop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
+# ZipZapZwoop
 
-## Development server
+**ZipZapZwoop** is a web application built to help designers and their clients send, track, and approve large files efficiently.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Upload and share large files with clients or colleagues
+- Track delivery and download status
+- Designer-client approval workflow
+- End-to-end bootstrapped by a single developer
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Technology Stack
 
-## Running unit tests
+- **Frontend:** Angular
+- **Backend:** AWS Lambda
+- **Database:** AWS DynamoDB
+- **Storage:** AWS S3
+- **Hosting:** AWS S3(Serverless deployment), CloudFront and Route53
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. **Clone the repository**  
 
-## Further help
+```bash
+git clone https://github.com/mohammedhashim790/zipzapzwoop.com.git
+cd zipzapzwoop
+````
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. **Install frontend dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up AWS environment**
+
+* Configure AWS CLI
+* Set up S3 buckets and DynamoDB tables
+* Deploy Lambda functions
+
+4. **Run locally**
+
+```bash
+ng serve
+```
+
+Visit `http://localhost:4200` to see the app running locally.
+
+---
+
+## Usage
+
+1. Upload files through the web interface
+2. Share the file link with clients or colleagues
+3. Track delivery and approval status in real time
+
+---
+
+## License
+
+This project is open-source and available under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
