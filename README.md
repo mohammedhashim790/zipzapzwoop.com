@@ -1,4 +1,4 @@
-![logo](src/assets/icons/ic_app_logo.ico)
+![logo](src/assets/icons/ic_app_logo.png)
 # ZipZapZwoop
 
 **ZipZapZwoop** is a web application built to help designers and their clients send, track, and approve large files efficiently.
